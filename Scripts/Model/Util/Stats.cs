@@ -27,7 +27,7 @@ public class Stats
     // Upgrade rank (move from lower to higher rank, e.g., A -> S)
     public void UpgradeRank()
     {
-        if (rank > Rank.S)
+        if (rank != Rank.S)
         {
             rank = (Rank)((int)rank - 1);
         }
@@ -36,7 +36,7 @@ public class Stats
     // Downgrade rank (move from higher to lower rank, e.g., S -> A)
     public void DowngradeRank()
     {
-        if (rank < Rank.E)
+        if (rank != Rank.E)
         {
             rank = (Rank)((int)rank + 1);
         }
