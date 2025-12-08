@@ -60,12 +60,18 @@ public class Stats
     // Increase reward by specified amount
     public void IncreaseReward(int amount)
     {
-        reward += amount;
+        if (amount > 0)
+        {
+            reward += amount;
+        }
     }
     
     // Decrease reward by specified amount
     public void DecreaseReward(int amount)
     {
-        reward = Mathf.Max(0, reward - amount);
+        if (amount > 0)
+        {
+            reward = Mathf.Max(0, reward - amount);
+        }
     }
 }

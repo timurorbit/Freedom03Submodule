@@ -50,10 +50,16 @@ public class StatModifier
                 }
                 break;
             case StatModifierType.IncreaseReward:
-                stats.IncreaseReward(rewardAmount);
+                if (rewardAmount > 0)
+                {
+                    stats.IncreaseReward(rewardAmount);
+                }
                 break;
             case StatModifierType.DecreaseReward:
-                stats.DecreaseReward(rewardAmount);
+                if (rewardAmount > 0)
+                {
+                    stats.DecreaseReward(rewardAmount);
+                }
                 break;
         }
     }
