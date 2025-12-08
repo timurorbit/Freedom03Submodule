@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Hero", menuName = "RPG/Hero")]
-public class Hero : Character
+public class HeroObject : CharacterObject
 {
     public Stats stats;
 
