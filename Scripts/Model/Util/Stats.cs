@@ -1,25 +1,26 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Stats
 {
     public Rank rank;
     [SerializeField] public List<SkillType> skills;
-    public int baseReward;
+    [SerializeField] public int reward;
 
-    public Stats(Rank rank, List<SkillType> skills, int baseReward)
+    public Stats(Rank rank, List<SkillType> skills, int reward)
     {
         this.rank = rank;
         this.skills = skills;
-        this.baseReward = baseReward;
+        this.reward = reward;
     }
 
     public Stats(Stats stats)
     {
         rank = stats.rank;
         skills = new List<SkillType>(stats.skills);
-        baseReward = stats.baseReward;
+        reward = stats.reward;
     }
 }
