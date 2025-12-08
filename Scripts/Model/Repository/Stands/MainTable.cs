@@ -30,11 +30,6 @@ public class MainTable : Table
         modifier.Apply(stats);
     }
     
-    public void RemoveStat()
-    {
-        RemoveStat(new StatModifier(StatModifierType.DowngradeRank));
-    }
-    
     public void RemoveStat(StatModifier modifier)
     {
         if (currentResult == null) return;

@@ -24,7 +24,6 @@ public class Stats
         reward = stats.reward;
     }
     
-    // Upgrade rank (move from lower to higher rank, e.g., A -> S)
     public void UpgradeRank()
     {
         if (rank != Rank.S)
@@ -33,7 +32,6 @@ public class Stats
         }
     }
     
-    // Downgrade rank (move from higher to lower rank, e.g., S -> A)
     public void DowngradeRank()
     {
         if (rank != Rank.E)
@@ -42,7 +40,6 @@ public class Stats
         }
     }
     
-    // Add a skill type if not already present
     public void AddSkill(SkillType skillType)
     {
         if (!skills.Contains(skillType))
@@ -51,13 +48,11 @@ public class Stats
         }
     }
     
-    // Remove a skill type if present
     public void RemoveSkill(SkillType skillType)
     {
         skills.Remove(skillType);
     }
     
-    // Increase reward by specified amount
     public void IncreaseReward(int amount)
     {
         if (amount > 0)
@@ -66,7 +61,6 @@ public class Stats
         }
     }
     
-    // Decrease reward by specified amount
     public void DecreaseReward(int amount)
     {
         if (amount > 0)
