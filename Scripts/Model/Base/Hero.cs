@@ -11,4 +11,9 @@ public class Hero
         this.template = template;
         stats = new Stats(template.stats);
     }
+    
+    public Stats GetStats()
+    {
+        return stats;
+    }
 }

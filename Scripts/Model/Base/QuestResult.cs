@@ -23,4 +23,19 @@ public class QuestResult
     {
         this.hero = hero;
     }
+    
+    public Hero GetHero()
+    {
+        return hero;
+    }
+    
+    public Quest GetQuest()
+    {
+        return quest;
+    }
+    
+    public Stats GetPrediction()
+    {
+        return prediction;
+    }
 }
