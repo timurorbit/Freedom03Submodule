@@ -1,6 +1,7 @@
 public class MainTable : Table
 {
     public QuestResult currentResult;
+    public float resultChance;
 
     public void Approve()
     {
