@@ -95,7 +95,24 @@ namespace _Game.Scripts.Behaviours
             var line = spot.GetComponentInParent<Line>();
             if (line != null)
             {
-              // line.OccupySpot(need index here,this.gameObject);
+                int index = line.GetSpotIndex(spot);
+                if (index >= 0)
+                {
+                    line.OccupySpot(index, this.gameObject);
+                }
+            }
+        }
+
+        public void ReleaseSpot(GameObject spot)
+        {
+            var line = spot.GetComponentInParent<Line>();
+            if (line != null)
+            {
+                int index = line.GetSpotIndex(spot);
+                if (index >= 0)
+                {
+                    line.ReleaseSpot(index);
+                }
             }
         }
         

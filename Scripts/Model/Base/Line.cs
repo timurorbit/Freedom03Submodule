@@ -115,6 +115,21 @@ public class Line : MonoBehaviour
     {
         return spots?.Count ?? 0;
     }
+
+    public int GetSpotIndex(GameObject spotGameObject)
+    {
+        if (spots == null || spotGameObject == null) return -1;
+        
+        for (int i = 0; i < spots.Count; i++)
+        {
+            if (spots[i].spotGameObject == spotGameObject)
+            {
+                return spots[i].index;
+            }
+        }
+        
+        return -1;
+    }
 }
 
 [System.Serializable]
