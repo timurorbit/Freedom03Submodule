@@ -22,7 +22,12 @@ public class IsNextLineSlotAvailable : Conditional
         }
 
         int currentIndex = line.GetSpotIndex(currentSlot.Value);
-        if (currentIndex <= 0)
+        if (currentIndex < 0)
+        {
+            return TaskStatus.Failure;
+        }
+
+        if (currentIndex == 0)
         {
             return TaskStatus.Failure;
         }

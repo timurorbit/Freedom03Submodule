@@ -22,6 +22,10 @@ public class IsCurrentSlotZero : Conditional
         }
 
         int currentIndex = line.GetSpotIndex(currentSlot.Value);
+        if (currentIndex < 0)
+        {
+            return TaskStatus.Failure;
+        }
 
         return currentIndex == 0 ? TaskStatus.Success : TaskStatus.Failure;
     }
