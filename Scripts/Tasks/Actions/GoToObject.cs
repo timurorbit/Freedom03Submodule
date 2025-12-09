@@ -22,7 +22,6 @@ public class GoToObject : Action
 
     public override void OnStart()
     {
-        Debug.LogError(Destination.Name);
         if (Destination == null || Destination.Value == null)
             return;
         Agent.isStopped = false;
