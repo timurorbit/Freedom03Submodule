@@ -20,7 +20,7 @@ public class Line : MonoBehaviour
     [Header("Spot GameObjects (Optional - Auto-created if empty)")]
     [SerializeField] private List<GameObject> spotGameObjects = new List<GameObject>();
     
-    private LinkedList<LineSpot> spots;
+    private List<LineSpot> spots;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class Line : MonoBehaviour
 
     private void InitializeSpots()
     {
-        spots = new LinkedList<LineSpot>();
+        spots = new List<LineSpot>();
         
         if (spotGameObjects == null || spotGameObjects.Count == 0)
         {
@@ -55,7 +55,7 @@ public class Line : MonoBehaviour
             spotGameObjects.Add(spotObject);
             
             LineSpot spot = new LineSpot(i, spotObject, null);
-            spots.AddLast(spot);
+            spots.Add(spot);
         }
     }
 
@@ -66,7 +66,7 @@ public class Line : MonoBehaviour
             if (spotGameObjects[i] != null)
             {
                 LineSpot spot = new LineSpot(i, spotGameObjects[i], null);
-                spots.AddLast(spot);
+                spots.Add(spot);
             }
         }
     }
@@ -88,55 +88,27 @@ public class Line : MonoBehaviour
 
     public bool IsSlotTaken(int index)
     {
-        if (spots == null || index < 0) return false;
+        if (spots == null || index < 0 || index >= spots.Count) return false;
         
-        int currentIndex = 0;
-        foreach (var spot in spots)
-        {
-            if (currentIndex == index)
-            {
-                return spot.IsTaken();
-            }
-            currentIndex++;
-        }
-        
-        return false;
+        return spots[index].IsTaken();
     }
 
     public void OccupySpot(int index, GameObject occupant)
     {
-        if (spots == null || index < 0) return;
+        if (spots == null || index < 0 || index >= spots.Count) return;
         
-        int currentIndex = 0;
-        var node = spots.First;
-        while (node != null)
-        {
-            if (currentIndex == index)
-            {
-                node.Value.occupant = occupant;
-                return;
-            }
-            currentIndex++;
-            node = node.Next;
-        }
+        LineSpot spot = spots[index];
+        spot.occupant = occupant;
+        spots[index] = spot;
     }
 
     public void ReleaseSpot(int index)
     {
-        if (spots == null || index < 0) return;
+        if (spots == null || index < 0 || index >= spots.Count) return;
         
-        int currentIndex = 0;
-        var node = spots.First;
-        while (node != null)
-        {
-            if (currentIndex == index)
-            {
-                node.Value.occupant = null;
-                return;
-            }
-            currentIndex++;
-            node = node.Next;
-        }
+        LineSpot spot = spots[index];
+        spot.occupant = null;
+        spots[index] = spot;
     }
 
     public int GetSpotCount()
