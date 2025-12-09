@@ -89,6 +89,15 @@ namespace _Game.Scripts.Behaviours
         {
             characterState = CharacterState.Idle;
         }
+
+        public void OccupySpot(GameObject spot)
+        {
+            var line = spot.GetComponentInParent<Line>();
+            if (line != null)
+            {
+              // line.OccupySpot(need index here,this.gameObject);
+            }
+        }
         
     }
 

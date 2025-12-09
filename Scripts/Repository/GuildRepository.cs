@@ -1,25 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuildRepository
+public class GuildRepository : MonoBehaviour
 {
     private static GuildRepository instance;
     
-    public static GuildRepository Instance
+    public static GuildRepository Instance => instance;
+
+    private void Awake()
     {
-        get
+        //TODO refactor
+        if (instance == null)
         {
-            if (instance == null)
-            {
-                instance = new GuildRepository();
-            }
-            return instance;
+            instance = this;
         }
     }
 
     private Board board;
+    [SerializeField]
     private List<WelcomeTable> heroWelcomeTables;
+    [SerializeField]
     private List<QuestTable> questTables;
+    [SerializeField]
     private List<ResultTable> questResultTables;
     private GuildHall hall;
 
