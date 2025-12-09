@@ -64,6 +64,21 @@ namespace _Game.Scripts.Behaviours
            return entrance;
         }
 
+        public GameObject GetClosestFreeQuestTableSpot()
+        {
+            return GuildRepository.Instance.GetClosestFreeQuestTableSpot();
+        }
+
+        public GameObject GetClosestFreeWelcomeTableSpot()
+        {
+            return GuildRepository.Instance.GetClosestFreeWelcomeTableSpot();
+        }
+
+        public GameObject GetClosestFreeResultTableSpot()
+        {
+            return GuildRepository.Instance.GetClosestFreeResultTableSpot();
+        }
+
         public void SetRun()
         {
             agent.speed = runSpeed;
