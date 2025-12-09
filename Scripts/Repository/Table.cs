@@ -13,4 +13,13 @@ public class Table : MonoBehaviour
             line = GetComponentInChildren<Line>();
         }
     }
+
+    public GameObject GetClosestFreeSpot()
+    {
+        if (line != null)
+        {
+            return line.GetLastAvailableSpot();
+        }
+        return null;
+    }
 }
