@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Behaviours
@@ -15,7 +13,7 @@ namespace _Game.Scripts.Behaviours
         
         [Header("Locomotion")]
         [SerializeField] private float runSpeed = 1.5f;
-        Vector2Int AgentPriorityRange = new Vector2Int(0, 99);
+        Vector2Int AgentPriorityRange = new(0, 99);
         public CharacterState characterState;
         private float speedVelocity;
 
