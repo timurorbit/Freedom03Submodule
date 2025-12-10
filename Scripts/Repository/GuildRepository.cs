@@ -47,6 +47,24 @@ public class GuildRepository : MonoBehaviour
         return GetClosestFreeSpot<ResultTable>(questResultTables);
     }
 
+    public QuestTable GetClosestQuestTable()
+    {
+        if (questTables == null || questTables.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var table in questTables)
+        {
+            if (table != null)
+            {
+                return table;
+            }
+        }
+
+        return null;
+    }
+
     private GameObject GetClosestFreeSpot<T>(List<T> tables) where T : Table
     {
         if (tables == null || tables.Count == 0)

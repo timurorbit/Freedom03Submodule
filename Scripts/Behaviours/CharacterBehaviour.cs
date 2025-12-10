@@ -90,6 +90,11 @@ namespace _Game.Scripts.Behaviours
             return GuildRepository.Instance.GetClosestFreeResultTableSpot();
         }
 
+        public QuestTable GetClosestQuestTable()
+        {
+            return GuildRepository.Instance.GetClosestQuestTable();
+        }
+
         public void SetRun()
         {
             agent.speed = runSpeed;
