@@ -130,6 +130,13 @@ public class Line : MonoBehaviour
         
         return -1;
     }
+
+    public GameObject GetSpotGameObject(int index)
+    {
+        if (spots == null || index < 0 || index >= spots.Count) return null;
+        
+        return spots[index].spotGameObject;
+    }
 }
 
 [System.Serializable]
