@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Behaviours
 {
-    public class CharacterBehaviour : MonoBehaviour
+    public class CharacterBehaviour : MonoBehaviour, IInteractable
     {
         [Header("Components")] [SerializeField]
         private Animator animator;
@@ -19,6 +19,9 @@ namespace _Game.Scripts.Behaviours
         
         [SerializeField]
         private Outline outline;
+
+        private bool _canInteract = false;
+        public bool canInteract => _canInteract;
 
         private void Awake()
         {
@@ -118,6 +121,16 @@ namespace _Game.Scripts.Behaviours
                 }
             }
         }
+
+        public void Interact()
+        {
+            Debug.Log($"Interacting with character: {gameObject.name}");
+        }
+
+        public void SetCanInteract(bool value)
+        {
+            _canInteract = value;
+        }
         
     }
 
@@ -125,5 +138,6 @@ namespace _Game.Scripts.Behaviours
     {
         Idle,
         MovingToTarget,
+        Interacted,
     }
 }
