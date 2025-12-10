@@ -9,6 +9,8 @@ namespace _Game.Scripts.Behaviours
         
         public void PutQuestResultInQuestPile()
         {
+            questResultBehaviour.SwitchState(QuestResultState.Opened);
+            
             
         }
     }

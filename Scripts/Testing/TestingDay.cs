@@ -20,11 +20,10 @@ public class TestingDay : MonoBehaviour
         foreach (var questTemplate in questTemplates)
         {
             yield return new WaitForSeconds(2f);
-            var peasant = Instantiate(peasantPrefab);
+            var peasant = Instantiate(peasantPrefab, transform);
             var behaviour = peasant.GetComponent<PeasantBehaviour>();
             var quest = new Quest(questTemplate);
             behaviour.questResultBehaviour.setQuest(quest);
-            Instantiate(peasantPrefab, transform.position, Quaternion.identity);
         }
     }
 }

@@ -33,7 +33,13 @@ public class QuestResultBehaviour : MonoBehaviour
         return result;
     }
 
-    public void SwitchView(QuestResultState state)
+    public void SwitchState(QuestResultState state)
+    {
+        result.state = state;
+        SwitchViewState(state);
+    }
+
+    private void SwitchViewState(QuestResultState state)
     {
         switch (state)
         {
@@ -43,7 +49,6 @@ public class QuestResultBehaviour : MonoBehaviour
             case QuestResultState.Opened:
                 setActiveOpenedView();
                 break;
-            
         }
     }
 
