@@ -7,16 +7,11 @@ namespace _Game.Scripts.Behaviours
         [SerializeField]
         public QuestResultBehaviour questResultBehaviour;
         
-        public QuestTable GetClosestQuestTable()
-        {
-            return GuildRepository.Instance.GetClosestQuestTable();
-        }
-        
         public void PutQuestResultInQuestPile()
         {
             questResultBehaviour.SwitchState(QuestResultState.Opened);
             
-            var questTable = GetClosestQuestTable();
+            var questTable = GuildRepository.Instance.GetClosestQuestTable();
             if (questTable != null)
             {
                 questTable.AddToQuests(questResultBehaviour);
