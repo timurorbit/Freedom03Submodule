@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5702560035743775340}
+  - component: {fileID: 3462980514059981926}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -32,6 +33,24 @@ Transform:
   - {fileID: 6883066134543865986}
   m_Father: {fileID: 3348471822617441817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3462980514059981926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4100659781103160442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.56078434, g: 0.9529412, b: 0.3019608, a: 1}
+  outlineWidth: 3.5
+  precomputeOutline: 1
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8683386879016584631
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +262,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   runSpeed: 1.5
   characterState: 0
+  outline: {fileID: 0}
 --- !u!114 &6422942975683449401
 MonoBehaviour:
   m_ObjectHideFlags: 0

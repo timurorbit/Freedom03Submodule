@@ -16,6 +16,9 @@ namespace _Game.Scripts.Behaviours
         Vector2Int AgentPriorityRange = new(0, 99);
         public CharacterState characterState;
         private float speedVelocity;
+        
+        [SerializeField]
+        private Outline outline;
 
         private void Awake()
         {
