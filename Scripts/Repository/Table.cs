@@ -1,16 +1,27 @@
 using System;
+using _Game.Scripts.Behaviours;
 using UnityEngine;
 
-public class Table : MonoBehaviour
+public class Table : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private Line line;
+    
+    [SerializeField]
+    private Outline outline;
 
-    private void Awake()
+    protected bool _canInteract = true;
+    public bool canInteract => _canInteract;
+
+    protected virtual void Awake()
     {
         if (line == null)
         {
             line = GetComponentInChildren<Line>();
+        }
+        if (outline == null)
+        {
+            outline = GetComponent<Outline>();
         }
     }
 
@@ -21,5 +32,9 @@ public class Table : MonoBehaviour
             return line.GetLastAvailableSpot();
         }
         return null;
+    }
+    public virtual void Interact()
+    {
+        outline.enabled = false;
     }
 }

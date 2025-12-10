@@ -8,8 +8,9 @@ public class QuestTable : Table
     [SerializeField]
     private PileResults pileResults;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (pileQuests == null)
         {
             pileQuests = GetComponentInChildren<PileQuests>();
@@ -25,6 +26,11 @@ public class QuestTable : Table
         if (pileQuests != null)
         {
             pileQuests.Add(quest);
+        }
+
+        if (pileQuests.Count > 0)
+        {
+            _canInteract = true;
         }
     }
 
@@ -42,8 +48,19 @@ public class QuestTable : Table
         if (pileQuests != null && pileResults != null)
         {
             var quest = pileQuests.Take();
+            if (pileQuests.Count <= 0)
+            {
+                _canInteract = false;
+            }
             var result = new QuestResult(quest, prediction);
             pileResults.Add(result);
         }
+    }
+
+    public override void Interact()
+    {
+        var playerController = FindAnyObjectByType<GuildPlayerController>();
+        playerController.SetActiveQuestCamera(true);
+        base.Interact();
     }
 }
