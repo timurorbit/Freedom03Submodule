@@ -33,6 +33,11 @@ namespace _Game.Scripts.Behaviours
             {
                 agent = GetComponent<NavMeshAgent>();
             }
+
+            if (outline == null)
+            {
+                outline = GetComponent<Outline>();
+            }
         }
         
         private void Start()
@@ -125,6 +130,7 @@ namespace _Game.Scripts.Behaviours
         public void Interact()
         {
             Debug.Log($"Interacting with character: {gameObject.name}");
+            characterState = CharacterState.Interacted;
         }
 
         public void SetCanInteract(bool value)
