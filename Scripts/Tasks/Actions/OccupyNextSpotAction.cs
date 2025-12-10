@@ -48,9 +48,6 @@ public class OccupyNextSpotAction : Action
             return TaskStatus.Failure;
         }
 
-        // Release current spot
-        characterBehaviour.ReleaseSpot(currentSlot.Value);
-
         // Get the next spot GameObject
         GameObject nextSpotObject = line.GetSpotGameObject(nextIndex);
         if (nextSpotObject == null)
@@ -58,8 +55,11 @@ public class OccupyNextSpotAction : Action
             return TaskStatus.Failure;
         }
 
-        // Occupy the next spot
+        // Occupy the next spot first
         characterBehaviour.OccupySpot(nextSpotObject);
+
+        // Release current spot after successfully occupying the next spot
+        characterBehaviour.ReleaseSpot(currentSlot.Value);
 
         // Update the shared variable to the new spot
         currentSlot.Value = nextSpotObject;
