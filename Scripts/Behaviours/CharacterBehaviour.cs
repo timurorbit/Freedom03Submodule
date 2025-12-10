@@ -131,6 +131,7 @@ namespace _Game.Scripts.Behaviours
         {
             Debug.Log($"Interacting with character: {gameObject.name}");
             characterState = CharacterState.Interacted;
+            _canInteract = false;
         }
 
         public void SetCanInteract(bool value)
