@@ -9,7 +9,7 @@ public class PileResults : MonoBehaviour, IInteractable
 
     private Stack<QuestResult> results = new();
 
-    private bool _canInteract = false;
+    private bool _canInteract = true;
     public bool canInteract => _canInteract;
 
     private void Awake()

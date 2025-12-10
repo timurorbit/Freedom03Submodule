@@ -14,4 +14,5 @@ public class QuestObject : ScriptableObject
     [Header("Visual")]
     public Sprite icon;
     public Sprite background;
+    public Color color;
 }

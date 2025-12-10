@@ -9,7 +9,7 @@ public class PileQuests : MonoBehaviour, IInteractable
 
     private Stack<Quest> quests = new();
 
-    private bool _canInteract = false;
+    private bool _canInteract = true;
     public bool canInteract => _canInteract;
 
     private void Awake()
@@ -22,8 +22,7 @@ public class PileQuests : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log($"Interacting with PileQuests: {gameObject.name}");
-        _canInteract = false;
+        Debug.LogError($"Interacting with PileQuests: {gameObject.name}");
     }
 
     public void SetCanInteract(bool value)
