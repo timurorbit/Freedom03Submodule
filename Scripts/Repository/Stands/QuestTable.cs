@@ -22,18 +22,28 @@ public class QuestTable : Table
 
     public void AddToQuests(Quest quest)
     {
-        pileQuests.Add(quest);
+        if (pileQuests != null)
+        {
+            pileQuests.Add(quest);
+        }
     }
 
     public QuestResult TakeFromResult()
     {
-       return pileResults.Take();
+        if (pileResults != null)
+        {
+            return pileResults.Take();
+        }
+        return null;
     }
 
     public void inspectQuest(Stats prediction)
     {
-        var quest = pileQuests.Take();
-        var result = new QuestResult(quest, prediction);
-        pileResults.Add(result);
+        if (pileQuests != null && pileResults != null)
+        {
+            var quest = pileQuests.Take();
+            var result = new QuestResult(quest, prediction);
+            pileResults.Add(result);
+        }
     }
 }
