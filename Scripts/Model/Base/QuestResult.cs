@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class QuestResult
 {
     private Hero hero;
@@ -17,6 +19,14 @@ public class QuestResult
         this.quest = quest;
         this.prediction = prediction;
         state = QuestResultState.Predicted;
+    }
+
+    public QuestResult(Quest quest)
+    {
+        this.quest = quest;
+        // Default prediction
+        prediction = new Stats(Rank.F, new List<SkillType>(), quest.template.stats.reward);
+        state = QuestResultState.Closed;
     }
     
     public void setHero(Hero hero)

@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
-using _Game.Scripts.Behaviours;
 
 public class PileQuests : MonoBehaviour
 {
-    private Stack<Quest> quests = new();
+    private Stack<QuestResultBehaviour> quests = new();
 
-    public void Add(Quest quest)
+    public void Add(QuestResultBehaviour quest)
     {
         quests.Push(quest);
     }
 
-    public Quest Take()
+    public QuestResultBehaviour Take()
     {
         return quests.Pop();
     }

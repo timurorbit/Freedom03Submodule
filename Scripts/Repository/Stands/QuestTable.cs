@@ -21,7 +21,7 @@ public class QuestTable : Table
         }
     }
 
-    public void AddToQuests(Quest quest)
+    public void AddToQuests(QuestResultBehaviour quest)
     {
         if (pileQuests != null)
         {
@@ -52,7 +52,7 @@ public class QuestTable : Table
             {
                 _canInteract = false;
             }
-            var result = new QuestResult(quest, prediction);
+            var result = new QuestResult(quest.getQuestResult().GetQuest(), prediction);
             pileResults.Add(result);
         }
     }

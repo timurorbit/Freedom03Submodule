@@ -23,6 +23,13 @@ public class Stats
         skills = new List<SkillType>(stats.skills);
         reward = stats.reward;
     }
+
+    public Stats()
+    {
+        rank = Rank.F;
+        skills = new List<SkillType>();
+        reward = 0;
+    }
     
     public void UpgradeRank()
     {
