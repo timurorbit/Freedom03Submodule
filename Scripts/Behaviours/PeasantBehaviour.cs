@@ -9,8 +9,6 @@ namespace _Game.Scripts.Behaviours
         
         public void PutQuestResultInQuestPile()
         {
-            questResultBehaviour.SwitchState(QuestResultState.Opened);
-            
             var questTable = GuildRepository.Instance.GetClosestQuestTable();
             if (questTable != null)
             {
