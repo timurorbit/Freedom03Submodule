@@ -11,6 +11,7 @@ public class CharacterInventory : MonoBehaviour
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
     
     private GameObject inventoryItem;
+    private Sequence currentSequence;
 
     /// <summary>
     /// Takes a GameObject into the inventory, making it a child of this inventory.
@@ -31,6 +32,12 @@ public class CharacterInventory : MonoBehaviour
             return;
         }
 
+        // Kill any existing tween sequence
+        if (currentSequence != null && currentSequence.IsActive())
+        {
+            currentSequence.Kill();
+        }
+
         // Store the item reference
         inventoryItem = item;
 
@@ -47,21 +54,29 @@ public class CharacterInventory : MonoBehaviour
         // Tween to final inventory position
         if (inventoryObjectTransform != null)
         {
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(item.transform.DOMove(inventoryObjectTransform.position, tweenDuration).SetEase(tweenEase));
-            sequence.Join(item.transform.DORotate(inventoryObjectTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
-            sequence.SetAutoKill(true);
+            currentSequence = DOTween.Sequence();
+            currentSequence.Append(item.transform.DOMove(inventoryObjectTransform.position, tweenDuration).SetEase(tweenEase));
+            currentSequence.Join(item.transform.DORotate(inventoryObjectTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
+            currentSequence.SetAutoKill(true);
         }
     }
 
     /// <summary>
     /// Retrieves the item from the inventory and clears the inventory slot.
+    /// The item's parent transform is reset to null.
     /// </summary>
     /// <returns>The GameObject that was in the inventory, or null if empty</returns>
     public GameObject GetFromInventory()
     {
         GameObject item = inventoryItem;
         inventoryItem = null;
+        
+        // Reset the parent transform when retrieving the item
+        if (item != null)
+        {
+            item.transform.SetParent(null);
+        }
+        
         return item;
     }
 
@@ -81,5 +96,14 @@ public class CharacterInventory : MonoBehaviour
     public GameObject PeekItem()
     {
         return inventoryItem;
+    }
+
+    private void OnDestroy()
+    {
+        // Clean up tween sequence on destroy
+        if (currentSequence != null && currentSequence.IsActive())
+        {
+            currentSequence.Kill();
+        }
     }
 }
