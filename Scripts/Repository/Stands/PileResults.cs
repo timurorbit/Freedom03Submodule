@@ -7,6 +7,7 @@ public class PileResults : MonoBehaviour, IInteractable
     [SerializeField]
     private Outline outline;
 
+    [SerializeField]
     private Stack<QuestResultBehaviour> results = new();
 
     private bool _canInteract = true;

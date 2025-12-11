@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PileQuests : MonoBehaviour
 {
+    [SerializeField]
     private Stack<QuestResultBehaviour> quests = new();
 
     public void Add(QuestResultBehaviour quest)

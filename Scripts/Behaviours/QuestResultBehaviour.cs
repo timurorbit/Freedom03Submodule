@@ -21,6 +21,12 @@ public class QuestResultBehaviour : MonoBehaviour
         result = new QuestResult(quest);
         UpdateCanvasView();
     }
+    
+    public void setPrediction(Stats prediction)
+    {
+        result.setPrediction(prediction);
+        UpdateCanvasView();
+    }
 
     private void UpdateCanvasView()
     {

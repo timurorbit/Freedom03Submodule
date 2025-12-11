@@ -39,6 +39,11 @@ public class QuestResult
         return hero;
     }
     
+    public void setPrediction(Stats prediction)
+    {
+        this.prediction = prediction;
+    }
+    
     public Quest GetQuest()
     {
         return quest;

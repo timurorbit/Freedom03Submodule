@@ -37,4 +37,14 @@ public class DropdownRankOptions : MonoBehaviour
         string selectedText = dropdown.options[dropdown.value].text;
         return (Rank)Enum.Parse(typeof(Rank), selectedText);
     }
+
+    public void SetSelectedRank(Rank statsRank)
+    {
+        int index = dropdown.options.FindIndex(option => option.text == statsRank.ToString());
+        if (index >= 0)
+        {
+            dropdown.value = index;
+            dropdown.RefreshShownValue();
+        }
+    }
 }
