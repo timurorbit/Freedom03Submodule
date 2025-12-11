@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Dropdown))]
+[RequireComponent(typeof(TMP_Dropdown))]
 public class DropdownRankOptions : MonoBehaviour
 {
     private TMP_Dropdown dropdown;
