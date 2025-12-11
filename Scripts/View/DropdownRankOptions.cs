@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Dropdown))]
