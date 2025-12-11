@@ -80,6 +80,7 @@ public class QuestTable : Table
         Sequence sequence = DOTween.Sequence();
         sequence.Append(questTransform.DOLocalMove(targetLocalPosition, tweenDuration).SetEase(tweenEase));
         sequence.Join(questTransform.DOLocalRotate(targetLocalRotation, tweenDuration).SetEase(tweenEase));
+        sequence.SetAutoKill(true);
     }
 
     public QuestResult TakeFromResult()
