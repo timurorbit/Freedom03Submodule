@@ -59,6 +59,10 @@ public class CharacterInventory : MonoBehaviour
             currentSequence.Join(item.transform.DORotate(inventoryObjectTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
             currentSequence.SetAutoKill(true);
         }
+        else
+        {
+            Debug.LogWarning("CharacterInventory: inventoryObjectTransform is not assigned. Item will not animate to final position.");
+        }
     }
 
     /// <summary>
