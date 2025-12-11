@@ -44,7 +44,11 @@ public class PileResults : MonoBehaviour, IInteractable
 
     public QuestResult Take()
     {
-        return results.Pop();
+        if (results.Count > 0)
+        {
+            return results.Pop();
+        }
+        return null;
     }
 
     public QuestResultBehaviour TakeBehaviour()
