@@ -48,11 +48,13 @@ public class QuestTable : Table
             // Parent the quest to PileQuests GameObject
             quest.transform.SetParent(pileQuests.transform);
             
+            // Calculate pile count before adding (for correct positioning)
+            int pileCount = pileQuests.Count;
+            
             // Add to the pile
             pileQuests.Add(quest);
             
             // Calculate new position (Z offset based on pile count)
-            int pileCount = pileQuests.Count;
             Vector3 targetPosition = new Vector3(0, 0, stackOffsetZ * pileCount);
             
             // Calculate new rotation (PileQuests rotation + random offset)
@@ -75,8 +77,9 @@ public class QuestTable : Table
     
     private void TweenQuestToPosition(Transform questTransform, Vector3 targetLocalPosition, Vector3 targetLocalRotation)
     {
-        questTransform.DOLocalMove(targetLocalPosition, tweenDuration).SetEase(tweenEase);
-        questTransform.DOLocalRotate(targetLocalRotation, tweenDuration).SetEase(tweenEase);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(questTransform.DOLocalMove(targetLocalPosition, tweenDuration).SetEase(tweenEase));
+        sequence.Join(questTransform.DOLocalRotate(targetLocalRotation, tweenDuration).SetEase(tweenEase));
     }
 
     public QuestResult TakeFromResult()
