@@ -62,7 +62,7 @@ class Board : Table
     {
         item.transform.SetParent(transform);
         addQuestToBoard(item.GetComponent<QuestResultBehaviour>());
-        TweenToRandomPosition(item.transform);
+        TweenToBoardPosition(item.transform);
     }
 
     private void TweenToBoardPosition(Transform objectTransform)
