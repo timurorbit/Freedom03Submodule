@@ -154,6 +154,15 @@ public class QuestTable : Table
         return null;
     }
 
+    public QuestResultBehaviour GetCurrentInspection()
+    {
+        if (inspectionsContainer != null)
+        {
+            return inspectionsContainer.current;
+        }
+        return null;
+    }
+
     public void inspectQuest(Stats prediction)
     {
         if (pileQuests != null && pileResults != null)
