@@ -36,6 +36,11 @@ public class CharacterInventory : MonoBehaviour
 
         item.transform.SetParent(transform);
 
+        PositionAndAnimateItem(item);
+    }
+
+    private void PositionAndAnimateItem(GameObject item)
+    {
         if (inventoryObjectStartTransform != null)
         {
             item.transform.position = inventoryObjectStartTransform.position;
