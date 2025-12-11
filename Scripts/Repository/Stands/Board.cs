@@ -9,6 +9,7 @@ class Board : Table
     [SerializeField] private Transform maxY;
     [SerializeField] private Transform minX;
     [SerializeField] private Transform minY;
+    [SerializeField] private Transform rotationReference;
     
     [Header("Tween Settings")]
     [SerializeField] private float tweenDuration = 0.5f;
@@ -80,12 +81,18 @@ class Board : Table
         }
         
         // Calculate random position between boundaries
-        float randomX = Random.Range(minX.position.x, maxX.position.x);
-        float randomY = Random.Range(minY.position.y, maxY.position.y);
+        // Ensure min/max are in correct order
+        float minPosX = Mathf.Min(minX.position.x, maxX.position.x);
+        float maxPosX = Mathf.Max(minX.position.x, maxX.position.x);
+        float minPosY = Mathf.Min(minY.position.y, maxY.position.y);
+        float maxPosY = Mathf.Max(minY.position.y, maxY.position.y);
+        
+        float randomX = Random.Range(minPosX, maxPosX);
+        float randomY = Random.Range(minPosY, maxPosY);
         Vector3 targetPosition = new Vector3(randomX, randomY, objectTransform.position.z);
         
-        // Use maxX rotation as target rotation, keep size unchanged
-        Vector3 targetRotation = maxX.eulerAngles;
+        // Use rotation reference if assigned, otherwise keep current rotation
+        Vector3 targetRotation = rotationReference != null ? rotationReference.eulerAngles : objectTransform.eulerAngles;
         
         // Create tween sequence
         currentSequence = DOTween.Sequence();
