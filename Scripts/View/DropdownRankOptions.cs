@@ -4,14 +4,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Dropdown))]
+[RequireComponent(typeof(TMP_Dropdown))]
 public class DropdownRankOptions : MonoBehaviour
 {
     private TMP_Dropdown dropdown;
+    
+    public event Action<Rank> onRankChanged;
+    
     private void Awake()
     {
         dropdown = GetComponent<TMP_Dropdown>();
         PopulateDropdown();
+        dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+    }
+
+    private void OnDestroy()
+    {
+        if (dropdown != null)
+            dropdown.onValueChanged.RemoveListener(OnDropdownValueChanged);
+    }
+
+    private void OnDropdownValueChanged(int value)
+    {
+        onRankChanged?.Invoke(GetSelectedRank());
     }
 
     private void PopulateDropdown()

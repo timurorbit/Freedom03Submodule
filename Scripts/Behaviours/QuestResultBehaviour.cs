@@ -28,7 +28,7 @@ public class QuestResultBehaviour : MonoBehaviour
         UpdateCanvasView();
     }
 
-    private void UpdateCanvasView()
+    public void UpdateCanvasView()
     {
         var questTemplate = result.GetQuest().template;
         titleText.text = questTemplate.questTitle;
