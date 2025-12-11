@@ -59,13 +59,18 @@ class Board : Table
         {
             return;
         }
-        var item = playerController.GetFromInventory();  
+        var item = playerController.GetFromInventory();
+        AddItemToBoard(item);
+        base.Interact();
+    }
+
+    public void AddItemToBoard(GameObject item)
+    {
         item.transform.SetParent(transform);
         addQuestToBoard(item.GetComponent<QuestResultBehaviour>());
         TweenToRandomPosition(item.transform);
-        base.Interact();
     }
-    
+
     private void TweenToRandomPosition(Transform objectTransform)
     {
         if (maxX == null || maxY == null || minX == null || minY == null)
@@ -80,24 +85,24 @@ class Board : Table
             currentSequence.Kill();
         }
         
-        // Calculate random position between boundaries
+
         // Ensure min/max are in correct order
-        float minPosX = Mathf.Min(minX.position.x, maxX.position.x);
-        float maxPosX = Mathf.Max(minX.position.x, maxX.position.x);
-        float minPosY = Mathf.Min(minY.position.y, maxY.position.y);
-        float maxPosY = Mathf.Max(minY.position.y, maxY.position.y);
+        float minPosX = Mathf.Min(minX.localPosition.x, maxX.localPosition.x);
+        float maxPosX = Mathf.Max(minX.localPosition.x, maxX.localPosition.x);
+        float minPosY = Mathf.Min(minY.localPosition.y, maxY.localPosition.y);
+        float maxPosY = Mathf.Max(minY.localPosition.y, maxY.localPosition.y);
         
         float randomX = Random.Range(minPosX, maxPosX);
         float randomY = Random.Range(minPosY, maxPosY);
-        Vector3 targetPosition = new Vector3(randomX, randomY, objectTransform.position.z);
+        Vector3 targetPosition = new Vector3(randomX, randomY, rotationReference != null ? rotationReference.localPosition.z : 0f);
         
         // Use rotation reference if assigned, otherwise keep current rotation
-        Vector3 targetRotation = rotationReference != null ? rotationReference.eulerAngles : objectTransform.eulerAngles;
+        Vector3 targetRotation = rotationReference != null ? rotationReference.localEulerAngles : objectTransform.localEulerAngles;
         
-        // Create tween sequence
+        // Create tween sequence in local space
         currentSequence = DOTween.Sequence();
-        currentSequence.Append(objectTransform.DOMove(targetPosition, tweenDuration).SetEase(tweenEase));
-        currentSequence.Join(objectTransform.DORotate(targetRotation, tweenDuration).SetEase(tweenEase));
+        currentSequence.Append(objectTransform.DOLocalMove(targetPosition, tweenDuration).SetEase(tweenEase));
+        currentSequence.Join(objectTransform.DOLocalRotate(targetRotation, tweenDuration).SetEase(tweenEase));
         currentSequence.SetAutoKill(true);
     }
     
