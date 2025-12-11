@@ -13,6 +13,9 @@ public class GuildPlayerController : MonoBehaviour
 
     [SerializeField] private Canvas questTableCanvas;
 
+    [Header("Inventory")]
+    [SerializeField] private CharacterInventory inventory;
+
     void Start()
     {
         if (playerController == null)
@@ -51,6 +54,39 @@ public class GuildPlayerController : MonoBehaviour
         {
             SetActiveQuestCamera(false);
             playerController.enabled = true;
+        }
+    }
+
+    /// <summary>
+    /// Puts a GameObject into the player's inventory.
+    /// </summary>
+    /// <param name="item">The GameObject to put into inventory</param>
+    public void PutIntoInventory(GameObject item)
+    {
+        if (inventory != null)
+        {
+            inventory.TakeToInventory(item);
+        }
+        else
+        {
+            Debug.LogWarning("GuildPlayerController: Inventory is not assigned.");
+        }
+    }
+
+    /// <summary>
+    /// Retrieves the GameObject from the player's inventory.
+    /// </summary>
+    /// <returns>The GameObject from the inventory, or null if empty</returns>
+    public GameObject GetFromInventory()
+    {
+        if (inventory != null)
+        {
+            return inventory.GetFromInventory();
+        }
+        else
+        {
+            Debug.LogWarning("GuildPlayerController: Inventory is not assigned.");
+            return null;
         }
     }
 }
