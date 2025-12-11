@@ -18,6 +18,10 @@ class Board : Table
     [SerializeField] private float minY = -0.5f;
     [SerializeField] private float maxY = 0.5f;
     
+    private List<Vector2> previousPositions = new List<Vector2>();
+    public float minSeparationDistance = 5f;  // Adjust this value based on your board scale (e.g., units in world space)
+    private const int maxRegenerationAttempts = 10;  // Prevent infinite loops if the board is too crowded
+    
     private List<QuestResultBehaviour> questsToTake;
     private Sequence currentSequence;
 
@@ -50,6 +54,7 @@ class Board : Table
     public QuestResultBehaviour getFirstQuestFromBoard()
     {
         var toTake = questsToTake[0];
+        RemovePosition(new Vector2(toTake.transform.localPosition.x, toTake.transform.localPosition.y));
         toTake.SwitchState(QuestResultState.Taken);
         questsToTake.RemoveAt(0);
         return toTake;
@@ -89,11 +94,10 @@ class Board : Table
         }
 
         // Generate random X and Y positions within boundaries
-        float randomX = Random.Range(minX, maxX);
-        float randomY = Random.Range(minY, maxY);
+        Vector2 newPos  = GetSeparatedRandomPosition();
         
         // Use Z position and rotation from reference transform if available
-        float targetZ = 0f;
+        float targetZ = Random.Range(0f, -0.1f);
         Vector3 targetRotation = Vector3.zero;
         
         if (boardReferenceTransform != null)
@@ -102,13 +106,65 @@ class Board : Table
             targetRotation = boardReferenceTransform.localEulerAngles;
         }
         
-        Vector3 targetPosition = new Vector3(randomX, randomY, targetZ);
+        Vector3 targetPosition = new Vector3(newPos.x, newPos.y, targetZ);
         
         // Create tween sequence
         currentSequence = DOTween.Sequence();
         currentSequence.Append(objectTransform.DOLocalMove(targetPosition, tweenDuration).SetEase(tweenEase));
         currentSequence.Join(objectTransform.DOLocalRotate(targetRotation, tweenDuration).SetEase(tweenEase));
         currentSequence.SetAutoKill(true);
+    }
+    
+    private Vector2 GetSeparatedRandomPosition()
+    {
+        // Generate random X and Y positions within boundaries, ensuring separation from previous positions
+        float randomX = Random.Range(minX, maxX);
+        float randomY = Random.Range(minY, maxY);
+        Vector2 newPos = new Vector2(randomX, randomY);
+
+        bool tooClose = true;
+        int attempts = 0;
+
+        while (tooClose && attempts < maxRegenerationAttempts)
+        {
+            tooClose = false;
+            foreach (var prevPos in previousPositions)
+            {
+                if (Vector2.Distance(newPos, prevPos) < minSeparationDistance)
+                {
+                    tooClose = true;
+                    break;
+                }
+            }
+
+            if (tooClose)
+            {
+                randomX = Random.Range(minX, maxX);
+                randomY = Random.Range(minY, maxY);
+                newPos = new Vector2(randomX, randomY);
+                attempts++;
+            }
+        }
+
+        if (attempts >= maxRegenerationAttempts)
+        {
+            Debug.LogWarning("Board: Could not find a separated position after max attempts. Using potentially close position.");
+        }
+        previousPositions.Add(newPos);
+
+        return newPos;
+    }
+    
+    private void RemovePosition(Vector2 position)
+    {
+        if (previousPositions.Remove(position))
+        {
+
+        }
+        else
+        {
+            Debug.LogWarning("Board: Position not found in history.");
+        }
     }
     
     private void OnDestroy()

@@ -76,6 +76,10 @@ public class CharacterInventory : MonoBehaviour
 
     public bool IsItemQuest()
     {
+        if (inventoryItem == null)
+        {
+            return false;
+        }
         return inventoryItem.GetComponent<QuestResultBehaviour>() != null;
     }
 
