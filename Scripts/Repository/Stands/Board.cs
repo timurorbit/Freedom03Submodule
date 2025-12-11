@@ -48,6 +48,7 @@ class Board : Table
         }
         var item = playerController.GetFromInventory();  
         item.transform.SetParent(transform);
+        addQuestToBoard(item.GetComponent<QuestResultBehaviour>());
         base.Interact();
     }
 }
