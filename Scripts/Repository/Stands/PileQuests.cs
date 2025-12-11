@@ -12,7 +12,20 @@ public class PileQuests : MonoBehaviour
 
     public QuestResultBehaviour Take()
     {
-        return quests.Pop();
+        if (quests.Count > 0)
+        {
+            return quests.Pop();
+        }
+        return null;
+    }
+
+    public QuestResultBehaviour Peek()
+    {
+        if (quests.Count > 0)
+        {
+            return quests.Peek();
+        }
+        return null;
     }
 
     public int Count => quests.Count;

@@ -7,7 +7,7 @@ public class PileResults : MonoBehaviour, IInteractable
     [SerializeField]
     private Outline outline;
 
-    private Stack<QuestResult> results = new();
+    private Stack<QuestResultBehaviour> results = new();
 
     private bool _canInteract = true;
     public bool canInteract => _canInteract;
@@ -31,14 +31,27 @@ public class PileResults : MonoBehaviour, IInteractable
         _canInteract = value;
     }
 
-    public void Add(QuestResult result)
+    public void Add(QuestResultBehaviour result)
     {
         results.Push(result);
     }
 
-    public QuestResult Take()
+    public QuestResultBehaviour Take()
     {
-        return results.Pop();
+        if (results.Count > 0)
+        {
+            return results.Pop();
+        }
+        return null;
+    }
+
+    public QuestResultBehaviour Peek()
+    {
+        if (results.Count > 0)
+        {
+            return results.Peek();
+        }
+        return null;
     }
 
     public int Count => results.Count;

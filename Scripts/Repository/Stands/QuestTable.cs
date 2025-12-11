@@ -77,6 +77,65 @@ public class QuestTable : Table
             _canInteract = true;
         }
     }
+
+    public void AddToResults(QuestResultBehaviour quest)
+    {
+        if (pileResults != null && quest != null)
+        {
+            quest.transform.SetParent(pileResults.transform);
+            
+            int pileCount = pileResults.Count;
+            
+            pileResults.Add(quest);
+            
+            Vector3 targetPosition = new Vector3(0, 0, stackOffsetZ * pileCount);
+            
+            float randomRotationOffset = Random.Range(rotationOffsetMin, rotationOffsetMax);
+            Vector3 targetRotation = new Vector3(
+                0,
+                0,
+                pileResults.transform.localEulerAngles.z + randomRotationOffset
+            );
+            
+            TweenQuestToPosition(quest.transform, targetPosition, targetRotation);
+        }
+    }
+
+    public void MoveToInspection(QuestResultBehaviour quest)
+    {
+        if (inspectionsContainer != null && quest != null)
+        {
+            quest.transform.SetParent(inspectionsContainer.transform);
+            
+            inspectionsContainer.current = quest;
+            
+            Vector3 targetPosition = Vector3.zero;
+            Vector3 targetRotation = Vector3.zero;
+            
+            TweenQuestToPosition(quest.transform, targetPosition, targetRotation);
+        }
+    }
+
+    public QuestResultBehaviour TakeFromInspection()
+    {
+        if (inspectionsContainer != null && inspectionsContainer.current != null)
+        {
+            var quest = inspectionsContainer.current;
+            inspectionsContainer.current = null;
+            return quest;
+        }
+        return null;
+    }
+
+    public QuestResultBehaviour TakeFromQuests()
+    {
+        if (pileQuests != null)
+        {
+            return pileQuests.Take();
+        }
+        return null;
+    }
+
     
     private void TweenQuestToPosition(Transform questTransform, Vector3 targetLocalPosition, Vector3 targetLocalRotation)
     {
@@ -86,7 +145,7 @@ public class QuestTable : Table
         sequence.SetAutoKill(true);
     }
 
-    public QuestResult TakeFromResult()
+    public QuestResultBehaviour TakeFromResult()
     {
         if (pileResults != null)
         {
@@ -104,8 +163,7 @@ public class QuestTable : Table
             {
                 _canInteract = false;
             }
-            var result = new QuestResult(quest.getQuestResult().GetQuest(), prediction);
-            pileResults.Add(result);
+            pileResults.Add(quest);
         }
     }
 

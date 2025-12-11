@@ -1,5 +1,7 @@
 
- public class QuestInspection
- {
-     public QuestResultBehaviour current;
- }
+using UnityEngine;
+
+public class QuestInspection : MonoBehaviour
+{
+    public QuestResultBehaviour current;
+}
