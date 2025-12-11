@@ -84,7 +84,7 @@ public class QuestTable : Table
         {
             quest.transform.SetParent(pileResults.transform);
             
-            int pileCount = pileResults.BehaviourCount;
+            int pileCount = pileResults.Count;
             
             pileResults.Add(quest);
             
@@ -127,9 +127,14 @@ public class QuestTable : Table
         return null;
     }
 
-    public PileQuests PileQuests => pileQuests;
-    public PileResults PileResults => pileResults;
-    public QuestInspection InspectionsContainer => inspectionsContainer;
+    public QuestResultBehaviour TakeFromQuests()
+    {
+        if (pileQuests != null)
+        {
+            return pileQuests.Take();
+        }
+        return null;
+    }
 
     
     private void TweenQuestToPosition(Transform questTransform, Vector3 targetLocalPosition, Vector3 targetLocalRotation)
@@ -140,7 +145,7 @@ public class QuestTable : Table
         sequence.SetAutoKill(true);
     }
 
-    public QuestResult TakeFromResult()
+    public QuestResultBehaviour TakeFromResult()
     {
         if (pileResults != null)
         {
@@ -158,8 +163,7 @@ public class QuestTable : Table
             {
                 _canInteract = false;
             }
-            var result = new QuestResult(quest.getQuestResult().GetQuest(), prediction);
-            pileResults.Add(result);
+            pileResults.Add(quest);
         }
     }
 

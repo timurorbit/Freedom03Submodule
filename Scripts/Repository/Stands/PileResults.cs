@@ -7,8 +7,7 @@ public class PileResults : MonoBehaviour, IInteractable
     [SerializeField]
     private Outline outline;
 
-    private Stack<QuestResult> results = new();
-    private Stack<QuestResultBehaviour> resultBehaviours = new();
+    private Stack<QuestResultBehaviour> results = new();
 
     private bool _canInteract = true;
     public bool canInteract => _canInteract;
@@ -32,17 +31,12 @@ public class PileResults : MonoBehaviour, IInteractable
         _canInteract = value;
     }
 
-    public void Add(QuestResult result)
+    public void Add(QuestResultBehaviour result)
     {
         results.Push(result);
     }
 
-    public void Add(QuestResultBehaviour resultBehaviour)
-    {
-        resultBehaviours.Push(resultBehaviour);
-    }
-
-    public QuestResult Take()
+    public QuestResultBehaviour Take()
     {
         if (results.Count > 0)
         {
@@ -51,24 +45,14 @@ public class PileResults : MonoBehaviour, IInteractable
         return null;
     }
 
-    public QuestResultBehaviour TakeBehaviour()
+    public QuestResultBehaviour Peek()
     {
-        if (resultBehaviours.Count > 0)
+        if (results.Count > 0)
         {
-            return resultBehaviours.Pop();
-        }
-        return null;
-    }
-
-    public QuestResultBehaviour PeekBehaviour()
-    {
-        if (resultBehaviours.Count > 0)
-        {
-            return resultBehaviours.Peek();
+            return results.Peek();
         }
         return null;
     }
 
     public int Count => results.Count;
-    public int BehaviourCount => resultBehaviours.Count;
 }
