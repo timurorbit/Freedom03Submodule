@@ -81,4 +81,14 @@ public class GuildPlayerController : MonoBehaviour
             return null;
         }
     }
+    
+    public bool CanTakeItem()
+    {
+        return inventory != null && inventory.CanTakeItem();
+    }
+    
+    public bool IsItemQuest()
+    {
+        return inventory != null && inventory.IsItemQuest();
+    }
 }

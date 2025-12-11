@@ -8,9 +8,9 @@ public class PileResults : MonoBehaviour, IInteractable
     private Outline outline;
 
     [SerializeField]
-    private Stack<QuestResultBehaviour> results = new();
+    private readonly Stack<QuestResultBehaviour> results = new();
 
-    private bool _canInteract = true;
+    private bool _canInteract = false;
     public bool canInteract => _canInteract;
 
     private void Awake()
@@ -19,12 +19,18 @@ public class PileResults : MonoBehaviour, IInteractable
         {
             outline = GetComponent<Outline>();
         }
+        
+        _canInteract = results.Count > 0;
     }
 
     public void Interact()
     {
         Debug.Log($"Interacting with PileResults: {gameObject.name}");
-        _canInteract = false;
+        var playerController = FindAnyObjectByType<GuildPlayerController>();
+        if (playerController.CanTakeItem())
+        {
+            playerController.PutIntoInventory(Take().gameObject); 
+        }
     }
 
     public void SetCanInteract(bool value)
@@ -35,15 +41,18 @@ public class PileResults : MonoBehaviour, IInteractable
     public void Add(QuestResultBehaviour result)
     {
         results.Push(result);
+        _canInteract = true;
     }
 
     public QuestResultBehaviour Take()
     {
-        if (results.Count > 0)
-        {
-            return results.Pop();
-        }
-        return null;
+        if (results.Count == 0) return null;
+
+        var item = results.Pop();
+    
+        _canInteract = results.Count > 0;
+
+        return item;
     }
 
     public QuestResultBehaviour Peek()

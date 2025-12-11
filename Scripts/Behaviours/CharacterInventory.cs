@@ -35,6 +35,7 @@ public class CharacterInventory : MonoBehaviour
         inventoryItem = item;
 
         item.transform.SetParent(transform);
+        
 
         PositionAndAnimateItem(item);
     }
@@ -43,15 +44,15 @@ public class CharacterInventory : MonoBehaviour
     {
         if (inventoryObjectStartTransform != null)
         {
-            item.transform.position = inventoryObjectStartTransform.position;
-            item.transform.rotation = inventoryObjectStartTransform.rotation;
+            item.transform.localPosition = inventoryObjectStartTransform.localPosition;
+            item.transform.localRotation = inventoryObjectStartTransform.localRotation;
         }
 
         if (inventoryObjectTransform != null)
         {
             currentSequence = DOTween.Sequence();
-            currentSequence.Append(item.transform.DOMove(inventoryObjectTransform.position, tweenDuration).SetEase(tweenEase));
-            currentSequence.Join(item.transform.DORotate(inventoryObjectTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
+            currentSequence.Append(item.transform.DOLocalMove(inventoryObjectTransform.localPosition, tweenDuration).SetEase(tweenEase));
+            currentSequence.Join(item.transform.DOLocalRotate(inventoryObjectTransform.localEulerAngles, tweenDuration).SetEase(tweenEase));
             currentSequence.SetAutoKill(true);
         }
         else
@@ -73,6 +74,11 @@ public class CharacterInventory : MonoBehaviour
         return item;
     }
 
+    public bool IsItemQuest()
+    {
+        return inventoryItem.GetComponent<QuestResultBehaviour>() != null;
+    }
+
     public bool HasItem()
     {
         return inventoryItem != null;
@@ -89,5 +95,10 @@ public class CharacterInventory : MonoBehaviour
         {
             currentSequence.Kill();
         }
+    }
+
+    public bool CanTakeItem()
+    {
+        return inventoryItem == null;
     }
 }
