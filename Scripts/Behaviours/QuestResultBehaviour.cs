@@ -13,6 +13,8 @@ public class QuestResultBehaviour : MonoBehaviour
     [SerializeField] private GameObject openedView;
     [SerializeField] private GameObject closedView;
     [SerializeField] private Canvas canvasView;
+    
+    [SerializeField] private StatsView statsView; 
 
     public void setQuest(Quest quest)
     {
@@ -26,6 +28,10 @@ public class QuestResultBehaviour : MonoBehaviour
         titleText.text = questTemplate.questTitle;
         description.text = questTemplate.questDescription;
         backArt.sprite = questTemplate.background;
+        if (result.GetPrediction() != null)
+        {
+            statsView.UpdateView(result.GetPrediction());
+        }
     }
     
     public QuestResult getQuestResult()

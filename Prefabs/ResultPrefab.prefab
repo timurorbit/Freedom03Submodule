@@ -1517,9 +1517,9 @@ MonoBehaviour:
   titleText: {fileID: 7557753598627131567}
   description: {fileID: 75273008836363062}
   backArt: {fileID: 19713351200155618}
-  openedView: {fileID: 0}
-  closedView: {fileID: 0}
-  canvasView: {fileID: 0}
+  openedView: {fileID: 4393475998062430460}
+  closedView: {fileID: 2365443018567937596}
+  canvasView: {fileID: 7512955057399048833}
 --- !u!1 &8010057335593005153
 GameObject:
   m_ObjectHideFlags: 0

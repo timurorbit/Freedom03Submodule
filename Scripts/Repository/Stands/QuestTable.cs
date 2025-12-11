@@ -8,6 +8,9 @@ public class QuestTable : Table
     
     [SerializeField]
     private PileResults pileResults;
+    
+    [SerializeField]
+    private QuestInspection inspectionsContainer;
 
     [Header("Quest Stacking Settings")]
     [SerializeField]
@@ -60,8 +63,8 @@ public class QuestTable : Table
             // Calculate new rotation (PileQuests rotation + random offset)
             float randomRotationOffset = Random.Range(rotationOffsetMin, rotationOffsetMax);
             Vector3 targetRotation = new Vector3(
-                pileQuests.transform.localEulerAngles.x,
-                pileQuests.transform.localEulerAngles.y,
+                0,
+                0,
                 pileQuests.transform.localEulerAngles.z + randomRotationOffset
             );
             
