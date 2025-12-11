@@ -77,6 +77,60 @@ public class QuestTable : Table
             _canInteract = true;
         }
     }
+
+    public void AddToResults(QuestResultBehaviour quest)
+    {
+        if (pileResults != null && quest != null)
+        {
+            quest.transform.SetParent(pileResults.transform);
+            
+            int pileCount = pileResults.BehaviourCount;
+            
+            pileResults.Add(quest);
+            
+            Vector3 targetPosition = new Vector3(0, 0, stackOffsetZ * pileCount);
+            
+            float randomRotationOffset = Random.Range(rotationOffsetMin, rotationOffsetMax);
+            Vector3 targetRotation = new Vector3(
+                0,
+                0,
+                pileResults.transform.localEulerAngles.z + randomRotationOffset
+            );
+            
+            TweenQuestToPosition(quest.transform, targetPosition, targetRotation);
+        }
+    }
+
+    public void MoveToInspection(QuestResultBehaviour quest)
+    {
+        if (inspectionsContainer != null && quest != null)
+        {
+            quest.transform.SetParent(inspectionsContainer.transform);
+            
+            inspectionsContainer.current = quest;
+            
+            Vector3 targetPosition = Vector3.zero;
+            Vector3 targetRotation = Vector3.zero;
+            
+            TweenQuestToPosition(quest.transform, targetPosition, targetRotation);
+        }
+    }
+
+    public QuestResultBehaviour TakeFromInspection()
+    {
+        if (inspectionsContainer != null && inspectionsContainer.current != null)
+        {
+            var quest = inspectionsContainer.current;
+            inspectionsContainer.current = null;
+            return quest;
+        }
+        return null;
+    }
+
+    public PileQuests PileQuests => pileQuests;
+    public PileResults PileResults => pileResults;
+    public QuestInspection InspectionsContainer => inspectionsContainer;
+
     
     private void TweenQuestToPosition(Transform questTransform, Vector3 targetLocalPosition, Vector3 targetLocalRotation)
     {

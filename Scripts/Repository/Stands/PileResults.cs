@@ -8,6 +8,7 @@ public class PileResults : MonoBehaviour, IInteractable
     private Outline outline;
 
     private Stack<QuestResult> results = new();
+    private Stack<QuestResultBehaviour> resultBehaviours = new();
 
     private bool _canInteract = true;
     public bool canInteract => _canInteract;
@@ -36,10 +37,34 @@ public class PileResults : MonoBehaviour, IInteractable
         results.Push(result);
     }
 
+    public void Add(QuestResultBehaviour resultBehaviour)
+    {
+        resultBehaviours.Push(resultBehaviour);
+    }
+
     public QuestResult Take()
     {
         return results.Pop();
     }
 
+    public QuestResultBehaviour TakeBehaviour()
+    {
+        if (resultBehaviours.Count > 0)
+        {
+            return resultBehaviours.Pop();
+        }
+        return null;
+    }
+
+    public QuestResultBehaviour PeekBehaviour()
+    {
+        if (resultBehaviours.Count > 0)
+        {
+            return resultBehaviours.Peek();
+        }
+        return null;
+    }
+
     public int Count => results.Count;
+    public int BehaviourCount => resultBehaviours.Count;
 }
