@@ -90,6 +90,11 @@ namespace _Game.Scripts.Behaviours
             return GuildRepository.Instance.GetClosestFreeResultTableSpot();
         }
 
+        public GameObject GetClosestFreeMainTableSpot()
+        {
+            return GuildRepository.Instance.GetClosestFreeMainTableSpot();
+        }
+
         public QuestTable GetClosestQuestTable()
         {
             return GuildRepository.Instance.GetClosestQuestTable();
