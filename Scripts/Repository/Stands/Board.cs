@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-class Board : Table
+public class Board : Table
 {
     
     [Header("Tween Settings")]

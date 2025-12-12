@@ -15,6 +15,9 @@ public class TestingDay : MonoBehaviour
     [SerializeField] private GameObject questResultBehaviourPrefab;
     [SerializeField] private TestQuestList testBoardList;
 
+    [Header("Heroes")]
+    [SerializeField] private bool PopulateHeroes;
+    
     private void Start()
     {
         StartCoroutine(SpawnCoroutine());

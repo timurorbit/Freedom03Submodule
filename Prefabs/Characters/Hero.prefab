@@ -93,6 +93,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1552425062928463417, guid: 04db780314dd95a4da9f31aa4997b6c9, type: 3}
   m_PrefabInstance: {fileID: 2458935425402032406}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6050443868217383816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8207979757178964638, guid: 04db780314dd95a4da9f31aa4997b6c9, type: 3}
+  m_PrefabInstance: {fileID: 2458935425402032406}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea623cc1cff0532498641ca8fae928d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4327549555527887162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,3 +525,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questPosition: {fileID: 930960941979731486}
+  heroCard: {fileID: 6050443868217383816}
+  currentQuestResultBehaviour: {fileID: 0}

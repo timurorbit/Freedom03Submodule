@@ -16,6 +16,7 @@ public class GuildRepository : MonoBehaviour
         }
     }
 
+    [SerializeField]
     private Board board;
     [SerializeField]
     private List<WelcomeTable> heroWelcomeTables;
@@ -64,7 +65,11 @@ public class GuildRepository : MonoBehaviour
 
         return null;
     }
-
+    
+    public Board GetBoard()
+    {
+        return board;
+    }
     private GameObject GetClosestFreeSpot<T>(List<T> tables) where T : Table
     {
         if (tables == null || tables.Count == 0)
