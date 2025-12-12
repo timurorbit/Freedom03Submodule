@@ -57,7 +57,7 @@ public class TakeQuestResultBehaviourFromClosestMainTableAction : Action
         }
         else
         {
-            questResult.SwitchState(QuestResultState.Closed);
+            questResult.SwitchState(QuestResultState.Declined);
         }
         questResult.transform.SetParent(heroBehaviour.questPosition);
         TweenToPosition(questResult.transform);

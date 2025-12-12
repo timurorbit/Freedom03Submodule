@@ -6,4 +6,5 @@ public enum QuestResultState
     Taken,
     Assigned,
     Completed,
+    Declined
 }
