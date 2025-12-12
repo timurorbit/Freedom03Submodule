@@ -24,19 +24,26 @@ public class SetCanInteractAction : Action
             return TaskStatus.Failure;
 
         // Check if this is a HeroBehaviour with heroCard and QuestResultBehaviour in Taken state
-        if (heroBehaviour != null && 
-            heroBehaviour.heroCard != null && 
-            heroBehaviour.currentQuestResultBehaviour != null)
+        if (ShouldPlaceHeroItems())
         {
-            var questResult = heroBehaviour.currentQuestResultBehaviour.getQuestResult();
-            if (questResult != null && questResult.state == QuestResultState.Taken)
-            {
-                // Place hero card and quest result in main table
-                heroBehaviour.PlaceHeroCardQuestResultInMainTable();
-            }
+            // Place hero card and quest result in main table
+            heroBehaviour.PlaceHeroCardQuestResultInMainTable();
         }
 
         characterBehaviour.SetCanInteract(canInteractValue);
         return TaskStatus.Success;
+    }
+    
+    private bool ShouldPlaceHeroItems()
+    {
+        if (heroBehaviour == null || 
+            heroBehaviour.heroCard == null || 
+            heroBehaviour.currentQuestResultBehaviour == null)
+        {
+            return false;
+        }
+        
+        var questResult = heroBehaviour.currentQuestResultBehaviour.getQuestResult();
+        return questResult != null && questResult.state == QuestResultState.Taken;
     }
 }

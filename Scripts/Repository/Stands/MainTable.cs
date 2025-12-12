@@ -60,6 +60,7 @@ public class MainTable : Table
     public void PlaceHeroCardAndQuestResult(HeroCardBehaviour heroCard, QuestResultBehaviour questResult)
     {
         Sequence sequence = DOTween.Sequence();
+        bool heroCardAnimated = false;
         
         if (heroCard != null && currentHeroCardPosition != null)
         {
@@ -70,6 +71,7 @@ public class MainTable : Table
             // Animate to position
             sequence.Append(heroCard.transform.DOMove(currentHeroCardPosition.position, tweenDuration).SetEase(tweenEase));
             sequence.Join(heroCard.transform.DORotate(currentHeroCardPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
+            heroCardAnimated = true;
         }
         
         if (questResult != null && currentQuestResultPosition != null)
@@ -78,16 +80,14 @@ public class MainTable : Table
             questResult.transform.SetParent(transform);
             questResult.SwitchState(QuestResultState.Opened); // Open the quest result
             
-            // Animate to position
-            if (heroCard != null && currentHeroCardPosition != null)
+            // Animate to position (join if hero card was animated, otherwise append)
+            if (heroCardAnimated)
             {
-                // If hero card animation was added, join quest result animation
                 sequence.Join(questResult.transform.DOMove(currentQuestResultPosition.position, tweenDuration).SetEase(tweenEase));
                 sequence.Join(questResult.transform.DORotate(currentQuestResultPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
             }
             else
             {
-                // If no hero card, append quest result animation
                 sequence.Append(questResult.transform.DOMove(currentQuestResultPosition.position, tweenDuration).SetEase(tweenEase));
                 sequence.Join(questResult.transform.DORotate(currentQuestResultPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
             }
