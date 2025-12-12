@@ -44,6 +44,10 @@ public class GuildPlayerController : MonoBehaviour
     
     public void SwitchState(GuildPlayerState newState)
     {
+        // Skip if already in the requested state
+        if (currentState == newState)
+            return;
+            
         // Deactivate current state
         switch (currentState)
         {
