@@ -51,14 +51,19 @@ public class TakeQuestResultBehaviourFromClosestMainTableAction : Action
         
         questResult.transform.SetParent(heroBehaviour.transform);
         
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(questResult.transform.DOMove(questPosition.position, tweenDuration).SetEase(tweenEase));
-        sequence.Join(questResult.transform.DORotate(questPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
-        sequence.SetAutoKill(true);
+        TweenQuestResultToPosition(questResult, questPosition);
 
         heroBehaviour.currentQuestResultBehaviour = questResult;
         mainTable.currentQuestResultBehaviour = null;
 
         return TaskStatus.Success;
+    }
+
+    private void TweenQuestResultToPosition(QuestResultBehaviour questResult, Transform targetPosition)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(questResult.transform.DOMove(targetPosition.position, tweenDuration).SetEase(tweenEase));
+        sequence.Join(questResult.transform.DORotate(targetPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
+        sequence.SetAutoKill(true);
     }
 }

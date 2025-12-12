@@ -41,18 +41,21 @@ public class TakeHeroCardFromClosestMainTableAction : Action
             return TaskStatus.Failure;
         }
 
-        Transform heroCardPosition = heroBehaviour.transform;
-        
         heroCard.transform.SetParent(heroBehaviour.transform);
         
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(heroCard.transform.DOMove(heroCardPosition.position, tweenDuration).SetEase(tweenEase));
-        sequence.Join(heroCard.transform.DORotate(heroCardPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
-        sequence.SetAutoKill(true);
+        TweenHeroCardToPosition(heroCard, heroBehaviour.transform);
 
         heroBehaviour.heroCard = heroCard;
         mainTable.currentHeroCardBehaviour = null;
 
         return TaskStatus.Success;
+    }
+
+    private void TweenHeroCardToPosition(HeroCardBehaviour heroCard, Transform targetPosition)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(heroCard.transform.DOMove(targetPosition.position, tweenDuration).SetEase(tweenEase));
+        sequence.Join(heroCard.transform.DORotate(targetPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
+        sequence.SetAutoKill(true);
     }
 }
