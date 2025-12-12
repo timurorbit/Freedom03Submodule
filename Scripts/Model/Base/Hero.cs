@@ -16,4 +16,9 @@ public class Hero
     {
         return stats;
     }
+    
+    public HeroObject GetTemplate()
+    {
+        return template;
+    }
 }

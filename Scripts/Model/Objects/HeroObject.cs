@@ -6,7 +6,7 @@ public class HeroObject : CharacterObject
     public Stats stats;
 
     [Header("Visuals")]
-    public string race;
-    public string gender;
+    public string name;
+    public Sprite portrait;
     public string heroClass;
 }

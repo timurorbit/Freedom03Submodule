@@ -67,6 +67,8 @@ public class QuestResultBehaviour : MonoBehaviour
     private void setActiveClosedView()
     {
         closedView.SetActive(true);
+        openedView.SetActive(false);
+        canvasView.gameObject.SetActive(false);
     }
 
     private void setActiveOpenedView()

@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 7512955057399048833}
   - component: {fileID: 5328220747864443828}
   - component: {fileID: 3667388768609595608}
+  - component: {fileID: 1177026312840532797}
   m_Layer: 5
   m_Name: CanvasView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7605517014790765596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -103,6 +104,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1177026312840532797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375576736803248987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16467395684342fcb670861450d5e6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rank: {fileID: 6083907319816520583}
+  attackIcon: {fileID: 2712836013583507730}
+  defenseIcon: {fileID: 4333383404421870916}
+  movementIcon: {fileID: 4362705876686982752}
+  mageIcon: {fileID: 5470711844253425989}
+  charismaIcon: {fileID: 6025332532364365452}
 --- !u!1 &611938823063305050
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2664447256704242112
 Transform:
   m_ObjectHideFlags: 0
@@ -766,7 +785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8180024341105099599
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,6 +1133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea623cc1cff0532498641ca8fae928d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statsView: {fileID: 1177026312840532797}
+  portrait: {fileID: 8855405296523880816}
+  heroName: {fileID: 7557753598627131567}
 --- !u!1 &7741950897576128425
 GameObject:
   m_ObjectHideFlags: 0
