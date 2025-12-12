@@ -146,6 +146,10 @@ namespace _Game.Scripts.Behaviours
 
         public void SetCanInteract(bool value)
         {
+            if (GetComponent<HeroBehaviour>())
+            {
+                return;
+            }
             _canInteract = value;
         }
         
@@ -156,5 +160,6 @@ namespace _Game.Scripts.Behaviours
         Idle,
         MovingToTarget,
         Interacted,
+        SentToMission
     }
 }

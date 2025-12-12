@@ -1,4 +1,4 @@
-using System;
+using _Game.Scripts.Behaviours;
 using UnityEngine;
 
 public class HeroBehaviour : MonoBehaviour
@@ -6,6 +6,7 @@ public class HeroBehaviour : MonoBehaviour
     [SerializeField] public Transform questPosition;
     [SerializeField] public HeroCardBehaviour heroCard;
     [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
+    [SerializeField] public bool Approved;
     
     [Header("Only for testing purposes")]
     [SerializeField]
@@ -22,5 +23,6 @@ public class HeroBehaviour : MonoBehaviour
         }
         
         mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
+        mainTable.PlaceHero(this);
     }
 }

@@ -15,6 +15,7 @@ public class MainTable : Table
     
     [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
     [SerializeField] public HeroCardBehaviour currentHeroCardBehaviour;
+    [SerializeField] public HeroBehaviour currentHeroBehaviour;
 
     public void Approve()
     {
@@ -93,7 +94,7 @@ public class MainTable : Table
         
         sequence.SetAutoKill(true);
     }
-    
+
     public override void Interact()
     {
         var playerController = FindAnyObjectByType<GuildPlayerController>();
@@ -102,5 +103,15 @@ public class MainTable : Table
             playerController.SwitchState(GuildPlayerState.MainTable);
         }
         base.Interact();
+    }
+
+    public void PlaceHero(HeroBehaviour heroBehaviour)
+    {
+        currentHeroBehaviour = heroBehaviour;
+    }
+
+    public void Clear()
+    {
+        currentHeroBehaviour = null;
     }
 }
