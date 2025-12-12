@@ -12,7 +12,7 @@ public class Board : Table
     [Header("Board Position Settings")]
     [SerializeField] private Transform boardReferenceTransform;
 
-    [SerializeField] public Transform stayingTransform;
+    [SerializeField] public List<Transform> stayingTransforms;
     
     [Header("Board Boundaries")]
     [SerializeField] private float minX = -0.5f;

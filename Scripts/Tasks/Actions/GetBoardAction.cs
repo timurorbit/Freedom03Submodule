@@ -32,7 +32,7 @@ public class GetBoardAction : Action
 
         if (StayingTranform != null)
         {
-            StayingTranform.Value = board.stayingTransform.gameObject;
+            StayingTranform.Value = board.stayingTransforms[Random.Range(0, board.stayingTransforms.Count)].gameObject;
         }
 
         return TaskStatus.Success;
