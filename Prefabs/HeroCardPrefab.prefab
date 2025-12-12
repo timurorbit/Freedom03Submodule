@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7605517014790765596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2664447256704242112
 Transform:
   m_ObjectHideFlags: 0
@@ -785,7 +785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8180024341105099599
 Transform:
   m_ObjectHideFlags: 0
@@ -1136,6 +1136,9 @@ MonoBehaviour:
   statsView: {fileID: 1177026312840532797}
   portrait: {fileID: 8855405296523880816}
   heroName: {fileID: 7557753598627131567}
+  openedView: {fileID: 4393475998062430460}
+  closedView: {fileID: 2365443018567937596}
+  canvasView: {fileID: 375576736803248987}
 --- !u!1 &7741950897576128425
 GameObject:
   m_ObjectHideFlags: 0
