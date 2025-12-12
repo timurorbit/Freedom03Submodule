@@ -19,7 +19,6 @@ public class AddQuestResultOnBoardAction : Action
 
         if (heroBehaviour.currentQuestResultBehaviour == null)
         {
-            Debug.LogWarning("AddQuestResultOnBoardAction: currentQuestResultBehaviour is null");
             return TaskStatus.Failure;
         }
 
