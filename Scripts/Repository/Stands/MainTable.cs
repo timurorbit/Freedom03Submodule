@@ -93,4 +93,14 @@ public class MainTable : Table
         
         sequence.SetAutoKill(true);
     }
+    
+    public override void Interact()
+    {
+        var playerController = FindAnyObjectByType<GuildPlayerController>();
+        if (playerController != null)
+        {
+            playerController.SwitchState(GuildPlayerState.MainTable);
+        }
+        base.Interact();
+    }
 }

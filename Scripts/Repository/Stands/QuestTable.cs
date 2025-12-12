@@ -179,7 +179,10 @@ public class QuestTable : Table
     public override void Interact()
     {
         var playerController = FindAnyObjectByType<GuildPlayerController>();
-        playerController.SetActiveQuestCamera(true);
+        if (playerController != null)
+        {
+            playerController.SwitchState(GuildPlayerState.QuestTable);
+        }
         base.Interact();
     }
 }
