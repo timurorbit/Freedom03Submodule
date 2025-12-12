@@ -13,8 +13,7 @@ public class HeroBehaviour : MonoBehaviour
     
     public void PlaceHeroCardQuestResultInMainTable()
     {
-        // Get the closest main table from GuildInventory
-        MainTable mainTable = GuildRepository.Instance.GetClosestMainTable();
+        MainTable mainTable = GuildRepository.Instance.GetClosestTable<MainTable>();
         
         if (mainTable == null)
         {
@@ -22,7 +21,6 @@ public class HeroBehaviour : MonoBehaviour
             return;
         }
         
-        // Place both hero card and quest result on the main table
         mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
     }
 }

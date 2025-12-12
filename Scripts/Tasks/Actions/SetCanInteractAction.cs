@@ -23,10 +23,8 @@ public class SetCanInteractAction : Action
         if (characterBehaviour == null)
             return TaskStatus.Failure;
 
-        // Check if this is a HeroBehaviour with heroCard and QuestResultBehaviour in Taken state
         if (ShouldPlaceHeroItems())
         {
-            // Place hero card and quest result in main table
             heroBehaviour.PlaceHeroCardQuestResultInMainTable();
         }
 

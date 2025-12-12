@@ -59,12 +59,24 @@ public class GuildRepository : MonoBehaviour
 
     public QuestTable GetClosestQuestTable()
     {
-        if (questTables == null || questTables.Count == 0)
+        return GetClosestTable<QuestTable>();
+    }
+    
+    public MainTable GetClosestMainTable()
+    {
+        return GetClosestTable<MainTable>();
+    }
+    
+    public T GetClosestTable<T>() where T : Table
+    {
+        List<T> tables = GetTableList<T>();
+        
+        if (tables == null || tables.Count == 0)
         {
             return null;
         }
 
-        foreach (var table in questTables)
+        foreach (var table in tables)
         {
             if (table != null)
             {
@@ -75,21 +87,17 @@ public class GuildRepository : MonoBehaviour
         return null;
     }
     
-    public MainTable GetClosestMainTable()
+    private List<T> GetTableList<T>() where T : Table
     {
-        if (mainTables == null || mainTables.Count == 0)
-        {
-            return null;
-        }
-
-        foreach (var table in mainTables)
-        {
-            if (table != null)
-            {
-                return table;
-            }
-        }
-
+        if (typeof(T) == typeof(QuestTable))
+            return questTables as List<T>;
+        if (typeof(T) == typeof(MainTable))
+            return mainTables as List<T>;
+        if (typeof(T) == typeof(WelcomeTable))
+            return heroWelcomeTables as List<T>;
+        if (typeof(T) == typeof(ResultTable))
+            return questResultTables as List<T>;
+        
         return null;
     }
     

@@ -66,9 +66,8 @@ public class MainTable : Table
         {
             currentHeroCardBehaviour = heroCard;
             heroCard.transform.SetParent(transform);
-            heroCard.SwitchState(true); // Open the hero card
+            heroCard.SwitchState(true);
             
-            // Animate to position
             sequence.Append(heroCard.transform.DOMove(currentHeroCardPosition.position, tweenDuration).SetEase(tweenEase));
             sequence.Join(heroCard.transform.DORotate(currentHeroCardPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
             heroCardAnimated = true;
@@ -78,9 +77,8 @@ public class MainTable : Table
         {
             currentQuestResultBehaviour = questResult;
             questResult.transform.SetParent(transform);
-            questResult.SwitchState(QuestResultState.Opened); // Open the quest result
+            questResult.SwitchState(QuestResultState.Opened);
             
-            // Animate to position (join if hero card was animated, otherwise append)
             if (heroCardAnimated)
             {
                 sequence.Join(questResult.transform.DOMove(currentQuestResultPosition.position, tweenDuration).SetEase(tweenEase));
