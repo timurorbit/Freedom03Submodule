@@ -7,11 +7,14 @@ public class GuildPlayerController : MonoBehaviour
 {
     [SerializeField] private CinemachineCamera mainCamera;
     [SerializeField] private FirstPersonController_Dreamscape playerController;
-    
+
     [Header("Required")]
     [SerializeField] private CinemachineCamera questTableCamera;
-
+    [SerializeField] private CinemachineCamera mainTableCamera;
     [SerializeField] private Canvas questTableCanvas;
+    [SerializeField] private Canvas mainTableCanvas;
+
+
 
     [Header("Inventory")]
     [SerializeField] private CharacterInventory inventory;
