@@ -4,6 +4,7 @@ using UnityEngine;
 public class HeroBehaviour : MonoBehaviour
 {
     [SerializeField] public Transform questPosition;
+    [SerializeField] public Transform heroCardPosition;
     [SerializeField] public HeroCardBehaviour heroCard;
     [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
     [SerializeField] public bool Approved;
