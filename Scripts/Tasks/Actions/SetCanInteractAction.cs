@@ -9,11 +9,13 @@ public class SetCanInteractAction : Action
     [SerializeField] private bool canInteractValue;
 
     private CharacterBehaviour characterBehaviour;
+    private HeroBehaviour heroBehaviour;
 
     public override void OnAwake()
     {
         base.OnAwake();
         characterBehaviour = gameObject.GetComponent<CharacterBehaviour>();
+        heroBehaviour = gameObject.GetComponent<HeroBehaviour>();
     }
 
     public override TaskStatus OnUpdate()
@@ -21,7 +23,25 @@ public class SetCanInteractAction : Action
         if (characterBehaviour == null)
             return TaskStatus.Failure;
 
+        if (ShouldPlaceHeroItems())
+        {
+            heroBehaviour.PlaceHeroCardQuestResultInMainTable();
+        }
+
         characterBehaviour.SetCanInteract(canInteractValue);
         return TaskStatus.Success;
+    }
+    
+    private bool ShouldPlaceHeroItems()
+    {
+        if (heroBehaviour == null || 
+            heroBehaviour.heroCard == null || 
+            heroBehaviour.currentQuestResultBehaviour == null)
+        {
+            return false;
+        }
+        
+        var questResult = heroBehaviour.currentQuestResultBehaviour.getQuestResult();
+        return questResult != null && questResult.state == QuestResultState.Taken;
     }
 }

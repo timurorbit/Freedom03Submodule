@@ -10,4 +10,17 @@ public class HeroBehaviour : MonoBehaviour
     [Header("Only for testing purposes")]
     [SerializeField]
     public HeroObject baseHero;
+    
+    public void PlaceHeroCardQuestResultInMainTable()
+    {
+        MainTable mainTable = GuildRepository.Instance.GetClosestTable<MainTable>();
+        
+        if (mainTable == null)
+        {
+            Debug.LogWarning("HeroBehaviour: No MainTable found");
+            return;
+        }
+        
+        mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
+    }
 }
