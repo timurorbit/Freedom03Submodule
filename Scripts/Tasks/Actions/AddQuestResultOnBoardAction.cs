@@ -1,9 +1,12 @@
 using Opsive.BehaviorDesigner.Runtime.Tasks;
 using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
+using Opsive.GraphDesigner.Runtime.Variables;
 using UnityEngine;
 
 public class AddQuestResultOnBoardAction : Action
 {
+    [SerializeField] private SharedVariable<Board> BoardVariable;
+
     private HeroBehaviour heroBehaviour;
 
     public override void OnAwake()
@@ -23,11 +26,11 @@ public class AddQuestResultOnBoardAction : Action
             return TaskStatus.Failure;
         }
 
-        // Find the Board
-        Board board = Object.FindAnyObjectByType<Board>();
+        // Get the Board from SharedVariable
+        Board board = BoardVariable?.Value;
         if (board == null)
         {
-            Debug.LogWarning("AddQuestResultOnBoardAction: No Board found in scene");
+            Debug.LogWarning("AddQuestResultOnBoardAction: Board not found in SharedVariable");
             return TaskStatus.Failure;
         }
 

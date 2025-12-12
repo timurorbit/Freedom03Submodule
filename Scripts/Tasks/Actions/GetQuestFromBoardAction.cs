@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Opsive.BehaviorDesigner.Runtime.Tasks;
 using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
+using Opsive.GraphDesigner.Runtime.Variables;
 using UnityEngine;
 
 public class GetQuestFromBoardAction : Action
@@ -10,6 +11,8 @@ public class GetQuestFromBoardAction : Action
     
     [Tooltip("The easing function for the tween")]
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
+
+    [SerializeField] private SharedVariable<Board> BoardVariable;
 
     private HeroBehaviour heroBehaviour;
     private Sequence currentSequence;
@@ -37,11 +40,11 @@ public class GetQuestFromBoardAction : Action
             return TaskStatus.Failure;
         }
 
-        // Find the Board
-        Board board = Object.FindAnyObjectByType<Board>();
+        // Get the Board from SharedVariable
+        Board board = BoardVariable?.Value;
         if (board == null)
         {
-            Debug.LogWarning("GetQuestFromBoardAction: No Board found in scene");
+            Debug.LogWarning("GetQuestFromBoardAction: Board not found in SharedVariable");
             return TaskStatus.Failure;
         }
 
