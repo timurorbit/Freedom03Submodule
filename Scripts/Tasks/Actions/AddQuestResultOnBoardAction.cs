@@ -23,18 +23,15 @@ public class AddQuestResultOnBoardAction : Action
             return TaskStatus.Failure;
         }
 
-        // Find the Board
-        Board board = Object.FindAnyObjectByType<Board>();
+        Board board = GuildRepository.Instance.GetBoard();
         if (board == null)
         {
-            Debug.LogWarning("AddQuestResultOnBoardAction: No Board found in scene");
+            Debug.LogWarning("AddQuestResultOnBoardAction: Board not found in GuildRepository");
             return TaskStatus.Failure;
         }
 
-        // Add the current quest result to the board
         board.AddItemToBoard(heroBehaviour.currentQuestResultBehaviour.gameObject);
         
-        // Clear the reference to prevent stale references
         heroBehaviour.currentQuestResultBehaviour = null;
 
         return TaskStatus.Success;
