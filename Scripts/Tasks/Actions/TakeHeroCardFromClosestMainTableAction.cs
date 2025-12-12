@@ -10,6 +10,7 @@ public class TakeHeroCardFromClosestMainTableAction : Action
     [Header("Tween Settings")]
     [SerializeField] private float tweenDuration = 0.5f;
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
+    private Sequence currentSequence;
 
     public override void OnAwake()
     {
@@ -41,9 +42,9 @@ public class TakeHeroCardFromClosestMainTableAction : Action
             return TaskStatus.Failure;
         }
 
-        heroCard.transform.SetParent(heroBehaviour.transform);
-        
-        TweenHeroCardToPosition(heroCard, heroBehaviour.transform);
+        heroCard.transform.SetParent(heroBehaviour.heroCardPosition);
+        heroCard.SwitchState(false);
+        TweenToPosition(heroCard.transform);
 
         heroBehaviour.heroCard = heroCard;
         mainTable.currentHeroCardBehaviour = null;
@@ -51,11 +52,25 @@ public class TakeHeroCardFromClosestMainTableAction : Action
         return TaskStatus.Success;
     }
 
-    private void TweenHeroCardToPosition(HeroCardBehaviour heroCard, Transform targetPosition)
+    private void TweenToPosition(Transform questTransform)
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(heroCard.transform.DOMove(targetPosition.position, tweenDuration).SetEase(tweenEase));
-        sequence.Join(heroCard.transform.DORotate(targetPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
-        sequence.SetAutoKill(true);
+        if (questTransform == null)
+        {
+            Debug.LogWarning("GetQuestFromBoardAction: Attempted to tween null transform");
+            return;
+        }
+
+        if (currentSequence != null && currentSequence.IsActive())
+        {
+            currentSequence.Kill();
+        }
+
+        Vector3 targetPosition = Vector3.zero;
+        Vector3 targetRotation = Vector3.zero;
+
+        currentSequence = DOTween.Sequence();
+        currentSequence.Append(questTransform.DOLocalMove(targetPosition, tweenDuration).SetEase(tweenEase));
+        currentSequence.Join(questTransform.DOLocalRotate(targetRotation, tweenDuration).SetEase(tweenEase));
+        currentSequence.SetAutoKill(true);
     }
 }
