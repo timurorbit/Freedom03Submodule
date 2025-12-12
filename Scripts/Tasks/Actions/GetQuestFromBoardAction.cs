@@ -49,7 +49,17 @@ public class GetQuestFromBoardAction : Action
         Stats stats = heroBehaviour.heroCard.GetHero().GetStats();
         
         // Get quest from board by stats
-        QuestResultBehaviour quest = board.getQuestByStats(stats);
+        QuestResultBehaviour quest = null;
+        try
+        {
+            quest = board.getQuestByStats(stats);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"GetQuestFromBoardAction: Error getting quest from board: {e.Message}");
+            return TaskStatus.Failure;
+        }
+        
         if (quest == null)
         {
             Debug.LogWarning("GetQuestFromBoardAction: No quest retrieved from board");

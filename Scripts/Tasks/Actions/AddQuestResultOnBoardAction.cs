@@ -33,6 +33,9 @@ public class AddQuestResultOnBoardAction : Action
 
         // Add the current quest result to the board
         board.AddItemToBoard(heroBehaviour.currentQuestResultBehaviour.gameObject);
+        
+        // Clear the reference to prevent stale references
+        heroBehaviour.currentQuestResultBehaviour = null;
 
         return TaskStatus.Success;
     }
