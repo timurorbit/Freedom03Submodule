@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GetBoardAction : Action
 {
-    [SerializeField] private SharedVariable<Board> BoardVariable;
+    [SerializeField] private SharedVariable<Board> Result;
 
     public override TaskStatus OnUpdate()
     {
@@ -23,9 +23,9 @@ public class GetBoardAction : Action
             return TaskStatus.Failure;
         }
 
-        if (BoardVariable != null)
+        if (Result != null)
         {
-            BoardVariable.Value = board;
+            Result.Value = board;
         }
 
         return TaskStatus.Success;
