@@ -75,6 +75,24 @@ public class GuildRepository : MonoBehaviour
         return null;
     }
     
+    public MainTable GetClosestMainTable()
+    {
+        if (mainTables == null || mainTables.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var table in mainTables)
+        {
+            if (table != null)
+            {
+                return table;
+            }
+        }
+
+        return null;
+    }
+    
     public Board GetBoard()
     {
         return board;
