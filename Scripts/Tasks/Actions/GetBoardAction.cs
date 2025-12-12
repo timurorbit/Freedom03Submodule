@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class GetBoardAction : Action
 {
-    [SerializeField] private SharedVariable<Board> Result;
+    [SerializeField] private SharedVariable<GameObject> Result;
+    
+    [SerializeField] private SharedVariable<GameObject> StayingTranform;
 
     public override TaskStatus OnUpdate()
     {
@@ -25,7 +27,12 @@ public class GetBoardAction : Action
 
         if (Result != null)
         {
-            Result.Value = board;
+            Result.Value = board.gameObject;
+        }
+
+        if (StayingTranform != null)
+        {
+            StayingTranform.Value = board.stayingTransform.gameObject;
         }
 
         return TaskStatus.Success;

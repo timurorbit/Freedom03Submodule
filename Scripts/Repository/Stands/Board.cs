@@ -11,6 +11,8 @@ public class Board : Table
     
     [Header("Board Position Settings")]
     [SerializeField] private Transform boardReferenceTransform;
+
+    [SerializeField] public Transform stayingTransform;
     
     [Header("Board Boundaries")]
     [SerializeField] private float minX = -0.5f;
@@ -157,14 +159,18 @@ public class Board : Table
     
     private void RemovePosition(Vector2 position)
     {
-        if (previousPositions.Remove(position))
-        {
+        const float tolerance = 0.0001f; // Adjust if needed for your precision
 
-        }
-        else
+        for (int i = 0; i < previousPositions.Count; i++)
         {
-            Debug.LogWarning("Board: Position not found in history.");
+            if (Vector2.Distance(previousPositions[i], position) < tolerance)
+            {
+                previousPositions.RemoveAt(i);
+                return;
+            }
         }
+
+        Debug.LogWarning("Board: Position not found in history.");
     }
     
     private void OnDestroy()

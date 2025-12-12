@@ -24,6 +24,9 @@ public class GuildRepository : MonoBehaviour
     private List<QuestTable> questTables;
     [SerializeField]
     private List<ResultTable> questResultTables;
+    [SerializeField]
+    private List<MainTable> mainTables;
+    
     private GuildHall hall;
 
     private GuildRepository()
@@ -31,6 +34,7 @@ public class GuildRepository : MonoBehaviour
         heroWelcomeTables = new List<WelcomeTable>();
         questTables = new List<QuestTable>();
         questResultTables = new List<ResultTable>();
+        mainTables = new List<MainTable>();
     }
 
     public GameObject GetClosestFreeQuestTableSpot()
@@ -46,6 +50,11 @@ public class GuildRepository : MonoBehaviour
     public GameObject GetClosestFreeResultTableSpot()
     {
         return GetClosestFreeSpot<ResultTable>(questResultTables);
+    }
+
+    public GameObject GetClosestFreeMainTableSpot()
+    {
+        return GetClosestFreeSpot<MainTable>(mainTables);
     }
 
     public QuestTable GetClosestQuestTable()

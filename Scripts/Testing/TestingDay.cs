@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 
 public class TestingDay : MonoBehaviour
 {
+    [Header("Peasants")]
+    [SerializeField] private bool PopulatePeasants;
     [SerializeField] private TestQuestList testQuestList;
-
     [SerializeField] private GameObject peasantPrefab;
 
     [Header("Board")]
@@ -17,13 +18,37 @@ public class TestingDay : MonoBehaviour
 
     [Header("Heroes")]
     [SerializeField] private bool PopulateHeroes;
-    
+    [SerializeField] private GameObject heroPrefab;
+    [SerializeField] private TestQuestList testHeroList;
+
     private void Start()
     {
-        StartCoroutine(SpawnCoroutine());
+        if (PopulatePeasants)
+        {
+            StartCoroutine(SpawnCoroutine());   
+        }
         if (PopulateBoard)
         {
             StartCoroutine(populateBoard());
+        }
+
+        if (PopulateHeroes)
+        {
+            StartCoroutine(populateHeroes());
+        }
+    }
+
+    private IEnumerator populateHeroes()
+    {
+        var heroTemplates = testHeroList.heroTemplates;
+        foreach (var heroTemplate in heroTemplates)
+        {
+            yield return new WaitForSeconds(1f);
+            var peasant = Instantiate(heroPrefab, transform);
+            var behaviour = peasant.GetComponent<HeroBehaviour>();
+            var hero = new Hero(heroTemplate);
+            behaviour.heroCard.SetHero(hero);
+            behaviour.heroCard.SwitchState(false);
         }
     }
 

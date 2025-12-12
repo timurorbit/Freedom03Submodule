@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using Opsive.BehaviorDesigner.Runtime.Tasks;
 using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
@@ -41,7 +42,14 @@ public class GetQuestFromBoardAction : Action
             return TaskStatus.Failure;
         }
 
-        Stats stats = heroBehaviour.heroCard.GetHero().GetStats();
+        var hero = heroBehaviour.heroCard.GetHero();
+        if (hero == null)
+        {
+            heroBehaviour.heroCard.SetHero(new Hero(heroBehaviour.baseHero));
+            hero = heroBehaviour.heroCard.GetHero();
+        }
+
+        var stats = hero.GetStats();
         
         QuestResultBehaviour quest = null;
         try
@@ -95,6 +103,15 @@ public class GetQuestFromBoardAction : Action
     {
         base.OnEnd();
         if (currentSequence != null && currentSequence.IsActive())
+        {
+            heroBehaviour.StartCoroutine(DelayedKill(1f));
+        }
+    }
+
+    private IEnumerator DelayedKill(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (currentSequence != null)
         {
             currentSequence.Kill();
         }
