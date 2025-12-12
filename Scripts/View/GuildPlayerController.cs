@@ -3,6 +3,13 @@ using Polyart;
 using Unity.Cinemachine;
 using UnityEngine;
 
+public enum GuildPlayerState
+{
+    Default,
+    MainTable,
+    QuestTable
+}
+
 public class GuildPlayerController : MonoBehaviour
 {
     [SerializeField] private CinemachineCamera mainCamera;
@@ -13,6 +20,8 @@ public class GuildPlayerController : MonoBehaviour
     [SerializeField] private CinemachineCamera mainTableCamera;
     [SerializeField] private Canvas questTableCanvas;
     [SerializeField] private Canvas mainTableCanvas;
+    
+    private GuildPlayerState currentState = GuildPlayerState.Default;
 
 
 
@@ -33,21 +42,79 @@ public class GuildPlayerController : MonoBehaviour
     }
     
     
+    public void SwitchState(GuildPlayerState newState)
+    {
+        // Deactivate current state
+        switch (currentState)
+        {
+            case GuildPlayerState.Default:
+                if (mainCamera != null)
+                    mainCamera.gameObject.SetActive(false);
+                break;
+            case GuildPlayerState.MainTable:
+                if (mainTableCamera != null)
+                    mainTableCamera.gameObject.SetActive(false);
+                if (mainTableCanvas != null)
+                    mainTableCanvas.gameObject.SetActive(false);
+                break;
+            case GuildPlayerState.QuestTable:
+                if (questTableCamera != null)
+                    questTableCamera.gameObject.SetActive(false);
+                if (questTableCanvas != null)
+                    questTableCanvas.gameObject.SetActive(false);
+                break;
+        }
+        
+        // Activate new state
+        currentState = newState;
+        switch (newState)
+        {
+            case GuildPlayerState.Default:
+                if (mainCamera != null)
+                    mainCamera.gameObject.SetActive(true);
+                if (playerController != null)
+                {
+                    playerController.enabled = true;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                break;
+            case GuildPlayerState.MainTable:
+                if (mainTableCamera != null)
+                    mainTableCamera.gameObject.SetActive(true);
+                if (mainTableCanvas != null)
+                    mainTableCanvas.gameObject.SetActive(true);
+                if (playerController != null)
+                {
+                    playerController.enabled = false;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+                }
+                break;
+            case GuildPlayerState.QuestTable:
+                if (questTableCamera != null)
+                    questTableCamera.gameObject.SetActive(true);
+                if (questTableCanvas != null)
+                    questTableCanvas.gameObject.SetActive(true);
+                if (playerController != null)
+                {
+                    playerController.enabled = false;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+                }
+                break;
+        }
+    }
+    
     public void SetActiveQuestCamera(bool active)
     {
-        questTableCamera.gameObject.SetActive(active);
-        questTableCanvas.gameObject.SetActive(active);
         if (active)
         {
-            playerController.enabled = false;
-            Cursor.visible = true;   
-            Cursor.lockState = CursorLockMode.Confined;
+            SwitchState(GuildPlayerState.QuestTable);
         }
         else
         {
-            playerController.enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            SwitchState(GuildPlayerState.Default);
         }
     }
 
@@ -55,8 +122,7 @@ public class GuildPlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SetActiveQuestCamera(false);
-            playerController.enabled = true;
+            SwitchState(GuildPlayerState.Default);
         }
     }
 
