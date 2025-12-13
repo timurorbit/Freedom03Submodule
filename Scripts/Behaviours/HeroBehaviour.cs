@@ -28,4 +28,18 @@ public class HeroBehaviour : MonoBehaviour
         mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
         mainTable.PlaceHero(this);
     }
+
+    public void HandleHeroInteraction()
+    {
+        QuestResultState state = currentQuestResultBehaviour.getQuestResult().state;
+        if (state == QuestResultState.Taken)
+        {
+            return;
+        }
+
+        if (state == QuestResultState.Assigned)
+        {
+            
+        }
+    }
 }

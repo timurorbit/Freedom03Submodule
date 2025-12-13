@@ -12,6 +12,7 @@ public class InventorySlot : Table
     [SerializeField] private float tweenDuration = 0.5f;
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
     private Sequence currentSequence;
+    private MainTable mainTable;
 
     public bool Add(GameObject itemToAdd)
     {
@@ -43,6 +44,11 @@ public class InventorySlot : Table
         takenItem.transform.SetParent(null);
         item = null;
         return takenItem;
+    }
+
+    public GameObject GetItem()
+    {
+        return item;
     }
 
     public override void Interact()
@@ -96,7 +102,7 @@ public class InventorySlot : Table
         }
     }
 
-    private void ApplyStatModifierIfNeeded(GameObject itemObject)
+    public void ApplyStatModifierIfNeeded(GameObject itemObject)
     {
         StatModifierBehaviour statModifierBehaviour = GetStatModifierBehaviour(itemObject);
         if (statModifierBehaviour == null)
@@ -110,7 +116,9 @@ public class InventorySlot : Table
             return;
         }
 
+        
         statModifierBehaviour.statModifier.Apply(hero.GetStats());
+        mainTable.UpdateCanvasView();
     }
 
     private void UnapplyStatModifierIfNeeded(GameObject itemObject)
@@ -128,6 +136,7 @@ public class InventorySlot : Table
         }
 
         statModifierBehaviour.statModifier.Unapply(hero.GetStats());
+        mainTable.UpdateCanvasView();
     }
 
     private StatModifierBehaviour GetStatModifierBehaviour(GameObject itemObject)
@@ -146,9 +155,9 @@ public class InventorySlot : Table
         return statModifierBehaviour;
     }
 
-    private Hero GetHeroFromMainTable()
+    public Hero GetHeroFromMainTable()
     {
-        MainTable mainTable = GetComponentInParent<MainTable>();
+        mainTable = GetComponentInParent<MainTable>();
         if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
         {
             return null;

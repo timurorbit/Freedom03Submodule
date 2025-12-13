@@ -29,6 +29,11 @@ public class MainTable : Table
     {
         
     }
+
+    public void UpdateCanvasView()
+    {
+        currentHeroCardBehaviour.UpdateCanvasView();
+    }
     
     
     
@@ -47,9 +52,13 @@ public class MainTable : Table
             sequence.Join(heroCard.transform.DORotate(currentHeroCardPosition.eulerAngles, tweenDuration).SetEase(tweenEase));
             heroCardAnimated = true;
         }
-        
         if (questResult != null && currentQuestResultPosition != null)
         {
+            foreach (var slot in inventorySlots)
+            {
+                slot.GetHeroFromMainTable();
+                slot.ApplyStatModifierIfNeeded(slot.GetItem());
+            }
             currentQuestResultBehaviour = questResult;
             questResult.transform.SetParent(transform);
             questResult.SwitchState(QuestResultState.Opened);

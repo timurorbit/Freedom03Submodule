@@ -146,8 +146,10 @@ namespace _Game.Scripts.Behaviours
 
         public void SetCanInteract(bool value)
         {
-            if (GetComponent<HeroBehaviour>())
+            var component = GetComponent<HeroBehaviour>();
+            if (component != null)
             {
+                component.HandleHeroInteraction();
                 return;
             }
             _canInteract = value;

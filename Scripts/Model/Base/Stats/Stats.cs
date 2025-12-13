@@ -181,6 +181,10 @@ public class Stats
         
         public float GetStatNormalized()
         {
+            if (stat < 0)
+            {
+                return 0f;
+            }
             return (float)(stat) / STAT_MAX;
         }
 

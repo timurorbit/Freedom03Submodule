@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statModifier:
-    type: 0
-    rewardAmount: 1
+    type: 2
+    skillType: 1
+    rewardAmount: 5
 --- !u!1001 &2466590153690599437
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -32,7 +32,6 @@ namespace _Game.Scripts
         public void setStats(Stats stats)
         {
             this.stats = stats;
-            stats.OnStatsChanged += Stats_OnStatsChanged;
             UpdateStatsVisual();
         }
 
@@ -41,7 +40,7 @@ namespace _Game.Scripts
             UpdateStatsVisual();
         }
 
-        private void UpdateStatsVisual()
+        public void UpdateStatsVisual()
         {
             Mesh mesh = new Mesh();
             
