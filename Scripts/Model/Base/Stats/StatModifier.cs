@@ -48,8 +48,6 @@ public class StatModifier
                 break;
             case StatModifierType.DecreaseReward:
                 stats.DecreaseReward(rewardAmount);
-
-
                 break;
         }
     }
