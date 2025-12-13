@@ -4,31 +4,31 @@ using System;
 public class StatModifier
 {
     public StatModifierType type;
-    public SkillType? skillType;
+    public SkillType skillType;
     public int rewardAmount;
-    
+
     public StatModifier(StatModifierType type)
     {
         this.type = type;
     }
-    
+
     public StatModifier(StatModifierType type, SkillType skillType)
     {
         this.type = type;
         this.skillType = skillType;
     }
-    
+
     public StatModifier(StatModifierType type, int rewardAmount)
     {
         this.type = type;
         this.rewardAmount = rewardAmount;
     }
-    
+
     // Apply this modifier to the given stats
     public void Apply(Stats stats)
     {
         if (stats == null) return;
-        
+
         switch (type)
         {
             case StatModifierType.UpgradeRank:
@@ -38,28 +38,18 @@ public class StatModifier
                 stats.DowngradeRank();
                 break;
             case StatModifierType.AddSkill:
-                if (skillType.HasValue)
-                {
-                    stats.AddSkill(skillType.Value);
-                }
+                stats.AddSkill(skillType);
                 break;
             case StatModifierType.RemoveSkill:
-                if (skillType.HasValue)
-                {
-                    stats.RemoveSkill(skillType.Value);
-                }
+                stats.RemoveSkill(skillType);
                 break;
             case StatModifierType.IncreaseReward:
-                if (rewardAmount > 0)
-                {
-                    stats.IncreaseReward(rewardAmount);
-                }
+                stats.IncreaseReward(rewardAmount);
                 break;
             case StatModifierType.DecreaseReward:
-                if (rewardAmount > 0)
-                {
-                    stats.DecreaseReward(rewardAmount);
-                }
+                stats.DecreaseReward(rewardAmount);
+
+
                 break;
         }
     }

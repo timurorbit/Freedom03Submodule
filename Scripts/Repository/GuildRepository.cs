@@ -23,9 +23,11 @@ public class GuildRepository : MonoBehaviour
     [SerializeField]
     private List<QuestTable> questTables;
     [SerializeField]
-    private List<ResultTable> questResultTables;
+    private List<QuestResultTable> questResultTables;
     [SerializeField]
     private List<MainTable> mainTables;
+
+    [SerializeField] private List<GameObject> questPlaces;
     
     private GuildHall hall;
 
@@ -33,8 +35,14 @@ public class GuildRepository : MonoBehaviour
     {
         heroWelcomeTables = new List<WelcomeTable>();
         questTables = new List<QuestTable>();
-        questResultTables = new List<ResultTable>();
+        questResultTables = new List<QuestResultTable>();
         mainTables = new List<MainTable>();
+    }
+    
+    public GameObject getRandomQuestPlace()
+    {
+        int index = Random.Range(0, questPlaces.Count);
+        return questPlaces[index];
     }
 
     public GameObject GetClosestFreeQuestTableSpot()
@@ -49,7 +57,7 @@ public class GuildRepository : MonoBehaviour
 
     public GameObject GetClosestFreeResultTableSpot()
     {
-        return GetClosestFreeSpot<ResultTable>(questResultTables);
+        return GetClosestFreeSpot<QuestResultTable>(questResultTables);
     }
 
     public GameObject GetClosestFreeMainTableSpot()
@@ -95,7 +103,7 @@ public class GuildRepository : MonoBehaviour
             return mainTables as List<T>;
         if (typeof(T) == typeof(WelcomeTable))
             return heroWelcomeTables as List<T>;
-        if (typeof(T) == typeof(ResultTable))
+        if (typeof(T) == typeof(QuestResultTable))
             return questResultTables as List<T>;
         
         return null;
@@ -143,7 +151,7 @@ public class GuildRepository : MonoBehaviour
         }
     }
 
-    public void AddResultTable(ResultTable table)
+    public void AddResultTable(QuestResultTable table)
     {
         if (table != null && !questResultTables.Contains(table))
         {

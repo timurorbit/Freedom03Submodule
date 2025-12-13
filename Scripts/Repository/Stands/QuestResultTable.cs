@@ -1,4 +1,4 @@
-public class ResultTable : Table
+public class QuestResultTable : Table
 {
     public QuestResult activeQuestResult;
     public float activeQuestResultChance;

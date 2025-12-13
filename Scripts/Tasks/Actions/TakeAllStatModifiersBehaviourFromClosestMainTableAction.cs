@@ -40,12 +40,6 @@ public class TakeAllStatModifiersBehaviourFromClosestMainTableAction : Action
         }
 
         Transform statModifiersParent = heroBehaviour.statModifiersParent;
-        
-        if (statModifiersParent == null)
-        {
-            Debug.LogWarning("TakeAllStatModifiersBehaviourFromClosestMainTableAction: statModifiersParent is null in HeroBehaviour");
-            return TaskStatus.Failure;
-        }
 
         foreach (InventorySlot slot in mainTable.inventorySlots)
         {
@@ -66,7 +60,6 @@ public class TakeAllStatModifiersBehaviourFromClosestMainTableAction : Action
             if (statModifier == null)
             {
                 Debug.LogWarning("TakeAllStatModifiersBehaviourFromClosestMainTableAction: Taken item does not have StatModifierBehaviour component");
-                continue;
             }
 
             statModifier.transform.SetParent(statModifiersParent);

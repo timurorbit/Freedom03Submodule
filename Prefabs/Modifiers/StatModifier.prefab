@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3364477957296720800}
+  - component: {fileID: 4132956599525911233}
   m_Layer: 0
   m_Name: StatModifier
   m_TagString: Untagged
@@ -32,6 +33,21 @@ Transform:
   - {fileID: 1798547164968087137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4132956599525911233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965029179102046260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5f6571bf9e4caebc44f27d93242829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statModifier:
+    type: 0
+    rewardAmount: 1
 --- !u!1001 &2466590153690599437
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,17 @@ public class TestingDay : MonoBehaviour
     [SerializeField] private bool PopulateHeroes;
     [SerializeField] private GameObject heroPrefab;
     [SerializeField] private TestQuestList testHeroList;
+    
+    
+    [Header("Returning Heroes")]
+    [SerializeField]
+    private bool PopulateReturningHeroes;
+    [SerializeField] private GameObject returningHeroPrefab;
+    [SerializeField] private TestQuestList testReturningHeroList;
+    [SerializeField] private TestQuestList returningHeroesQuests;
+    
+    [Header("Stat modifiers")]
+    [SerializeField] private GameObject statModifierPrefab;
 
     private void Start()
     {
@@ -35,6 +46,44 @@ public class TestingDay : MonoBehaviour
         if (PopulateHeroes)
         {
             StartCoroutine(populateHeroes());
+        }
+
+        if (PopulateReturningHeroes)
+        {
+            StartCoroutine(populateReturningHeroes());
+        }
+    }
+
+    private IEnumerator populateReturningHeroes()
+    {
+        var heroTemplates = testReturningHeroList.heroTemplates;
+        for (int i = 0; i < heroTemplates.Count; i++)
+        {
+            
+            // Create hero
+            var heroTemplate = heroTemplates[i];
+            yield return new WaitForSeconds(1f);
+            var peasant = Instantiate(returningHeroPrefab, transform);
+            var behaviour = peasant.GetComponent<HeroBehaviour>();
+            var hero = new Hero(heroTemplate);
+            behaviour.heroCard.SetHero(hero);
+            behaviour.heroCard.SwitchState(false);
+            
+            
+            // Add stat modifier
+            var statModifier = Instantiate(statModifierPrefab, behaviour.statModifiersParent.transform);
+            var statModifierBehaviour = statModifier.GetComponent<StatModifierBehaviour>();
+            behaviour.statModifiers.Add(statModifierBehaviour);
+            statModifier.transform.localPosition = Vector3.zero;
+            
+            
+            // Add quest
+            var QuestPrefab = Instantiate(questResultBehaviourPrefab, behaviour.questPosition.transform);
+            var resultBehaviour = QuestPrefab.GetComponent<QuestResultBehaviour>();
+            var quest = new Quest(returningHeroesQuests.questTemplates[i]);
+            resultBehaviour.setQuest(quest);
+            resultBehaviour.SwitchState(QuestResultState.Assigned);
+            behaviour.currentQuestResultBehaviour = resultBehaviour;
         }
     }
 
