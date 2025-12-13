@@ -23,6 +23,9 @@ public class InventorySlot : Table
         item = itemToAdd;
         item.transform.SetParent(objectPosition);
         TweenToPosition(item.transform);
+        
+        ApplyStatModifierIfNeeded(itemToAdd);
+        
         return true;
     }
 
@@ -34,6 +37,9 @@ public class InventorySlot : Table
         }
 
         GameObject takenItem = item;
+        
+        UnapplyStatModifierIfNeeded(takenItem);
+        
         takenItem.transform.SetParent(null);
         item = null;
         return takenItem;
@@ -88,5 +94,61 @@ public class InventorySlot : Table
         {
             currentSequence.Kill();
         }
+    }
+
+    private void ApplyStatModifierIfNeeded(GameObject itemObject)
+    {
+        if (itemObject == null)
+        {
+            return;
+        }
+
+        StatModifierBehaviour statModifierBehaviour = itemObject.GetComponent<StatModifierBehaviour>();
+        if (statModifierBehaviour == null || statModifierBehaviour.statModifier == null)
+        {
+            return;
+        }
+
+        MainTable mainTable = GetComponentInParent<MainTable>();
+        if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
+        {
+            return;
+        }
+
+        Hero hero = mainTable.currentHeroCardBehaviour.GetHero();
+        if (hero == null)
+        {
+            return;
+        }
+
+        statModifierBehaviour.statModifier.Apply(hero.GetStats());
+    }
+
+    private void UnapplyStatModifierIfNeeded(GameObject itemObject)
+    {
+        if (itemObject == null)
+        {
+            return;
+        }
+
+        StatModifierBehaviour statModifierBehaviour = itemObject.GetComponent<StatModifierBehaviour>();
+        if (statModifierBehaviour == null || statModifierBehaviour.statModifier == null)
+        {
+            return;
+        }
+
+        MainTable mainTable = GetComponentInParent<MainTable>();
+        if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
+        {
+            return;
+        }
+
+        Hero hero = mainTable.currentHeroCardBehaviour.GetHero();
+        if (hero == null)
+        {
+            return;
+        }
+
+        statModifierBehaviour.statModifier.Unapply(hero.GetStats());
     }
 }
