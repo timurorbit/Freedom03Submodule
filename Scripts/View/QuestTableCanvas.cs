@@ -52,7 +52,7 @@ public class QuestTableCanvas : MonoBehaviour
         
         if (currentQuest != null)
         {
-            UpdateQuestStats(currentQuest, QuestResultState.Predicted);
+            UpdateQuestPrediction(currentQuest, QuestResultState.Predicted);
             questTable.AddToQuests(currentQuest);
         }
         
@@ -67,11 +67,11 @@ public class QuestTableCanvas : MonoBehaviour
     private void UpdateView(QuestResultBehaviour quest)
     {
         var stats = quest.getQuestResult().GetPrediction();
-        attackToggle.isOn = stats.skills.Contains(SkillType.Attack);
-        defenseToggle.isOn = stats.skills.Contains(SkillType.Defense);
-        mobilityToggle.isOn = stats.skills.Contains(SkillType.Mobility);
-        magicToggle.isOn = stats.skills.Contains(SkillType.Intelligence);
-        charismaToggle.isOn = stats.skills.Contains(SkillType.Charisma);
+        attackToggle.isOn = stats.GetStatAmount(SkillType.Attack) >= 1;
+        defenseToggle.isOn = stats.GetStatAmount(SkillType.Defense) >= 1;
+        mobilityToggle.isOn = stats.GetStatAmount(SkillType.Mobility) >= 1;
+        magicToggle.isOn = stats.GetStatAmount(SkillType.Intelligence) >= 1;
+        charismaToggle.isOn = stats.GetStatAmount(SkillType.Charisma) >= 1;
         rankDropdown.SetSelectedRank(stats.rank);
     }
 
@@ -84,7 +84,7 @@ public class QuestTableCanvas : MonoBehaviour
         
         if (currentQuest != null)
         {
-            UpdateQuestStats(currentQuest, QuestResultState.Opened);
+            UpdateQuestPrediction(currentQuest, QuestResultState.Opened);
             questTable.AddToResults(currentQuest);
         }
         
@@ -96,27 +96,21 @@ public class QuestTableCanvas : MonoBehaviour
         }
     }
 
-    private void UpdateQuestStats(QuestResultBehaviour currentQuest, QuestResultState newState)
+    private void UpdateQuestPrediction(QuestResultBehaviour currentQuest, QuestResultState newState)
     {
-        
-        var stats = new Stats(rankDropdown.GetSelectedRank(), getSkillListFromUI(), 0);
+        var attack = attackToggle.isOn ? 1 : 0;
+        var defense = defenseToggle.isOn ? 1 : 0;
+        var mobility = mobilityToggle.isOn ? 1 : 0;
+        var intelligence = magicToggle.isOn ? 1 : 0;
+        var charisma = charismaToggle.isOn ? 1 : 0;
+        var stats = new Stats(rankDropdown.GetSelectedRank(),
+            attack,
+            defense,
+            mobility,
+            intelligence,
+            charisma,
+            0);
         currentQuest.setPrediction(stats);
         currentQuest.SwitchState(newState);
-    }
-
-    private List<SkillType> getSkillListFromUI()
-    {
-        var list = new List<SkillType>();
-        if (attackToggle.isOn)
-            list.Add(SkillType.Attack);
-        if (defenseToggle.isOn)
-            list.Add(SkillType.Defense);
-        if (mobilityToggle.isOn)
-            list.Add(SkillType.Mobility);
-        if (magicToggle.isOn)
-            list.Add(SkillType.Intelligence);
-        if (charismaToggle.isOn)
-            list.Add(SkillType.Charisma);
-        return list;
     }
 }

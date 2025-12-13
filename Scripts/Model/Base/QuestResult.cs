@@ -25,7 +25,7 @@ public class QuestResult
     {
         this.quest = quest;
         // Default prediction
-        prediction = new Stats(Rank.F, new List<SkillType>(), quest.template.stats.reward);
+        prediction = new Stats(Rank.F, 0,0,0,0,0, quest.template.stats.reward);
         state = QuestResultState.Closed;
     }
     

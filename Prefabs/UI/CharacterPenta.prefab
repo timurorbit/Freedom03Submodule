@@ -291,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94d6deb4c4109b14595ac763137c4b29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1614684cabfd3bc49863c68a00a035b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -510,14 +510,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.627451, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.26801515, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ddbc13813dda2bc45856c64621fc9bf9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37833691e002da24c892f657a2d31048, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 71405f8483cb5344cb5e1c33ceeba0a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 536174c7fba3c27469b36904b6ec0428, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b75bda082ab411c4a95cba4a4b874f14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b764100b320887c42b6ba61e08f28e64, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -882,16 +882,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c223305d891f413a8fcc46119e0d5cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackColor: {r: 1, g: 0, b: 0, a: 0.6}
-  defenseColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.6}
-  mobilityColor: {r: 0, g: 1, b: 0, a: 0.6}
-  intelligenceColor: {r: 0, g: 0.63, b: 1, a: 0.6}
-  charismaColor: {r: 1, g: 0, b: 1, a: 0.6}
   dotPrefab: {fileID: 7953041348847575817, guid: 022f519551938754f865dcbccf0a3072, type: 3}
   dotsParent: {fileID: 2106762037035916871}
   dotSize: 12
   radarMaterial: {fileID: 2100000, guid: 51770cbfea8b6ec438eaaa9c63d9d1bd, type: 2}
   radarTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+  radarMeshCanvasRenderer: {fileID: 9033485280778356718}
 --- !u!1 &6548783618000015096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1073,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2a869afce2999804c9e3fba97c9edc0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e15984e5de343944092ab5c2fa78fdf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

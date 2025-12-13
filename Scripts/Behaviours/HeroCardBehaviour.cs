@@ -1,17 +1,20 @@
+using _Game.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class HeroCardBehaviour : MonoBehaviour
 {
     private Hero hero;
     
-    [SerializeField] private StatsView statsView;
+    [FormerlySerializedAs("statsView")] [SerializeField] private QuestPredictionView questPredictionView;
     [SerializeField] private Image portrait;
     [SerializeField] private TextMeshProUGUI heroName;
     [SerializeField] private GameObject openedView;
     [SerializeField] private GameObject closedView;
     [SerializeField] private GameObject canvasView;
+    [SerializeField] private UI_StatsRadarChart chart;
     
     public void SetHero(Hero hero)
     {
@@ -27,7 +30,8 @@ public class HeroCardBehaviour : MonoBehaviour
     {
         portrait.sprite = hero.GetTemplate().portrait;
         heroName.text = hero.GetTemplate().name;
-        statsView.UpdateView(hero.GetStats());
+        chart.setStats(hero.GetStats());
+        questPredictionView.UpdateViewRankOnly(hero.GetStats());
     }
     
     public void SwitchState(bool opened)

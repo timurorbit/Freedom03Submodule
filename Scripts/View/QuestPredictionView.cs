@@ -2,9 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class StatsView : MonoBehaviour
+internal class QuestPredictionView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI rank;
+    
+    [Header("Only For Quest Inspecting")]
     [SerializeField] private Image attackIcon;
     [SerializeField] private Image defenseIcon;
     [SerializeField] private Image movementIcon;
@@ -13,11 +15,16 @@ internal class StatsView : MonoBehaviour
     public void UpdateView(Stats getPrediction)
     {
         rank.text = getPrediction.rank.ToString();
-        attackIcon.enabled = getPrediction.skills.Contains(SkillType.Attack);
-        defenseIcon.enabled = getPrediction.skills.Contains(SkillType.Defense);
-        movementIcon.enabled = getPrediction.skills.Contains(SkillType.Mobility);
-        mageIcon.enabled = getPrediction.skills.Contains(SkillType.Intelligence);
-        charismaIcon.enabled = getPrediction.skills.Contains(SkillType.Charisma);
+        attackIcon.enabled = getPrediction.GetStatAmount(SkillType.Attack) > 0;
+        defenseIcon.enabled = getPrediction.GetStatAmount(SkillType.Defense) > 0;
+        movementIcon.enabled = getPrediction.GetStatAmount(SkillType.Mobility) > 0;
+        mageIcon.enabled = getPrediction.GetStatAmount(SkillType.Intelligence) > 0;
+        charismaIcon.enabled = getPrediction.GetStatAmount(SkillType.Charisma) > 0;
+    }
+
+    public void UpdateViewRankOnly(Stats getPrediction)
+    {
+        rank.text = getPrediction.rank.ToString();
     }
 
     public void UpdateActiveView()

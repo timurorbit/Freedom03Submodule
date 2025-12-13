@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class QuestResultBehaviour : MonoBehaviour
@@ -14,7 +15,7 @@ public class QuestResultBehaviour : MonoBehaviour
     [SerializeField] private GameObject closedView;
     [SerializeField] private Canvas canvasView;
     
-    [SerializeField] private StatsView statsView; 
+    [FormerlySerializedAs("statsView")] [SerializeField] private QuestPredictionView questPredictionView; 
 
     public void setQuest(Quest quest)
     {
@@ -36,7 +37,7 @@ public class QuestResultBehaviour : MonoBehaviour
         backArt.sprite = questTemplate.background;
         if (result.GetPrediction() != null)
         {
-            statsView.UpdateView(result.GetPrediction());
+            questPredictionView.UpdateView(result.GetPrediction());
         }
     }
     

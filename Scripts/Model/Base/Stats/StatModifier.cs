@@ -38,10 +38,10 @@ public class StatModifier
                 stats.DowngradeRank();
                 break;
             case StatModifierType.AddSkill:
-                stats.AddSkill(skillType);
+                stats.AddSkill(skillType, 5);
                 break;
             case StatModifierType.RemoveSkill:
-                stats.RemoveSkill(skillType);
+                stats.RemoveSkill(skillType, 5);
                 break;
             case StatModifierType.IncreaseReward:
                 stats.IncreaseReward(rewardAmount);

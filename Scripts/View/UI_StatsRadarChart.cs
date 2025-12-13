@@ -7,13 +7,6 @@ namespace _Game.Scripts
     public class UI_StatsRadarChart : MonoBehaviour
     {
         
-        [Header("Stat Colors (customize here)")]
-        public Color attackColor = new(1f, 0.0f, 0.0f, .6f);                      // Crimson Red
-        public Color defenseColor = new Color(1f, 0.92156863f, 0.015686275f, .6f);                   // Bright Yellow
-        public Color mobilityColor = new Color(0f, 1f, 0f,.6f);
-        public Color intelligenceColor = new Color(0f, 0.63f, 1f,6f); // Electric Blue
-        public Color charismaColor = new Color(1f, 0.0f, 1f, .6f);                // Hot Magenta
-        
         [Header("Dot Settings")]
         public GameObject dotPrefab;        // Assign a UI Image with circle sprite in the inspector
         public Transform dotsParent;        // Optional: a parent object under your canvas
@@ -27,12 +20,12 @@ namespace _Game.Scripts
         private Texture2D radarTexture;
         
         private Stats stats;
+        [SerializeField]
         private CanvasRenderer radarMeshCanvasRenderer;
         private MaterialPropertyBlock propertyBlock;
 
         private void Awake()
         {
-            radarMeshCanvasRenderer = transform.Find("radarMesh").GetComponent<CanvasRenderer>();
             propertyBlock = new MaterialPropertyBlock();
         }
 
@@ -59,15 +52,15 @@ namespace _Game.Scripts
             float angleIncrement = 360f / 5;
             float radarChartSize = 169f;
             
-            Vector3 attackVertex = Quaternion.Euler(0,0, -angleIncrement * 0) * Vector3.up * radarChartSize * stats.GetStatNormalized(Stats.Type.Attack);
+            Vector3 attackVertex = Quaternion.Euler(0,0, -angleIncrement * 0) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Attack);
             int attackVertexIndex = 1;
-            Vector3 defenceVertex = Quaternion.Euler(0,0, -angleIncrement * 1) * Vector3.up * radarChartSize * stats.GetStatNormalized(Stats.Type.Defense);
+            Vector3 defenceVertex = Quaternion.Euler(0,0, -angleIncrement * 1) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Defense);
             int defenceVertexIndex = 2;
-            Vector3 mobilityVertex = Quaternion.Euler(0,0, -angleIncrement * 2) * Vector3.up * radarChartSize * stats.GetStatNormalized(Stats.Type.Mobility);
+            Vector3 mobilityVertex = Quaternion.Euler(0,0, -angleIncrement * 2) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Mobility);
             int mobilityVertexIndex = 3;
-            Vector3 CharismaVertex = Quaternion.Euler(0,0, -angleIncrement * 3) * Vector3.up * radarChartSize * stats.GetStatNormalized(Stats.Type.Charisma);
+            Vector3 CharismaVertex = Quaternion.Euler(0,0, -angleIncrement * 3) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Charisma);
             int charismaVertexIndex = 4;
-            Vector3 IntelligenceVertex = Quaternion.Euler(0,0, -angleIncrement * 4) * Vector3.up * radarChartSize * stats.GetStatNormalized(Stats.Type.Intelligence);
+            Vector3 IntelligenceVertex = Quaternion.Euler(0,0, -angleIncrement * 4) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Intelligence);
             int intelligenceVertexIndex = 5;
             
             uv[0] = Vector2.zero;
@@ -111,43 +104,6 @@ namespace _Game.Scripts
             
             radarMeshCanvasRenderer.SetMesh(mesh);
             radarMeshCanvasRenderer.SetMaterial(radarMaterial, radarTexture);
-            ColorMesh();
-        }
-
-        private void ColorMesh()
-        {
-            var attack = stats.GetStatAmount(Stats.Type.Attack);
-            var defense = stats.GetStatAmount(Stats.Type.Defense);
-            var mobility = stats.GetStatAmount(Stats.Type.Mobility);
-            var charisma = stats.GetStatAmount(Stats.Type.Charisma);
-            var intelligence = stats.GetStatAmount(Stats.Type.Intelligence);
-            
-            float totalStats = attack +
-                               defense +
-                               mobility +
-                               charisma +
-                               intelligence;
-            Color finalTint = Color.white; // Default neutral if no stats
-
-            if (totalStats > 0f)
-            {
-                finalTint = new Color(0,0,0, 0.6f); // Start black, add weighted colors
-
-                finalTint += (intelligence / totalStats) * intelligenceColor;
-                finalTint += (charisma / totalStats) * charismaColor;
-                finalTint += (attack / totalStats) * attackColor;
-                finalTint += (defense / totalStats) * defenseColor;
-                finalTint += (mobility / totalStats) * mobilityColor;
-            }
-
-      //      float maxTotal = Stats.STAT_MAX * 5; // Your max possible sum (e.g., 100 per stat)
-       //     finalTint *= Mathf.Clamp01(totalStats / maxTotal);
-
-        //    propertyBlock.SetColor("_Color", finalTint);
-        //    radarMeshCanvasRenderer.SetColor(finalTint); 
-        radarMeshCanvasRenderer.SetColor(finalTint);
-            radarMaterial.SetColor("_Color", finalTint);
-       //     radarMeshCanvasRenderer.SetColor(Color.red);
         }
         
         private void PlaceStatDots(Vector3[] vertices)
