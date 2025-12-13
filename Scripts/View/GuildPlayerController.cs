@@ -12,6 +12,19 @@ public enum GuildPlayerState
 
 public class GuildPlayerController : MonoBehaviour
 {
+    private static GuildPlayerController _instance;
+    public static GuildPlayerController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<GuildPlayerController>();
+            }
+            return _instance;
+        }
+    }
+
     [SerializeField] private CinemachineCamera mainCamera;
     [SerializeField] private FirstPersonController_Dreamscape playerController;
 
@@ -27,6 +40,19 @@ public class GuildPlayerController : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] private CharacterInventory inventory;
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     void Start()
     {
