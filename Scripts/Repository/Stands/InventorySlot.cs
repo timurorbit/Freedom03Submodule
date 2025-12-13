@@ -98,24 +98,13 @@ public class InventorySlot : Table
 
     private void ApplyStatModifierIfNeeded(GameObject itemObject)
     {
-        if (itemObject == null)
+        StatModifierBehaviour statModifierBehaviour = GetStatModifierBehaviour(itemObject);
+        if (statModifierBehaviour == null)
         {
             return;
         }
 
-        StatModifierBehaviour statModifierBehaviour = itemObject.GetComponent<StatModifierBehaviour>();
-        if (statModifierBehaviour == null || statModifierBehaviour.statModifier == null)
-        {
-            return;
-        }
-
-        MainTable mainTable = GetComponentInParent<MainTable>();
-        if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
-        {
-            return;
-        }
-
-        Hero hero = mainTable.currentHeroCardBehaviour.GetHero();
+        Hero hero = GetHeroFromMainTable();
         if (hero == null)
         {
             return;
@@ -126,29 +115,45 @@ public class InventorySlot : Table
 
     private void UnapplyStatModifierIfNeeded(GameObject itemObject)
     {
-        if (itemObject == null)
+        StatModifierBehaviour statModifierBehaviour = GetStatModifierBehaviour(itemObject);
+        if (statModifierBehaviour == null)
         {
             return;
         }
 
-        StatModifierBehaviour statModifierBehaviour = itemObject.GetComponent<StatModifierBehaviour>();
-        if (statModifierBehaviour == null || statModifierBehaviour.statModifier == null)
-        {
-            return;
-        }
-
-        MainTable mainTable = GetComponentInParent<MainTable>();
-        if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
-        {
-            return;
-        }
-
-        Hero hero = mainTable.currentHeroCardBehaviour.GetHero();
+        Hero hero = GetHeroFromMainTable();
         if (hero == null)
         {
             return;
         }
 
         statModifierBehaviour.statModifier.Unapply(hero.GetStats());
+    }
+
+    private StatModifierBehaviour GetStatModifierBehaviour(GameObject itemObject)
+    {
+        if (itemObject == null)
+        {
+            return null;
+        }
+
+        StatModifierBehaviour statModifierBehaviour = itemObject.GetComponent<StatModifierBehaviour>();
+        if (statModifierBehaviour == null || statModifierBehaviour.statModifier == null)
+        {
+            return null;
+        }
+
+        return statModifierBehaviour;
+    }
+
+    private Hero GetHeroFromMainTable()
+    {
+        MainTable mainTable = GetComponentInParent<MainTable>();
+        if (mainTable == null || mainTable.currentHeroCardBehaviour == null)
+        {
+            return null;
+        }
+
+        return mainTable.currentHeroCardBehaviour.GetHero();
     }
 }
