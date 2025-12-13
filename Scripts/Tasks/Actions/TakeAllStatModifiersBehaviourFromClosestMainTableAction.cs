@@ -10,7 +10,6 @@ public class TakeAllStatModifiersBehaviourFromClosestMainTableAction : Action
     [Header("Tween Settings")]
     [SerializeField] private float tweenDuration = 0.5f;
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
-    private Sequence currentSequence;
 
     public override void OnAwake()
     {
@@ -86,17 +85,12 @@ public class TakeAllStatModifiersBehaviourFromClosestMainTableAction : Action
             return;
         }
 
-        if (currentSequence != null && currentSequence.IsActive())
-        {
-            currentSequence.Kill();
-        }
-
         Vector3 targetPosition = Vector3.zero;
         Vector3 targetRotation = Vector3.zero;
 
-        currentSequence = DOTween.Sequence();
-        currentSequence.Append(statModifierTransform.DOLocalMove(targetPosition, tweenDuration).SetEase(tweenEase));
-        currentSequence.Join(statModifierTransform.DOLocalRotate(targetRotation, tweenDuration).SetEase(tweenEase));
-        currentSequence.SetAutoKill(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(statModifierTransform.DOLocalMove(targetPosition, tweenDuration).SetEase(tweenEase));
+        sequence.Join(statModifierTransform.DOLocalRotate(targetRotation, tweenDuration).SetEase(tweenEase));
+        sequence.SetAutoKill(true);
     }
 }
