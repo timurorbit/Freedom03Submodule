@@ -44,6 +44,7 @@ public class Board : Table
 
     public void addQuestToBoard(QuestResultBehaviour quest)
     {
+        quest.SwitchState(QuestResultState.Predicted);
         questsToTake.Add(quest);
     }
 

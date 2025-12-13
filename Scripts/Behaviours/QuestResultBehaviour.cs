@@ -67,6 +67,12 @@ public class QuestResultBehaviour : MonoBehaviour
             case QuestResultState.Assigned:
                 setActiveClosedView();
                 break;
+            case QuestResultState.Declined:
+                setActiveClosedView();
+                break;
+            case QuestResultState.Predicted:
+                setActiveOpenedView();
+                break;
         }
     }
 
