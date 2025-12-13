@@ -63,6 +63,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1330428885558877987}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &7750435573593459528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 127791739408149534}
+  m_Layer: 0
+  m_Name: InventoryItemsTranform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &127791739408149534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7750435573593459528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.001, y: 1.29, z: -0.245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1330428885558877987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2458935425402032406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46330,6 +46361,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3348471822617441817, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8728320009881792690}
+    - targetCorrespondingSourceObject: {fileID: 3348471822617441817, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 127791739408149534}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8683386879016584631, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       insertIndex: -1

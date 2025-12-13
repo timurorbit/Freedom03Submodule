@@ -1,4 +1,4 @@
-using _Game.Scripts.Behaviours;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroBehaviour : MonoBehaviour
@@ -7,6 +7,8 @@ public class HeroBehaviour : MonoBehaviour
     [SerializeField] public Transform heroCardPosition;
     [SerializeField] public HeroCardBehaviour heroCard;
     [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
+    [SerializeField] public List<StatModifierBehaviour> statModifiers = new List<StatModifierBehaviour>();
+    [SerializeField] public Transform statModifiersParent;
     [SerializeField] public bool Approved;
     
     [Header("Only for testing purposes")]
