@@ -1,11 +1,18 @@
+using UnityEngine;
+
 public class QuestResultTable : Table
 {
-    public QuestResult activeQuestResult;
-    public float activeQuestResultChance;
+    [Header("Positions")]
+    [SerializeField] private Transform currentQuestResultPosition;
+    [SerializeField] private Transform currentHeroCardPosition;
+    [SerializeField] private Transform currentActualQuestStatsBehaviourTransform;
     
     
-    public void SetActiveQuestResult(QuestResult questResult)
-    {
-        activeQuestResult = questResult;
-    }
+    [Header("Items")]
+    [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
+    [SerializeField] public HeroCardBehaviour currentHeroCardBehaviour;
+    [SerializeField] public HeroBehaviour currentHeroBehaviour;
+    [SerializeField] public ActualStatsBehaviour currentActualResultBehaviourScript;
+    
+    
 }

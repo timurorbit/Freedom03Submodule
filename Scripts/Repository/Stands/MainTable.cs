@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MainTable : Table
 {
-    public QuestResult currentResult;
-    public float resultChance;
-    
     [SerializeField] private Transform currentQuestResultPosition;
     [SerializeField] private Transform currentHeroCardPosition;
     

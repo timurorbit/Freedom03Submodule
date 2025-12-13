@@ -13,6 +13,7 @@ public class QuestResultBehaviour : MonoBehaviour
 
     [SerializeField] private GameObject openedView;
     [SerializeField] private GameObject closedView;
+    [SerializeField] private GameObject actualStatsView;
     [SerializeField] private Canvas canvasView;
     
     [FormerlySerializedAs("statsView")] [SerializeField] private QuestPredictionView questPredictionView; 
@@ -74,7 +75,16 @@ public class QuestResultBehaviour : MonoBehaviour
             case QuestResultState.Predicted:
                 setActiveOpenedView();
                 break;
+            case QuestResultState.Completed:
+                setActiveOpenedView();
+                setActiveActualStats();
+                break;
         }
+    }
+
+    private void setActiveActualStats()
+    {
+        actualStatsView.SetActive(true);
     }
 
     private void setActiveClosedView()
