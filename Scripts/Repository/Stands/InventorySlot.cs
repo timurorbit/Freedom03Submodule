@@ -47,7 +47,10 @@ public class InventorySlot : Table
             GameObject inventoryItem = playerController.GetFromInventory();
             if (inventoryItem != null)
             {
-                Add(inventoryItem);
+                if (!Add(inventoryItem))
+                {
+                    playerController.PutIntoInventory(inventoryItem);
+                }
             }
             else if (playerController.CanTakeItem() && item != null)
             {
