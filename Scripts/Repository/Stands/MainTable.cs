@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class MainTable : Table
     [SerializeField] public QuestResultBehaviour currentQuestResultBehaviour;
     [SerializeField] public HeroCardBehaviour currentHeroCardBehaviour;
     [SerializeField] public HeroBehaviour currentHeroBehaviour;
+
+    [SerializeField] public List<InventorySlot> inventorySlots;
 
     public void Approve()
     {
