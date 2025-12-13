@@ -51,4 +51,31 @@ public class StatModifier
                 break;
         }
     }
+
+    public void Unapply(Stats stats)
+    {
+        if (stats == null) return;
+
+        switch (type)
+        {
+            case StatModifierType.UpgradeRank:
+                stats.DowngradeRank();
+                break;
+            case StatModifierType.DowngradeRank:
+                stats.UpgradeRank();
+                break;
+            case StatModifierType.AddSkill:
+                stats.RemoveSkill(skillType, 5);
+                break;
+            case StatModifierType.RemoveSkill:
+                stats.AddSkill(skillType, 5);
+                break;
+            case StatModifierType.IncreaseReward:
+                stats.DecreaseReward(rewardAmount);
+                break;
+            case StatModifierType.DecreaseReward:
+                stats.IncreaseReward(rewardAmount);
+                break;
+        }
+    }
 }
