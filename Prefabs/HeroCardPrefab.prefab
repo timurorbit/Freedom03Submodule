@@ -1131,6 +1131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5641833450734037685}
     m_Modifications:
+    - target: {fileID: 1988653617327414995, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: radarMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c661006339406684c894c2d7fbbafea2, type: 2}
     - target: {fileID: 4766674486023648348, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -89,6 +89,7 @@ public class QuestResultBehaviour : MonoBehaviour
 
     private void setActiveActualStats()
     {
+        actualStatsView.GetComponent<ActualStatsBehaviour>().UpdateView(result.GetQuest());
         actualStatsView.SetActive(true);
     }
 

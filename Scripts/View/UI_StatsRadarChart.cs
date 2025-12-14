@@ -21,7 +21,7 @@ namespace _Game.Scripts
         
         private Stats stats;
         [SerializeField]
-        private CanvasRenderer radarMeshCanvasRenderer;
+        public CanvasRenderer radarMeshCanvasRenderer;
         private MaterialPropertyBlock propertyBlock;
 
         private void Awake()

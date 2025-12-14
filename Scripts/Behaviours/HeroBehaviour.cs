@@ -57,6 +57,7 @@ public class HeroBehaviour : MonoBehaviour
 
         if (state == QuestResultState.Assigned)
         {
+            Debug.LogError("Hero lifecycle has ended, going to die");
         }
     }
 }

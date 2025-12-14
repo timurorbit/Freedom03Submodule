@@ -579,6 +579,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6fca3d5b92f564185f52a9e62f95e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chart: {fileID: 3017997601428731296}
+  title: {fileID: 8850817785216291656}
+  background: {fileID: 4040558417403533465}
 --- !u!1 &6814598866882741829
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +788,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5005249081322350857}
     m_Modifications:
+    - target: {fileID: 1988653617327414995, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: radarMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 79fd0f4d2c4939a4b9e0bf244d173e32, type: 2}
     - target: {fileID: 4766674486023648348, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -881,23 +888,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterPenta
       objectReference: {fileID: 0}
-    - target: {fileID: 7823980409878531878, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
-      propertyPath: m_Color.b
-      value: 0.31639373
-      objectReference: {fileID: 0}
-    - target: {fileID: 7823980409878531878, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
-      propertyPath: m_Color.g
-      value: 0.31639373
-      objectReference: {fileID: 0}
-    - target: {fileID: 7823980409878531878, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
-      propertyPath: m_Color.r
-      value: 0.8490566
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+--- !u!114 &3017997601428731296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1988653617327414995, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+  m_PrefabInstance: {fileID: 3637511267339168627}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c223305d891f413a8fcc46119e0d5cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8096812461813931823 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4766674486023648348, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
