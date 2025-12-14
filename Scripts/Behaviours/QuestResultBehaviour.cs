@@ -30,6 +30,11 @@ public class QuestResultBehaviour : MonoBehaviour
         UpdateCanvasView();
     }
 
+    public GameObject getActualStatsView()
+    {
+        return actualStatsView;
+    }
+
     public void UpdateCanvasView()
     {
         var questTemplate = result.GetQuest().template;

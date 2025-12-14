@@ -25,7 +25,15 @@ public class SetCanInteractAction : Action
 
         if (ShouldPlaceHeroItems())
         {
-            heroBehaviour.PlaceHeroCardQuestResultInMainTable();
+            var questResult = heroBehaviour.currentQuestResultBehaviour.getQuestResult();
+            if (questResult.state == QuestResultState.Taken)
+            {
+                heroBehaviour.PlaceHeroCardQuestResultInMainTable();
+            }
+            else if (questResult.state == QuestResultState.Assigned)
+            {
+                heroBehaviour.PlaceHeroCardQuestResultActualStatsInResultTable();
+            }
         }
 
         characterBehaviour.SetCanInteract(canInteractValue);
@@ -42,6 +50,7 @@ public class SetCanInteractAction : Action
         }
         
         var questResult = heroBehaviour.currentQuestResultBehaviour.getQuestResult();
-        return questResult != null && questResult.state == QuestResultState.Taken;
+        return questResult != null && 
+               (questResult.state == QuestResultState.Taken || questResult.state == QuestResultState.Assigned);
     }
 }

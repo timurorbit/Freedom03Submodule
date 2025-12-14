@@ -10,23 +10,41 @@ public class HeroBehaviour : MonoBehaviour
     [SerializeField] public List<StatModifierBehaviour> statModifiers = new List<StatModifierBehaviour>();
     [SerializeField] public Transform statModifiersParent;
     [SerializeField] public bool Approved;
-    
-    [Header("Only for testing purposes")]
-    [SerializeField]
+
+    [Header("Only for testing purposes")] [SerializeField]
     public HeroObject baseHero;
-    
+
     public void PlaceHeroCardQuestResultInMainTable()
     {
         MainTable mainTable = GuildRepository.Instance.GetClosestTable<MainTable>();
-        
+
         if (mainTable == null)
         {
             Debug.LogWarning("HeroBehaviour: No MainTable found");
             return;
         }
-        
+
         mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
         mainTable.PlaceHero(this);
+    }
+
+
+    public void PlaceHeroCardQuestResultActualStatsInResultTable()
+    {
+        QuestResultTable questResultTable = GuildRepository.Instance.GetClosestTable<QuestResultTable>();
+
+        if (questResultTable == null)
+        {
+            Debug.LogWarning("HeroBehaviour: No QuestResultTable found");
+            return;
+        }
+
+        ActualStatsBehaviour actualStats = null;
+        actualStats = currentQuestResultBehaviour.getActualStatsView().GetComponent<ActualStatsBehaviour>();
+
+
+        questResultTable.PlaceHeroCardAndQuestResultAndQuestStats(heroCard, currentQuestResultBehaviour, actualStats);
+        questResultTable.currentHeroBehaviour = this;
     }
 
     public void HandleHeroInteraction()
@@ -39,7 +57,6 @@ public class HeroBehaviour : MonoBehaviour
 
         if (state == QuestResultState.Assigned)
         {
-            
         }
     }
 }
