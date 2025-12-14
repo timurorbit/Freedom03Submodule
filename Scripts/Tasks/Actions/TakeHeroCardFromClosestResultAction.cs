@@ -42,6 +42,12 @@ public class TakeHeroCardFromClosestResultAction : Action
             return TaskStatus.Failure;
         }
 
+        if (heroBehaviour.heroCardPosition == null)
+        {
+            Debug.LogWarning("TakeHeroCardFromClosestResultAction: heroCardPosition is null in HeroBehaviour");
+            return TaskStatus.Failure;
+        }
+
         heroCard.transform.SetParent(heroBehaviour.heroCardPosition);
         heroCard.SwitchState(false);
         TweenToPosition(heroCard.transform);
