@@ -22,6 +22,8 @@ public class QuestResultTable : Table
 
     [Header("Coverage")] [SerializeField]
     private float meshCoveragePercentage;
+    private CanvasRenderer currentQuestRadarRenderer;
+    [SerializeField] public GameObject dotPrefab;
 
     [SerializeField] public QuestResultTableCanvas questResultTableCanvas;
 
@@ -115,10 +117,10 @@ public class QuestResultTable : Table
             return;
         }
 
-        var actualRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
+        currentQuestRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
         var actualDotsParent = actualStatsChart.dotsParent;
 
-        if (actualRadarRenderer == null)
+        if (currentQuestRadarRenderer == null)
         {
             Debug.LogWarning("QuestResultTable: actualRadarRenderer is null");
             return;
@@ -126,9 +128,9 @@ public class QuestResultTable : Table
 
         Sequence sequence = DOTween.Sequence();
 
-        actualRadarRenderer.transform.SetParent(heroChart.transform);
-        sequence.Append(actualRadarRenderer.transform.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
-        sequence.Join(actualRadarRenderer.transform.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        currentQuestRadarRenderer.transform.SetParent(heroChart.transform);
+        sequence.Append(currentQuestRadarRenderer.transform.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        sequence.Join(currentQuestRadarRenderer.transform.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
 
         if (actualDotsParent != null)
         {
