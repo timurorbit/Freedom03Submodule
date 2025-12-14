@@ -10,12 +10,13 @@ public class QuestResultBehaviour : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private Image backArt;
+    [SerializeField] private TextMeshProUGUI goldRewardText;
 
     [SerializeField] private GameObject openedView;
     [SerializeField] private GameObject closedView;
     [SerializeField] private GameObject actualStatsView;
     [SerializeField] private Canvas canvasView;
-    
+
     [FormerlySerializedAs("statsView")] [SerializeField] private QuestPredictionView questPredictionView; 
 
     public void setQuest(Quest quest)
@@ -34,6 +35,11 @@ public class QuestResultBehaviour : MonoBehaviour
     {
         return actualStatsView;
     }
+    
+    public int getReward()
+    {
+        return result.GetQuest().template.stats.reward;
+    }
 
     public void UpdateCanvasView()
     {
@@ -41,6 +47,7 @@ public class QuestResultBehaviour : MonoBehaviour
         titleText.text = questTemplate.questTitle;
         description.text = questTemplate.questDescription;
         backArt.sprite = questTemplate.background;
+        goldRewardText.text = questTemplate.stats.reward.ToString();
         if (result.GetPrediction() != null)
         {
             questPredictionView.UpdateView(result.GetPrediction());

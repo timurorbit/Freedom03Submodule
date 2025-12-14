@@ -38,6 +38,7 @@ public class QuestResultTable : Table
     
     private GameObject currentDotInstance;
     private float originalFOV;
+    public bool successfulMission = false;
 
     public override void Interact()
     {
@@ -59,8 +60,7 @@ public class QuestResultTable : Table
         Vector3 objectCenterWorld = dotRenderer.bounds.center;
         Transform chartTransform = currentHeroBehaviour.heroCard.GetChart().radarMeshCanvasRenderer.transform;
         Vector3 localCenter = chartTransform.InverseTransformPoint(objectCenterWorld);
-        bool isInsideBounds = IsPointInMesh(mesh, localCenter);
-        Debug.LogError("Dot is inside mesh: " + isInsideBounds);
+        successfulMission = IsPointInMesh(mesh, localCenter);
     }
     
     private bool IsPointInMesh(Mesh mesh, Vector3 localPoint) {
@@ -298,10 +298,25 @@ public class QuestResultTable : Table
       //          currentDotInstance = null;
                   isTouching();
             }
-            questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.Calculated);
+            Results();
         });
 
         mainSequence.SetAutoKill(true);
+    }
+
+    private void Results()
+    {
+        questResultTableCanvas.setReward(currentQuestResultBehaviour.getReward());
+        questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.Calculated);
+        if (successfulMission)
+        {
+            //Feedback
+            GuildRepository.Instance.Gold += currentQuestResultBehaviour.getReward();
+        }
+        else
+        {
+            GuildRepository.Instance.Reputation -= 10;
+        }
     }
 
     private void AnimateDotMovement()

@@ -6,9 +6,20 @@ public class GuildRepository : MonoBehaviour
     private static GuildRepository instance;
     
     public static GuildRepository Instance => instance;
+    public int Gold { get; set; }
+    
+    public int Reputation { get; set; }
+
+    [SerializeField]
+    public int startingGold;
+    
+    [SerializeField]
+    public int startingReputation;
 
     private void Awake()
     {
+        Gold = startingGold;
+        Reputation = startingReputation;
         //TODO refactor
         if (instance == null)
         {
