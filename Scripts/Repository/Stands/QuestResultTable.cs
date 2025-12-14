@@ -18,6 +18,9 @@ public class QuestResultTable : Table
 
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
 
+    [Header("Coverage")] [SerializeField]
+    private float meshCoveragePercentage;
+
     public override void Interact()
     {
         var playerController = FindAnyObjectByType<GuildPlayerController>();
@@ -76,5 +79,76 @@ public class QuestResultTable : Table
     public void Clear()
     {
         currentHeroBehaviour = null;
+    }
+
+    public void MoveChartComponentsAndCalculateCoverage()
+    {
+        if (currentActualStatsBehaviour == null)
+        {
+            Debug.LogWarning("QuestResultTable: currentActualStatsBehaviour is null");
+            return;
+        }
+
+        if (currentHeroCardBehaviour == null)
+        {
+            Debug.LogWarning("QuestResultTable: currentHeroCardBehaviour is null");
+            return;
+        }
+
+        var actualStatsChart = currentActualStatsBehaviour.GetChart();
+        var heroChart = currentHeroCardBehaviour.GetChart();
+
+        if (actualStatsChart == null)
+        {
+            Debug.LogWarning("QuestResultTable: actualStatsChart is null");
+            return;
+        }
+
+        if (heroChart == null)
+        {
+            Debug.LogWarning("QuestResultTable: heroChart is null");
+            return;
+        }
+
+        var actualRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
+        var actualDotsParent = actualStatsChart.dotsParent;
+
+        if (actualRadarRenderer == null)
+        {
+            Debug.LogWarning("QuestResultTable: actualRadarRenderer is null");
+            return;
+        }
+
+        Sequence sequence = DOTween.Sequence();
+
+        actualRadarRenderer.transform.SetParent(heroChart.transform);
+        sequence.Append(actualRadarRenderer.transform.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        sequence.Join(actualRadarRenderer.transform.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
+
+        if (actualDotsParent != null)
+        {
+            actualDotsParent.SetParent(heroChart.transform);
+            sequence.Join(actualDotsParent.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
+            sequence.Join(actualDotsParent.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        }
+
+        sequence.OnComplete(() =>
+        {
+            float heroMeshArea = heroChart.CalculateMeshArea();
+            float actualStatsMeshArea = actualStatsChart.CalculateMeshArea();
+
+            if (heroMeshArea > 0f)
+            {
+                meshCoveragePercentage = (actualStatsMeshArea / heroMeshArea) * 100f;
+            }
+            else
+            {
+                meshCoveragePercentage = 0f;
+            }
+
+            Debug.Log($"Mesh Coverage Percentage: {meshCoveragePercentage}%");
+        });
+
+        sequence.SetAutoKill(true);
     }
 }

@@ -24,6 +24,11 @@ namespace _Game.Scripts
         public CanvasRenderer radarMeshCanvasRenderer;
         private MaterialPropertyBlock propertyBlock;
 
+        public Stats GetStats()
+        {
+            return stats;
+        }
+
         private void Awake()
         {
             propertyBlock = new MaterialPropertyBlock();
@@ -125,6 +130,33 @@ namespace _Game.Scripts
         
                 dot.SetActive(true);
             }
+        }
+
+        public float CalculateMeshArea()
+        {
+            if (stats == null)
+                return 0f;
+
+            float angleIncrement = 360f / 5;
+            float radarChartSize = 169f;
+            
+            Vector3[] vertices = new Vector3[6];
+            vertices[0] = Vector3.zero;
+            vertices[1] = Quaternion.Euler(0, 0, -angleIncrement * 0) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Attack);
+            vertices[2] = Quaternion.Euler(0, 0, -angleIncrement * 1) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Defense);
+            vertices[3] = Quaternion.Euler(0, 0, -angleIncrement * 2) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Mobility);
+            vertices[4] = Quaternion.Euler(0, 0, -angleIncrement * 3) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Charisma);
+            vertices[5] = Quaternion.Euler(0, 0, -angleIncrement * 4) * Vector3.up * radarChartSize * stats.GetStatNormalized(SkillType.Intelligence);
+
+            float totalArea = 0f;
+            for (int i = 1; i < 6; i++)
+            {
+                Vector3 v1 = vertices[i];
+                Vector3 v2 = vertices[i == 5 ? 1 : i + 1];
+                totalArea += 0.5f * Mathf.Abs(v1.x * v2.y - v2.x * v1.y);
+            }
+            
+            return totalArea;
         }
     }
 }

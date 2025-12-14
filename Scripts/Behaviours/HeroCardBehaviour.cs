@@ -16,6 +16,11 @@ public class HeroCardBehaviour : MonoBehaviour
     [SerializeField] private GameObject canvasView;
     [SerializeField] private UI_StatsRadarChart chart;
     
+    public UI_StatsRadarChart GetChart()
+    {
+        return chart;
+    }
+    
     public void SetHero(Hero hero)
     {
         this.hero = hero;
