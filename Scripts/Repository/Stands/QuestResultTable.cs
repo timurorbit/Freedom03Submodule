@@ -17,6 +17,9 @@ public class QuestResultTable : Table
 
     [Header("Tween Settings")] [SerializeField]
     private float tweenDuration = 0.5f;
+    
+    [SerializeField]
+    private QuestResultTableCanvas questResultTableCanvas;
 
 
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
@@ -34,10 +37,10 @@ public class QuestResultTable : Table
     [SerializeField] private float bouncesPerSecond = 2f;
     [SerializeField] private float minDistanceRatio = 0.3f;
     [SerializeField] private float maxDistanceRatio = 0.9f;
+    [SerializeField] private float forcePower = 35f;
     
     private GameObject currentDotInstance;
     private float originalFOV;
-    private const float RadarChartSize = 169f;
 
     public override void Interact()
     {
@@ -129,7 +132,7 @@ public class QuestResultTable : Table
             return;
         }
 
-        currentQuestRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
+        var currentQuestRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
         var actualDotsParent = actualStatsChart.dotsParent;
 
         if (currentQuestRadarRenderer == null)
@@ -165,14 +168,14 @@ public class QuestResultTable : Table
             {
                 meshCoveragePercentage = 0f;
             }
-
             questResultTableCanvas.UpdatePercentText();
+            ShowDotSequence();
             Debug.Log($"Mesh Coverage Percentage: {meshCoveragePercentage}%");
         });
         sequence.SetAutoKill(true);
     }
     
-    public void ShowDotSequence()
+    private void ShowDotSequence()
     {
         if (currentActualStatsBehaviour == null)
         {
@@ -210,7 +213,7 @@ public class QuestResultTable : Table
 
         Vector3 chartCenter = radarRenderer.transform.position;
         currentDotInstance = Instantiate(dotPrefab, chartCenter, Quaternion.identity, radarRenderer.transform);
-
+        currentDotInstance.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
         RectTransform dotRect = currentDotInstance.GetComponent<RectTransform>();
         if (dotRect != null)
         {
@@ -248,9 +251,10 @@ public class QuestResultTable : Table
         {
             if (currentDotInstance != null)
             {
-                Destroy(currentDotInstance);
-                currentDotInstance = null;
+       //         Destroy(currentDotInstance);
+      //          currentDotInstance = null;
             }
+            questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.Calculated);
         });
 
         mainSequence.SetAutoKill(true);
@@ -273,16 +277,17 @@ public class QuestResultTable : Table
         
         int numBounces = Mathf.CeilToInt(dotMoveDuration * bouncesPerSecond);
         
-        for (int i = 0; i < numBounces; i++)
+        Rigidbody rb = currentDotInstance.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            float randomDistance = Random.Range(RadarChartSize * minDistanceRatio, RadarChartSize * maxDistanceRatio);
-            Vector2 targetPosition = randomDirection * randomDistance;
-            
-            float moveDuration = dotMoveDuration / numBounces;
-            moveSequence.Append(dotRect.DOAnchorPos(targetPosition, moveDuration).SetEase(Ease.InOutQuad));
+            Vector3 forceDirection = new Vector3(Random.Range(-1f,1f),0, Random.Range(-1f,1f));  // Example: push right; or Random.insideUnitCircle for random
+            rb.AddForce(forceDirection * forcePower, ForceMode.Impulse);  // Impulse for instant push
         }
+    }
         
-        moveSequence.SetTarget(currentDotInstance.transform);
+        
+    public float GetMeshCoveragePercentage()
+    {
+        return meshCoveragePercentage;
     }
 }

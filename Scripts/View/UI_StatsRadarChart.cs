@@ -11,6 +11,9 @@ namespace _Game.Scripts
         public GameObject dotPrefab;        // Assign a UI Image with circle sprite in the inspector
         public Transform dotsParent;        // Optional: a parent object under your canvas
         public float dotSize = 12f;         // Size in pixels (for RectTransform)
+
+        [SerializeField]
+        private PhysicsMaterial bouncyMaterial;
         
         
         [SerializeField]
@@ -34,10 +37,59 @@ namespace _Game.Scripts
             propertyBlock = new MaterialPropertyBlock();
         }
 
-        public void setStats(Stats stats)
+        public void setStats(Stats stats, bool createCollider = false)
         {
             this.stats = stats;
-            UpdateStatsVisual();
+            UpdateStatsVisual(createCollider);
+        }
+
+private void CreateCollider(Vector2[] points)
+        {
+            // Create a parent for the boundary walls
+            GameObject boundaryParent = new GameObject("RadarBoundaries");
+            boundaryParent.transform.parent = radarMeshCanvasRenderer.transform;
+            boundaryParent.transform.localPosition = Vector3.zero;
+            boundaryParent.transform.localRotation = Quaternion.identity;
+            boundaryParent.transform.localScale = Vector3.one;
+
+            float height = 35f; // Height of the walls in Z (adjust as needed for your scene scale)
+            float thickness = 0.1f; // Thickness of the walls (small value for invisible walls)
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                Vector2 p1 = points[i];
+                Vector2 p2 = points[(i + 1) % points.Length];
+
+                Vector2 dir = p2 - p1;
+                float length = dir.magnitude;
+                Vector2 dirNormalized = dir.normalized;
+
+                Vector2 mid = (p1 + p2) / 2f;
+
+                // Perp points to the "left" of the direction vector
+                Vector2 perp = new Vector2(-dirNormalized.y, dirNormalized.x);
+
+                // Determine outward normal using radial direction from center (0,0)
+                Vector2 midDir = mid.normalized; // Outward radial direction
+                float dotWithRadial = Vector2.Dot(perp, midDir);
+
+                Vector2 outwardNormal = (dotWithRadial > 0) ? perp : -perp;
+
+                // Shift position outward by thickness/2 so inner face aligns with boundary
+                Vector3 shift = (Vector3)(outwardNormal * (thickness / 2f));
+
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                GameObject wall = new GameObject("Wall" + i);
+                wall.transform.parent = boundaryParent.transform;
+                wall.transform.localScale = new Vector3(1, 1, 1);
+                wall.transform.localPosition = new Vector3(mid.x, mid.y, 0) + shift;
+                wall.transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+                BoxCollider collider = wall.AddComponent<BoxCollider>();
+                collider.material = bouncyMaterial;
+                collider.size = new Vector3(length, thickness, height);
+            }
         }
 
         private void Stats_OnStatsChanged(object sender, EventArgs e)
@@ -45,7 +97,7 @@ namespace _Game.Scripts
             UpdateStatsVisual();
         }
 
-        public void UpdateStatsVisual()
+        public void UpdateStatsVisual(bool createCollider = false)
         {
             Mesh mesh = new Mesh();
             
@@ -80,7 +132,7 @@ namespace _Game.Scripts
             vertices[mobilityVertexIndex] = mobilityVertex;
             vertices[charismaVertexIndex] = CharismaVertex;
             vertices[intelligenceVertexIndex] = IntelligenceVertex;
-            PlaceStatDots(vertices);
+            PlaceStatDots(vertices, createCollider);
 
             triangles[0] = 0;
             triangles[1] = attackVertexIndex;
@@ -110,11 +162,12 @@ namespace _Game.Scripts
             radarMeshCanvasRenderer.SetMaterial(radarMaterial, radarTexture);
         }
         
-        private void PlaceStatDots(Vector3[] vertices)
+        private void PlaceStatDots(Vector3[] vertices, bool createCollider = false)
         {
             if (dotsParent != null)
                 foreach (Transform child in dotsParent) Destroy(child.gameObject);
-
+            
+            Vector2[] points = new Vector2[vertices.Length - 1];
 
             for (int i = 1; i < vertices.Length; i++)
             {
@@ -127,8 +180,13 @@ namespace _Game.Scripts
                 rt.anchorMin = new Vector2(0.5f, 0.5f);
                 rt.anchorMax = new Vector2(0.5f, 0.5f);
                 rt.pivot = new Vector2(0.5f, 0.5f);
-        
+                points[i - 1] = rt.anchoredPosition;
                 dot.SetActive(true);
+            }
+            
+            if (createCollider)
+            {
+                CreateCollider(points);
             }
         }
 
