@@ -144,17 +144,23 @@ public class QuestResultTable : Table
 
             if (heroMeshArea > 0f)
             {
-                meshCoveragePercentage = (actualStatsMeshArea / heroMeshArea) * 100f;
+                meshCoveragePercentage = (heroMeshArea / actualStatsMeshArea) * 100f;
+                meshCoveragePercentage = Mathf.Clamp(meshCoveragePercentage, 0f, 100f);
             }
             else
             {
                 meshCoveragePercentage = 0f;
             }
 
+            questResultTableCanvas.UpdatePercentText();
             Debug.Log($"Mesh Coverage Percentage: {meshCoveragePercentage}%");
         });
-
         sequence.SetAutoKill(true);
+    }
+
+    public void ShowDotSequence()
+    {
+        //
     }
     
     public float GetCoveragePercentage()
