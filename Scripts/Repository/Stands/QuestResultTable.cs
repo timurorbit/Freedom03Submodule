@@ -13,13 +13,17 @@ public class QuestResultTable : Table
     [SerializeField] public HeroBehaviour currentHeroBehaviour;
     [SerializeField] public ActualStatsBehaviour currentActualStatsBehaviour;
 
+
     [Header("Tween Settings")] [SerializeField]
     private float tweenDuration = 0.5f;
+
 
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
 
     [Header("Coverage")] [SerializeField]
     private float meshCoveragePercentage;
+
+    [SerializeField] public QuestResultTableCanvas questResultTableCanvas;
 
     public override void Interact()
     {
@@ -73,6 +77,7 @@ public class QuestResultTable : Table
             sequence.Join(actualStats.transform.DORotate(currentActualQuestStatsBehaviourTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
         }
         
+        questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.StatsShow);
         sequence.SetAutoKill(true);
     }
 
@@ -150,5 +155,10 @@ public class QuestResultTable : Table
         });
 
         sequence.SetAutoKill(true);
+    }
+    
+    public float GetCoveragePercentage()
+    {
+        return meshCoveragePercentage;
     }
 }
