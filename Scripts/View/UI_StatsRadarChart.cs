@@ -53,7 +53,7 @@ private void CreateCollider(Vector2[] points)
             boundaryParent.transform.localScale = Vector3.one;
 
             float height = 35f; // Height of the walls in Z (adjust as needed for your scene scale)
-            float thickness = 0.1f; // Thickness of the walls (small value for invisible walls)
+            float thickness = 0.4f; // Thickness of the walls (small value for invisible walls)
 
             for (int i = 0; i < points.Length; i++)
             {

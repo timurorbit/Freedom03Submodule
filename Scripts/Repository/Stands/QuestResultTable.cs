@@ -34,9 +34,6 @@ public class QuestResultTable : Table
     [SerializeField] private float zoomInFOV = 30f;
     [SerializeField] private float zoomDuration = 1f;
     [SerializeField] private float dotMoveDuration = 3f;
-    [SerializeField] private float bouncesPerSecond = 2f;
-    [SerializeField] private float minDistanceRatio = 0.3f;
-    [SerializeField] private float maxDistanceRatio = 0.9f;
     [SerializeField] private float forcePower = 35f;
     
     private GameObject currentDotInstance;
@@ -51,6 +48,52 @@ public class QuestResultTable : Table
         }
 
         base.Interact();
+    }
+    
+    
+    
+    public void isTouching()
+    {
+        Mesh mesh = currentHeroBehaviour.heroCard.GetChart().radarMeshCanvasRenderer.GetMesh();
+        Renderer dotRenderer = currentDotInstance.GetComponentInChildren<Renderer>();
+        Vector3 objectCenterWorld = dotRenderer.bounds.center;
+        Transform chartTransform = currentHeroBehaviour.heroCard.GetChart().radarMeshCanvasRenderer.transform;
+        Vector3 localCenter = chartTransform.InverseTransformPoint(objectCenterWorld);
+        bool isInsideBounds = IsPointInMesh(mesh, localCenter);
+        Debug.LogError("Dot is inside mesh: " + isInsideBounds);
+    }
+    
+    private bool IsPointInMesh(Mesh mesh, Vector3 localPoint) {
+        Vector3[] vertices = mesh.vertices;
+        int[] triangles = mesh.triangles;
+    
+        // Project to 2D (XY plane) for UI meshes
+        Vector2 point = new Vector2(localPoint.x, localPoint.y);
+    
+        // Simple raycast horizontally from the point and count intersections
+        int intersectionCount = 0;
+        for (int i = 0; i < triangles.Length; i += 3) {
+            Vector2 a = new Vector2(vertices[triangles[i]].x, vertices[triangles[i]].y);
+            Vector2 b = new Vector2(vertices[triangles[i + 1]].x, vertices[triangles[i + 1]].y);
+            Vector2 c = new Vector2(vertices[triangles[i + 2]].x, vertices[triangles[i + 2]].y);
+        
+            // Check each edge of the triangle
+            intersectionCount += CheckEdgeIntersection(point, a, b) ? 1 : 0;
+            intersectionCount += CheckEdgeIntersection(point, b, c) ? 1 : 0;
+            intersectionCount += CheckEdgeIntersection(point, c, a) ? 1 : 0;
+        }
+    
+        // Even-odd rule: odd intersections mean inside
+        return (intersectionCount % 2) == 1;
+    }
+
+    private bool CheckEdgeIntersection(Vector2 point, Vector2 start, Vector2 end) {
+        // Horizontal ray from point to infinity
+        if ((start.y > point.y) != (end.y > point.y) &&
+            (point.x < start.x + (end.x - start.x) * (point.y - start.y) / (end.y - start.y))) {
+            return true;
+        }
+        return false;
     }
 
     public void PlaceHeroCardAndQuestResultAndQuestStats(HeroCardBehaviour heroCard, QuestResultBehaviour questResult, ActualStatsBehaviour actualStats)
@@ -253,6 +296,7 @@ public class QuestResultTable : Table
             {
        //         Destroy(currentDotInstance);
       //          currentDotInstance = null;
+                  isTouching();
             }
             questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.Calculated);
         });
@@ -273,14 +317,10 @@ public class QuestResultTable : Table
         if (dotRect == null)
             return;
         
-        Sequence moveSequence = DOTween.Sequence();
-        
-        int numBounces = Mathf.CeilToInt(dotMoveDuration * bouncesPerSecond);
-        
         Rigidbody rb = currentDotInstance.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 forceDirection = new Vector3(Random.Range(-1f,1f),0, Random.Range(-1f,1f));  // Example: push right; or Random.insideUnitCircle for random
+            Vector3 forceDirection = new Vector3(Random.Range(-.7f,.7f),0, Random.Range(-.7f,.7f));  // Example: push right; or Random.insideUnitCircle for random
             rb.AddForce(forceDirection * forcePower, ForceMode.Impulse);  // Impulse for instant push
         }
     }
