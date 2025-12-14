@@ -14,8 +14,10 @@ public class QuestResultTable : Table
     [SerializeField] public HeroBehaviour currentHeroBehaviour;
     [SerializeField] public ActualStatsBehaviour currentActualStatsBehaviour;
 
+
     [Header("Tween Settings")] [SerializeField]
     private float tweenDuration = 0.5f;
+
 
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
 
@@ -89,6 +91,7 @@ public class QuestResultTable : Table
             sequence.Join(actualStats.transform.DORotate(currentActualQuestStatsBehaviourTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
         }
         
+        questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.StatsShow);
         sequence.SetAutoKill(true);
     }
 
@@ -126,10 +129,10 @@ public class QuestResultTable : Table
             return;
         }
 
-        var actualRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
+        currentQuestRadarRenderer = actualStatsChart.radarMeshCanvasRenderer;
         var actualDotsParent = actualStatsChart.dotsParent;
 
-        if (actualRadarRenderer == null)
+        if (currentQuestRadarRenderer == null)
         {
             Debug.LogWarning("QuestResultTable: actualRadarRenderer is null");
             return;
@@ -137,9 +140,9 @@ public class QuestResultTable : Table
 
         Sequence sequence = DOTween.Sequence();
 
-        actualRadarRenderer.transform.SetParent(heroChart.transform);
-        sequence.Append(actualRadarRenderer.transform.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
-        sequence.Join(actualRadarRenderer.transform.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        currentQuestRadarRenderer.transform.SetParent(heroChart.transform);
+        sequence.Append(currentQuestRadarRenderer.transform.DOLocalMove(Vector3.zero, tweenDuration).SetEase(tweenEase));
+        sequence.Join(currentQuestRadarRenderer.transform.DOLocalRotate(Vector3.zero, tweenDuration).SetEase(tweenEase));
 
         if (actualDotsParent != null)
         {
@@ -155,16 +158,17 @@ public class QuestResultTable : Table
 
             if (heroMeshArea > 0f)
             {
-                meshCoveragePercentage = (actualStatsMeshArea / heroMeshArea) * 100f;
+                meshCoveragePercentage = (heroMeshArea / actualStatsMeshArea) * 100f;
+                meshCoveragePercentage = Mathf.Clamp(meshCoveragePercentage, 0f, 100f);
             }
             else
             {
                 meshCoveragePercentage = 0f;
             }
 
+            questResultTableCanvas.UpdatePercentText();
             Debug.Log($"Mesh Coverage Percentage: {meshCoveragePercentage}%");
         });
-
         sequence.SetAutoKill(true);
     }
     
