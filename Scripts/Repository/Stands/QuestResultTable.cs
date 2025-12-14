@@ -29,9 +29,13 @@ public class QuestResultTable : Table
     [SerializeField] private float zoomInFOV = 30f;
     [SerializeField] private float zoomDuration = 1f;
     [SerializeField] private float dotMoveDuration = 3f;
+    [SerializeField] private float bouncesPerSecond = 2f;
+    [SerializeField] private float minDistanceRatio = 0.3f;
+    [SerializeField] private float maxDistanceRatio = 0.9f;
     
     private GameObject currentDotInstance;
     private float originalFOV;
+    private const float RadarChartSize = 169f;
 
     public override void Interact()
     {
@@ -260,17 +264,15 @@ public class QuestResultTable : Table
         RectTransform dotRect = currentDotInstance.GetComponent<RectTransform>();
         if (dotRect == null)
             return;
-
-        float radarChartSize = 169f;
         
         Sequence moveSequence = DOTween.Sequence();
         
-        int numBounces = Mathf.CeilToInt(dotMoveDuration * 2);
+        int numBounces = Mathf.CeilToInt(dotMoveDuration * bouncesPerSecond);
         
         for (int i = 0; i < numBounces; i++)
         {
             Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            float randomDistance = Random.Range(radarChartSize * 0.3f, radarChartSize * 0.9f);
+            float randomDistance = Random.Range(RadarChartSize * minDistanceRatio, RadarChartSize * maxDistanceRatio);
             Vector2 targetPosition = randomDirection * randomDistance;
             
             float moveDuration = dotMoveDuration / numBounces;
