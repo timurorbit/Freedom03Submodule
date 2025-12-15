@@ -14,6 +14,8 @@ public enum GuildPlayerState
 public class GuildPlayerController : MonoBehaviour
 {
     private static GuildPlayerController _instance;
+
+    private CursorManager cursorManager;
     public static GuildPlayerController Instance
     {
         get
@@ -36,6 +38,7 @@ public class GuildPlayerController : MonoBehaviour
     [SerializeField] private Canvas questTableCanvas;
     [SerializeField] private Canvas mainTableCanvas;
     [SerializeField] private Canvas resultTableCanvas;
+    [SerializeField] private Canvas shopCanvas;
     
     private GuildPlayerState currentState = GuildPlayerState.Default;
 
@@ -59,6 +62,10 @@ public class GuildPlayerController : MonoBehaviour
 
     void Start()
     {
+        if (cursorManager == null)
+        {
+            cursorManager = GetComponent<CursorManager>();
+        }
         if (playerController == null)
         {
             playerController = GetComponent<FirstPersonController_Dreamscape>();
@@ -114,8 +121,6 @@ public class GuildPlayerController : MonoBehaviour
                 if (playerController != null)
                 {
                     playerController.enabled = true;
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
                 }
                 break;
             case GuildPlayerState.MainTable:
@@ -126,8 +131,6 @@ public class GuildPlayerController : MonoBehaviour
                 if (playerController != null)
                 {
                     playerController.enabled = false;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.Confined;
                 }
                 break;
             case GuildPlayerState.QuestTable:
@@ -138,18 +141,15 @@ public class GuildPlayerController : MonoBehaviour
                 if (playerController != null)
                 {
                     playerController.enabled = false;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.Confined;
                 }
                 break;
             case GuildPlayerState.QuestResultTable:
                 resultTableCamera.gameObject.SetActive(true);
                 resultTableCanvas.gameObject.SetActive(true);
                 playerController.enabled = false;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
                 break;       
         }
+        cursorManager.SwitchCursorState(newState);
     }
     
     public void SetActiveQuestCamera(bool active)
