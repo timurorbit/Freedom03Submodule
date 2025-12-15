@@ -2724,6 +2724,10 @@ PrefabInstance:
       propertyPath: 'm_Data.m_LogicNodePropertiesData.Array.data[5].m_Values.Array.data[47]'
       value: 67
       objectReference: {fileID: 0}
+    - target: {fileID: 6644428882257719204, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+      propertyPath: modelTransform
+      value: 
+      objectReference: {fileID: 1022294483881263041}
     - target: {fileID: 8683386879016584631, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: m_Name
       value: Peasant
@@ -3033,7 +3037,8 @@ PrefabInstance:
       value: 0.57735026
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6110892675533259320, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3348471822617441817, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       insertIndex: -1
@@ -3043,6 +3048,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4808132844005982893}
   m_SourcePrefab: {fileID: 100100000, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+--- !u!4 &1022294483881263041 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5702560035743775340, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+  m_PrefabInstance: {fileID: 4687256866576516525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4147231506669994010 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8683386879016584631, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}

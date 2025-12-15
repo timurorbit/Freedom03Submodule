@@ -7,4 +7,6 @@ public class TestQuestList : ScriptableObject
     public List<QuestObject> questTemplates = new List<QuestObject>();
     
     public List<HeroObject> heroTemplates = new List<HeroObject>();
+    
+    public List<CharacterObject> characterTemplates = new List<CharacterObject>();
 }

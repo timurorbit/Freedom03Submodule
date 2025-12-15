@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 7750435573593459528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 1.29, z: -0.245}
+  m_LocalPosition: {x: 0.168, y: 0.919, z: -0.135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -215,9 +215,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4100659781103160442, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+      propertyPath: m_Name
+      value: ModelTranform
+      objectReference: {fileID: 0}
     - target: {fileID: 5982657402597110995, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: m_Data.m_UniqueID
       value: 1049154655
+      objectReference: {fileID: 0}
+    - target: {fileID: 5982657402597110995, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
+      propertyPath: m_PauseWhenDisabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5982657402597110995, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: m_Data.m_TaskData.Array.size
@@ -55270,11 +55278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8860102801898547387, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: bakeKeys.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8860102801898547387, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: bakeValues.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8860102801898547387, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       propertyPath: 'bakeKeys.Array.data[0]'
@@ -55573,7 +55581,8 @@ PrefabInstance:
       value: 0.57735026
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6110892675533259320, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3348471822617441817, guid: fb4f2bf021aa6ac47850afcd51f8522c, type: 3}
       insertIndex: -1

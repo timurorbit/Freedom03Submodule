@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using _Game.Scripts.Behaviours;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class TestingDay : MonoBehaviour
 {
@@ -64,11 +64,13 @@ public class TestingDay : MonoBehaviour
             var heroTemplate = heroTemplates[i];
             yield return new WaitForSeconds(1f);
             var peasant = Instantiate(returningHeroPrefab, transform);
+            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+            characterBehaviour.Initialize(heroTemplate);
+            
             var behaviour = peasant.GetComponent<HeroBehaviour>();
             var hero = new Hero(heroTemplate);
             behaviour.heroCard.SetHero(hero);
             behaviour.heroCard.SwitchState(false);
-            
             
             // Add stat modifier
             var statModifier = Instantiate(statModifierPrefab, behaviour.statModifiersParent.transform);
@@ -94,6 +96,8 @@ public class TestingDay : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             var peasant = Instantiate(heroPrefab, transform);
+            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+            characterBehaviour.Initialize(heroTemplate);
             var behaviour = peasant.GetComponent<HeroBehaviour>();
             var hero = new Hero(heroTemplate);
             behaviour.heroCard.SetHero(hero);
@@ -124,6 +128,8 @@ public class TestingDay : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             var peasant = Instantiate(peasantPrefab, transform);
+            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+            characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
             var behaviour = peasant.GetComponent<PeasantBehaviour>();
             var quest = new Quest(questTemplate);
             behaviour.questResultBehaviour.setQuest(quest);

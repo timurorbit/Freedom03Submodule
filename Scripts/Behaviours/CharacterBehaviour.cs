@@ -17,7 +17,8 @@ namespace _Game.Scripts.Behaviours
         public CharacterState characterState;
         private float speedVelocity;
         
-        
+        [SerializeField]
+        public Transform modelTransform;
         
         [SerializeField]
         private Outline outline;
@@ -41,6 +42,23 @@ namespace _Game.Scripts.Behaviours
                 outline = GetComponent<Outline>();
             }
         }
+
+        public void Initialize(CharacterObject characterObject)
+        {
+            Instantiate(characterObject.characterPrefab, modelTransform);
+            animator = GetComponentInChildren<Animator>();
+            if (agent == null)
+            {
+                agent = GetComponent<NavMeshAgent>();
+            }
+
+            if (outline == null)
+            {
+                outline = GetComponent<Outline>();
+            }
+
+            outline.RefreshOutlines();
+        }
         
         private void Start()
         {
@@ -56,6 +74,8 @@ namespace _Game.Scripts.Behaviours
         {
             switch (characterState)
             {
+                case CharacterState.Created:
+                    break;
                 case CharacterState.Idle:
                     animator.SetFloat("Speed", 0, 0.15f, Time.deltaTime);
                     break;
@@ -161,6 +181,7 @@ namespace _Game.Scripts.Behaviours
 
     public enum CharacterState
     {
+        Created,
         Idle,
         MovingToTarget,
         Interacted,
