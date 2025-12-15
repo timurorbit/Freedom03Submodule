@@ -40,6 +40,8 @@ public class GuildRepository : MonoBehaviour
 
     [SerializeField] private List<GameObject> questPlaces;
     
+    [SerializeField] private List<Shelf> shelves;
+    
     private GuildHall hall;
 
     private GuildRepository()
