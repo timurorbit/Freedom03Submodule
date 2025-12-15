@@ -412,13 +412,12 @@ MonoBehaviour:
   unlockedState: {fileID: 6622933172565893152}
   ReputationText: {fileID: 5286673005359503651}
   PriceText: {fileID: 8558376332753018912}
-  IconImage: {fileID: 5334915623930106430}
   shopSlotType: 0
   correspondingObjectToActivate: []
+  statModifierToCreateAndAdd: {fileID: 0}
   bought: 0
   reputationRequirement: 0
   priceRequirement: 0
-  imageSprite: {fileID: 0}
 --- !u!1 &6622933172565893152
 GameObject:
   m_ObjectHideFlags: 0

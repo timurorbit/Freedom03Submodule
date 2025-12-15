@@ -193,6 +193,16 @@ public class GuildRepository : MonoBehaviour
 
         return null;
     }
+
+    public bool addPotionToSlot(GameObject potion, InventorySlot slot)
+    {
+        if (slot == null)
+        {
+            return false;
+        }
+
+        return slot.Add(potion);
+    }
 }
 
 public class GuildHall

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8968087814714227875}
+  - component: {fileID: 3240605918568098372}
   m_Layer: 0
   m_Name: Shelf
   m_TagString: Untagged
@@ -40,6 +41,19 @@ Transform:
   - {fileID: 3198900687271011775}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &3240605918568098372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182218814068531774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc249de15f24b54b3bf135e76788dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
 --- !u!1001 &492791278714736283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52,10 +66,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShelfSlot (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 5449193206684126723}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
@@ -105,15 +115,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
---- !u!1 &5449193206684126723 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 492791278714736283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7703580088672422414 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7799709301045740693, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -136,10 +142,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShelfSlot (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 4921304265934227161}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
@@ -189,15 +191,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
---- !u!1 &4921304265934227161 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 649133458442749505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7294720030911578836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7799709301045740693, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -220,10 +218,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShelfSlot (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 6122784763632104411}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
@@ -273,15 +267,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
---- !u!1 &6122784763632104411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 1851352294313292611}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7171508147779651889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8806511652214946418, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -389,10 +379,6 @@ PrefabInstance:
       value: ShelfSlot (6)
       objectReference: {fileID: 0}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 992295920225548650}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
       objectReference: {fileID: 3220820293474483559}
@@ -441,15 +427,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
---- !u!1 &992295920225548650 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 4651238436241291762}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3220820293474483559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7799709301045740693, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -472,10 +454,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShelfSlot (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 1952899628466986837}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
@@ -525,15 +503,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
---- !u!1 &1952899628466986837 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 6220531608724086733}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3198900687271011775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8806511652214946418, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -641,10 +615,6 @@ PrefabInstance:
       value: ShelfSlot (4)
       objectReference: {fileID: 0}
     - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 3224121887187905183}
-    - target: {fileID: 5591397233055167618, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
       propertyPath: objectPosition
       value: 
       objectReference: {fileID: 993484458765266578}
@@ -693,7 +663,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
@@ -705,11 +676,6 @@ Transform:
 --- !u!4 &1999792991088889973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8806511652214946418, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
-  m_PrefabInstance: {fileID: 7059307277281880583}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3224121887187905183 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5569214785520844952, guid: 5b09ff02bd6eb55458296114be38911b, type: 3}
   m_PrefabInstance: {fileID: 7059307277281880583}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8014367584386162917

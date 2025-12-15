@@ -17,6 +17,8 @@ namespace _Game.Scripts.Behaviours
         public CharacterState characterState;
         private float speedVelocity;
         
+        
+        
         [SerializeField]
         private Outline outline;
 
