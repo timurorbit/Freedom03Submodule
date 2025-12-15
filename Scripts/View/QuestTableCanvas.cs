@@ -45,6 +45,7 @@ public class QuestTableCanvas : MonoBehaviour
     
     public void Left()
     {
+        //Feedback Page moved
         if (questTable == null)
             return;
 
@@ -77,6 +78,7 @@ public class QuestTableCanvas : MonoBehaviour
 
     public void Right()
     {
+        // Feedback page moved
         if (questTable == null)
             return;
 
@@ -107,8 +109,8 @@ public class QuestTableCanvas : MonoBehaviour
             attack,
             defense,
             mobility,
-            intelligence,
             charisma,
+            intelligence,
             0);
         currentQuest.setPrediction(stats);
         currentQuest.SwitchState(newState);
