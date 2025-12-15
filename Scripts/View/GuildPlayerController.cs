@@ -8,7 +8,8 @@ public enum GuildPlayerState
     Default,
     MainTable,
     QuestTable,
-    QuestResultTable
+    QuestResultTable,
+    Shop
 }
 
 public class GuildPlayerController : MonoBehaviour
@@ -109,6 +110,12 @@ public class GuildPlayerController : MonoBehaviour
                 if (resultTableCanvas != null)
                     resultTableCanvas.gameObject.SetActive(false);
                 break;
+            case GuildPlayerState.Shop:
+                if (shopCanvas != null)
+                {
+                    shopCanvas.gameObject.SetActive(false);
+                }
+                break;
         }
         
         // Activate new state
@@ -147,7 +154,11 @@ public class GuildPlayerController : MonoBehaviour
                 resultTableCamera.gameObject.SetActive(true);
                 resultTableCanvas.gameObject.SetActive(true);
                 playerController.enabled = false;
-                break;       
+                break;
+            case GuildPlayerState.Shop:
+                playerController.enabled = false;
+                shopCanvas.gameObject.SetActive(true);
+                break;
         }
         cursorManager.SwitchCursorState(newState);
     }
@@ -169,6 +180,11 @@ public class GuildPlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SwitchState(GuildPlayerState.Default);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SwitchState(GuildPlayerState.Shop);
         }
     }
 
