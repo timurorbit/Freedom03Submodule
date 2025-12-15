@@ -22,6 +22,7 @@ namespace _Game.Scripts.Behaviours
 
         private void SetHeroApproval(bool approved)
         {
+            // Feedback to approve/reject button press
             if (_mainTable.currentHeroBehaviour == null)
             {
                 Debug.LogWarning("No hero selected");
