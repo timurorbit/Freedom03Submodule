@@ -171,6 +171,28 @@ public class GuildRepository : MonoBehaviour
             questResultTables.Add(table);
         }
     }
+
+    public InventorySlot GetFreeSlotFromShelves()
+    {
+        if (shelves == null || shelves.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var shelf in shelves)
+        {
+            if (shelf != null && shelf.gameObject.activeInHierarchy)
+            {
+                InventorySlot freeSlot = shelf.getFreeSlot();
+                if (freeSlot != null)
+                {
+                    return freeSlot;
+                }
+            }
+        }
+
+        return null;
+    }
 }
 
 public class GuildHall

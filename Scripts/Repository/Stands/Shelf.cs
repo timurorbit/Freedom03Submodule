@@ -15,6 +15,13 @@
 
      public InventorySlot getFreeSlot()
      {
+         foreach (var slot in slots)
+         {
+             if (slot.GetItem() == null)
+             {
+                 return slot;
+             }
+         }
          return null;
      }
  }
