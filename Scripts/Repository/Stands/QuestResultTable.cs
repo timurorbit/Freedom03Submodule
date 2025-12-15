@@ -310,12 +310,12 @@ public class QuestResultTable : Table
         questResultTableCanvas.UpdateView(QuestResultTableCanvas.QuestResultCanvasStage.Calculated);
         if (successfulMission)
         {
-            //Feedback
+            // Feedback win
             GuildRepository.Instance.Gold += currentQuestResultBehaviour.getReward();
         }
         else
         {
-            GuildRepository.Instance.Reputation -= 10;
+            // Feedback loss
         }
     }
 
