@@ -17,6 +17,12 @@ namespace _Game.Scripts.Behaviours
         public CharacterState characterState;
         private float speedVelocity;
         
+        [Header("Idle Animation")]
+        [SerializeField] private float minIdleTimeBeforeAnimation = 3f;
+        [SerializeField] private float maxIdleTimeBeforeAnimation = 8f;
+        private float idleTimer = 0f;
+        private float nextIdleAnimationTime;
+        
         [SerializeField]
         public Transform modelTransform;
         
@@ -63,6 +69,7 @@ namespace _Game.Scripts.Behaviours
         private void Start()
         {
             agent.avoidancePriority = Random.Range(AgentPriorityRange.x, AgentPriorityRange.y + 1);
+            ResetIdleTimer();
         }
 
         public void Update()
@@ -77,16 +84,18 @@ namespace _Game.Scripts.Behaviours
                 case CharacterState.Created:
                     break;
                 case CharacterState.Idle:
-                    animator.SetFloat("Speed", 0, 0.15f, Time.deltaTime);
+                    animator.SetFloat(Constants.ANIMATOR_SPEED, 0, 0.15f, Time.deltaTime);
+                    UpdateIdleAnimation();
                     break;
                 case CharacterState.MovingToTarget:
-                    animator.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
+                    animator.SetFloat(Constants.ANIMATOR_SPEED, 1, 0.15f, Time.deltaTime);
                     agent.speed = Mathf.SmoothDamp(
                         agent.speed,
                         runSpeed,
                         ref speedVelocity,
                         0.15f
                     );
+                    ResetIdleTimer();
                     break;
             }
         }
@@ -175,6 +184,38 @@ namespace _Game.Scripts.Behaviours
                 return;
             }
             _canInteract = value;
+        }
+
+        private void UpdateIdleAnimation()
+        {
+            idleTimer += Time.deltaTime;
+            
+            if (idleTimer >= nextIdleAnimationTime)
+            {
+                TriggerRandomIdleAnimation();
+                ResetIdleTimer();
+            }
+        }
+
+        private void TriggerRandomIdleAnimation()
+        {
+            if (animator == null) return;
+            
+            int randomTrigger = Random.Range(0, 2);
+            if (randomTrigger == 0)
+            {
+                animator.SetTrigger(Constants.ANIMATOR_IDLE_TRIGGER_1);
+            }
+            else
+            {
+                animator.SetTrigger(Constants.ANIMATOR_IDLE_TRIGGER_2);
+            }
+        }
+
+        private void ResetIdleTimer()
+        {
+            idleTimer = 0f;
+            nextIdleAnimationTime = Random.Range(minIdleTimeBeforeAnimation, maxIdleTimeBeforeAnimation);
         }
         
     }
