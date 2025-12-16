@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _Game.Scripts.Behaviours;
+using MoreMountains.Feedbacks;
 
 public class PileResults : MonoBehaviour, IInteractable
 {
@@ -9,6 +10,9 @@ public class PileResults : MonoBehaviour, IInteractable
 
     [SerializeField]
     private readonly Stack<QuestResultBehaviour> results = new();
+    
+    
+    [Header("Feedbacks")] public MMF_Player takeQuestFeedback;
 
     private bool _canInteract = false;
     public bool canInteract => _canInteract;
@@ -29,6 +33,7 @@ public class PileResults : MonoBehaviour, IInteractable
         var playerController = FindAnyObjectByType<GuildPlayerController>();
         if (playerController.CanTakeItem())
         {
+            takeQuestFeedback?.PlayFeedbacks();
             playerController.PutIntoInventory(Take().gameObject); 
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,13 @@ public class QuestTableCanvas : MonoBehaviour
     [SerializeField] private Toggle charismaToggle;
     
     [SerializeField] private DropdownRankOptions rankDropdown;
+    
+    
+    [Header("Feedbacks")]
+    /// a MMF_Player to play when the Hero starts jumping
+    public MMF_Player AddFeedback;
+    /// a MMF_Player to play when the Hero lands after a jump
+    public MMF_Player nextScrollFeedback;
 
     private void Start()
     {
@@ -45,11 +53,11 @@ public class QuestTableCanvas : MonoBehaviour
     
     public void Left()
     {
-        //Feedback Page moved
         if (questTable == null)
             return;
 
         var currentQuest = questTable.TakeFromInspection();
+        nextScrollFeedback?.PlayFeedbacks();
         
         if (currentQuest != null)
         {
@@ -78,9 +86,9 @@ public class QuestTableCanvas : MonoBehaviour
 
     public void Right()
     {
-        // Feedback page moved
         if (questTable == null)
             return;
+        nextScrollFeedback?.PlayFeedbacks();
 
         var currentQuest = questTable.TakeFromInspection();
         

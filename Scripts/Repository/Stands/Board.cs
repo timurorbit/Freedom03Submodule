@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Board : Table
@@ -8,6 +9,7 @@ public class Board : Table
     [Header("Tween Settings")]
     [SerializeField] private float tweenDuration = 0.5f;
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
+    [SerializeField] private MMF_Player pinningFeedback;
     
     [Header("Board Position Settings")]
     [SerializeField] private Transform boardReferenceTransform;
@@ -70,6 +72,7 @@ public class Board : Table
         {
             return;
         }
+        pinningFeedback?.PlayFeedbacks();
         var item = playerController.GetFromInventory();
         AddItemToBoard(item);
         base.Interact();
