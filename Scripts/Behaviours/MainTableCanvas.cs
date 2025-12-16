@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ namespace _Game.Scripts.Behaviours
 
         
         [SerializeField] private Button rejectButton;
+        
+        [Header("Feedbacks")]
+        [SerializeField] private MMF_Player approveFeedback;
+        [SerializeField] private MMF_Player rejectFeedback;
 
         public void UpdateView()
         {
@@ -30,6 +35,14 @@ namespace _Game.Scripts.Behaviours
             }
             var behaviour = _mainTable.currentHeroBehaviour;
             behaviour.Approved = approved;
+            if (approved)
+            {
+                approveFeedback?.PlayFeedbacks();
+            }
+            else
+            {
+                rejectFeedback?.PlayFeedbacks();
+            }
             _mainTable.Clear();
             behaviour.GetComponent<CharacterBehaviour>().Interact();
         }

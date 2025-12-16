@@ -1,5 +1,7 @@
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InventorySlot : Table
 {
@@ -13,6 +15,13 @@ public class InventorySlot : Table
     [SerializeField] private Ease tweenEase = Ease.OutQuad;
     private Sequence currentSequence;
     private MainTable mainTable;
+    
+    
+    [Header("Feedbacks")]
+    [SerializeField]
+    private MMF_Player addPotionFeedback;
+    [SerializeField]
+    private MMF_Player takePotionFeedback;
 
     public bool Add(GameObject itemToAdd)
     {
@@ -24,6 +33,10 @@ public class InventorySlot : Table
         item = itemToAdd;
         item.transform.SetParent(objectPosition);
         TweenToPosition(item.transform);
+        if (item.GetComponent<StatModifierBehaviour>())
+        {
+            addPotionFeedback?.PlayFeedbacks();
+        }
         
         ApplyStatModifierIfNeeded(itemToAdd);
         
@@ -38,6 +51,10 @@ public class InventorySlot : Table
         }
 
         GameObject takenItem = item;
+        if (item.GetComponent<StatModifierBehaviour>())
+        {
+            takePotionFeedback?.PlayFeedbacks();
+        }
         
         UnapplyStatModifierIfNeeded(takenItem);
         

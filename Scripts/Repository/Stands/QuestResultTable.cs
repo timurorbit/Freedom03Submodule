@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -39,6 +40,12 @@ public class QuestResultTable : Table
     private GameObject currentDotInstance;
     private float originalFOV;
     public bool successfulMission = false;
+    
+    [Header("Feedbacks")]
+    [SerializeField]
+    private MMF_Player successFeedback;
+    [SerializeField]
+    private MMF_Player failedFeedback;
 
     public override void Interact()
     {
@@ -61,6 +68,14 @@ public class QuestResultTable : Table
         Transform chartTransform = currentHeroBehaviour.heroCard.GetChart().radarMeshCanvasRenderer.transform;
         Vector3 localCenter = chartTransform.InverseTransformPoint(objectCenterWorld);
         successfulMission = IsPointInMesh(mesh, localCenter);
+        if (successfulMission)
+        {
+            successFeedback?.PlayFeedbacks();
+        }
+        else
+        {
+            failedFeedback?.PlayFeedbacks();
+        }
     }
     
     private bool IsPointInMesh(Mesh mesh, Vector3 localPoint) {
