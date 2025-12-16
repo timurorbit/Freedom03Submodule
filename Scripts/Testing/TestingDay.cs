@@ -36,7 +36,7 @@ public class TestingDay : MonoBehaviour
     {
         if (PopulatePeasants)
         {
-            StartCoroutine(SpawnCoroutine());   
+            StartCoroutine(populatePeasants());   
         }
         if (PopulateBoard)
         {
@@ -121,7 +121,7 @@ public class TestingDay : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnCoroutine()
+    private IEnumerator populatePeasants()
     {
         var questTemplates = testQuestList.questTemplates;
         foreach (var questTemplate in questTemplates)
