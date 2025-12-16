@@ -1768,7 +1768,7 @@ MonoBehaviour:
   PartsMap:
   - Type: 0
     Enabled: 0
-    Target: {fileID: 0}
+    Target: {fileID: 7656482288329980794}
   - Type: 1
     Enabled: 0
     Target: {fileID: 3109316551475406931}
@@ -1803,9 +1803,9 @@ MonoBehaviour:
     Enabled: 0
     Target: {fileID: 0}
   characterPrefix: Hu_M
-  FoldoutBodyPartSetup: 0
+  FoldoutBodyPartSetup: 1
   FoldoutSocketsSetup: 0
-  FoldoutSocketsTransformSetup: 0
+  FoldoutSocketsTransformSetup: 1
   FoldoutItemToBoneMapper: 1
   showAnimationControls: 0
   Gender: 0
