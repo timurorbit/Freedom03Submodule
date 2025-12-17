@@ -7,7 +7,7 @@ namespace _Game.Scripts.Tasks.Actions
 {
     public class GetRandomEndingPointAction : Action
     {
-        [SerializeField] SharedVariable<Transform> Result;
+        [SerializeField] public SharedVariable<GameObject> StayingTransform;
 
         public override void OnAwake()
         {
@@ -22,7 +22,7 @@ namespace _Game.Scripts.Tasks.Actions
                 return TaskStatus.Failure;
             }
 
-            var endingPoint = GuildRepository.Instance.GetRandomEndingPoint();
+            var endingPoint = GuildRepository.Instance.GetRandomEndingPoints();
         
             if (endingPoint == null)
             {
@@ -30,8 +30,8 @@ namespace _Game.Scripts.Tasks.Actions
                 return TaskStatus.Failure;
             }
 
-            if (Result != null)
-                Result.Value = endingPoint;
+            if (StayingTransform != null)
+                StayingTransform.Value = endingPoint[Random.Range(0, endingPoint.Count)].gameObject;
 
             return TaskStatus.Success;
         }

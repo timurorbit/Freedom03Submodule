@@ -37,6 +37,8 @@ public class TestingDay : MonoBehaviour
     [Header("Spawning")]
     [SerializeField] private List<Transform> spawnPoints;
 
+    [SerializeField] private bool spawnRandom;
+
     private void Start()
     {
         if (PopulatePeasants)
@@ -132,7 +134,10 @@ public class TestingDay : MonoBehaviour
         foreach (var questTemplate in questTemplates)
         {
             yield return new WaitForSeconds(1f);
-            var peasant = Instantiate(peasantPrefab, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity, transform);
+            var transformPosition = spawnRandom
+                ? spawnPoints[Random.Range(0, spawnPoints.Count)].position
+                : transform.position;
+            var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
             var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
             characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
             var behaviour = peasant.GetComponent<PeasantBehaviour>();

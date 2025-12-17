@@ -61,14 +61,9 @@ public class GuildRepository : MonoBehaviour
         return questPlaces[index];
     }
     
-    public Transform GetRandomEndingPoint()
+    public List<Transform> GetRandomEndingPoints()
     {
-        if (endingPoints == null || endingPoints.Count == 0)
-        {
-            return null;
-        }
-        int index = Random.Range(0, endingPoints.Count);
-        return endingPoints[index];
+        return endingPoints;
     }
 
     public GameObject GetClosestFreeQuestTableSpot()
