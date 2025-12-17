@@ -102,8 +102,8 @@ namespace _Game.Scripts.Behaviours
 
         public GameObject FindClosestEntrance()
         {
-           var entrance = FindAnyObjectByType<Entrance>().gameObject;
-           return entrance;
+           var entrance = FindObjectsByType<Entrance>(FindObjectsSortMode.None);
+           return entrance[Random.Range(0, entrance.Length)].gameObject;
         }
 
         public GameObject GetClosestFreeQuestTableSpot()

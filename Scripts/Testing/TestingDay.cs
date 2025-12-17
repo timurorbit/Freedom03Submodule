@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _Game.Scripts.Behaviours;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -31,6 +32,10 @@ public class TestingDay : MonoBehaviour
     
     [Header("Stat modifiers")]
     [SerializeField] private GameObject statModifierPrefab;
+    
+    
+    [Header("Spawning")]
+    [SerializeField] private List<Transform> spawnPoints;
 
     private void Start()
     {
@@ -127,7 +132,7 @@ public class TestingDay : MonoBehaviour
         foreach (var questTemplate in questTemplates)
         {
             yield return new WaitForSeconds(1f);
-            var peasant = Instantiate(peasantPrefab, transform);
+            var peasant = Instantiate(peasantPrefab, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity, transform);
             var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
             characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
             var behaviour = peasant.GetComponent<PeasantBehaviour>();

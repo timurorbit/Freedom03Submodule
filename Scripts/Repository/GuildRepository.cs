@@ -42,6 +42,9 @@ public class GuildRepository : MonoBehaviour
     
     [SerializeField] private List<Shelf> shelves;
     
+    [SerializeField]
+    private List<Transform> endingPoints;
+    
     private GuildHall hall;
 
     private GuildRepository()
@@ -56,6 +59,16 @@ public class GuildRepository : MonoBehaviour
     {
         int index = Random.Range(0, questPlaces.Count);
         return questPlaces[index];
+    }
+    
+    public Transform GetRandomEndingPoint()
+    {
+        if (endingPoints == null || endingPoints.Count == 0)
+        {
+            return null;
+        }
+        int index = Random.Range(0, endingPoints.Count);
+        return endingPoints[index];
     }
 
     public GameObject GetClosestFreeQuestTableSpot()
