@@ -52,13 +52,12 @@ public class Board : Table
 
     public QuestResultBehaviour getQuestByStats(Stats stats)
     {
-        getQuestByHeroStats();
-        return getFirstQuestFromBoard();
+        return getQuestByHeroStats(stats);
     }
 
-    private void getQuestByHeroStats()
+    private QuestResultBehaviour getQuestByHeroStats(Stats stats)
     {
-        
+        return null;
     }
 
     public QuestResultBehaviour getFirstQuestFromBoard()
