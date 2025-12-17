@@ -57,7 +57,118 @@ public class Board : Table
 
     private QuestResultBehaviour getQuestByHeroStats(Stats stats)
     {
+        if (questsToTake == null || questsToTake.Count == 0)
+        {
+            return null;
+        }
+        
+        // Get hero's two strongest stats
+        var strongestStats = GetTwoStrongestStats(stats);
+        
+        // Start with exact rank match
+        Rank heroRank = stats.rank;
+        int rankOffset = 0;
+        int minRank = (int)Rank.S; // 0
+        int maxRank = (int)Rank.F; // 6
+        
+        // Try to find quest with matching rank and strongest stats
+        while (true)
+        {
+            // Try current rank + offset
+            int upperRank = (int)heroRank - rankOffset;
+            if (upperRank >= minRank && upperRank <= maxRank)
+            {
+                QuestResultBehaviour quest = FindQuestByRankAndStats((Rank)upperRank, strongestStats, rankOffset == 0);
+                if (quest != null)
+                {
+                    return TakeQuestFromBoard(quest);
+                }
+            }
+            
+            // Try current rank - offset (only if offset > 0 to avoid checking same rank twice)
+            if (rankOffset > 0)
+            {
+                int lowerRank = (int)heroRank + rankOffset;
+                if (lowerRank >= minRank && lowerRank <= maxRank)
+                {
+                    QuestResultBehaviour quest = FindQuestByRankAndStats((Rank)lowerRank, strongestStats, false);
+                    if (quest != null)
+                    {
+                        return TakeQuestFromBoard(quest);
+                    }
+                }
+            }
+            
+            // Check if we've exhausted all possible ranks
+            int nextUpperRank = (int)heroRank - (rankOffset + 1);
+            int nextLowerRank = (int)heroRank + (rankOffset + 1);
+            
+            if (nextUpperRank < minRank && nextLowerRank > maxRank)
+            {
+                break; // We've checked all possible ranks
+            }
+            
+            rankOffset++;
+        }
+        
+        // Fallback to first quest from board
+        return getFirstQuestFromBoard();
+    }
+    
+    private SkillType[] GetTwoStrongestStats(Stats stats)
+    {
+        SkillType[] allStats = { SkillType.Attack, SkillType.Defense, SkillType.Mobility, SkillType.Charisma, SkillType.Intelligence };
+        
+        // Sort stats by amount in descending order
+        System.Array.Sort(allStats, (a, b) => stats.GetStatAmount(b).CompareTo(stats.GetStatAmount(a)));
+        
+        // Return top 2
+        return new SkillType[] { allStats[0], allStats[1] };
+    }
+    
+    private QuestResultBehaviour FindQuestByRankAndStats(Rank rank, SkillType[] strongestStats, bool requireStrongStats)
+    {
+        foreach (var quest in questsToTake)
+        {
+            var prediction = quest.getQuestResult().GetPrediction();
+            if (prediction != null && prediction.rank == rank)
+            {
+                if (requireStrongStats)
+                {
+                    // Check if prediction has value 1 in any of the strongest stats
+                    if (HasValueOneInStats(prediction, strongestStats))
+                    {
+                        return quest;
+                    }
+                }
+                else
+                {
+                    // For expanded search, just return quest with matching rank
+                    return quest;
+                }
+            }
+        }
         return null;
+    }
+    
+    private bool HasValueOneInStats(Stats prediction, SkillType[] stats)
+    {
+        foreach (var stat in stats)
+        {
+            if (prediction.GetStatAmount(stat) == 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private QuestResultBehaviour TakeQuestFromBoard(QuestResultBehaviour quest)
+    {
+        RemovePosition(new Vector2(quest.transform.localPosition.x, quest.transform.localPosition.y));
+        quest.SwitchState(QuestResultState.Taken);
+        questsToTake.Remove(quest);
+        return quest;
     }
 
     public QuestResultBehaviour getFirstQuestFromBoard()
