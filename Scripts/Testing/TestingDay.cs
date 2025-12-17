@@ -38,6 +38,8 @@ public class TestingDay : MonoBehaviour
     [SerializeField] private List<Transform> spawnPoints;
 
     [SerializeField] private bool spawnRandom;
+    [SerializeField] private float spawnCooldown;
+    [SerializeField] private float heroDelay;
 
     private void Start()
     {
@@ -98,11 +100,13 @@ public class TestingDay : MonoBehaviour
 
     private IEnumerator populateHeroes()
     {
+        yield return new WaitForSeconds(heroDelay);
         var heroTemplates = testHeroList.heroTemplates;
         foreach (var heroTemplate in heroTemplates)
         {
-            yield return new WaitForSeconds(1f);
-            var peasant = Instantiate(heroPrefab, transform);
+            yield return new WaitForSeconds(spawnCooldown);
+            var transformPosition = TransformPosition();
+            var peasant = Instantiate(heroPrefab, transformPosition, Quaternion.identity, transform);
             var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
             characterBehaviour.Initialize(heroTemplate);
             var behaviour = peasant.GetComponent<HeroBehaviour>();
@@ -118,14 +122,51 @@ public class TestingDay : MonoBehaviour
         Board board = FindAnyObjectByType<Board>();
         foreach (var questTemplate in questTemplates)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(spawnCooldown);
             var prefab = Instantiate(questResultBehaviourPrefab, transform);
             var behaviour = prefab.GetComponent<QuestResultBehaviour>();
             var quest = new Quest(questTemplate);
             behaviour.setQuest(quest);
             behaviour.SwitchState(QuestResultState.Opened);
+            var prediction = CreateTwoStrongestStats(questTemplate.stats);
+            behaviour.setPrediction(prediction);
             board.AddItemToBoard(prefab);
         }
+    }
+
+    public static Stats CreateTwoStrongestStats(Stats original)
+    {
+        // Create a copy to avoid modifying the original
+        Stats modified = new Stats(original);
+
+        // List all stat types (hardcoded based on known types)
+        var statTypes = new List<SkillType>
+        {
+            SkillType.Attack,
+            SkillType.Defense,
+            SkillType.Mobility,
+            SkillType.Charisma,
+            SkillType.Intelligence
+        };
+
+        // Collect current values
+        var statList = new List<(SkillType type, int value)>();
+        foreach (var type in statTypes)
+        {
+            statList.Add((type, modified.GetStatAmount(type)));
+        }
+
+        // Sort descending by value
+        statList.Sort((a, b) => b.value.CompareTo(a.value));
+
+        // Set top two to 1, others to 0
+        for (int i = 0; i < statList.Count; i++)
+        {
+            int newValue = (i < 2) ? 1 : 0;
+            modified.SetStatAmount(statList[i].type, newValue);
+        }
+
+        return modified;
     }
 
     private IEnumerator populatePeasants()
@@ -133,10 +174,8 @@ public class TestingDay : MonoBehaviour
         var questTemplates = testQuestList.questTemplates;
         foreach (var questTemplate in questTemplates)
         {
-            yield return new WaitForSeconds(1f);
-            var transformPosition = spawnRandom
-                ? spawnPoints[Random.Range(0, spawnPoints.Count)].position
-                : transform.position;
+            yield return new WaitForSeconds(spawnCooldown);
+            var transformPosition = TransformPosition();
             var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
             var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
             characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
@@ -144,5 +183,12 @@ public class TestingDay : MonoBehaviour
             var quest = new Quest(questTemplate);
             behaviour.questResultBehaviour.setQuest(quest);
         }
+    }
+
+    private Vector3 TransformPosition()
+    {
+        return spawnRandom
+            ? spawnPoints[Random.Range(0, spawnPoints.Count)].position
+            : transform.position;
     }
 }
