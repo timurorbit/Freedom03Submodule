@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
@@ -68,8 +69,8 @@ public class Board : Table
         // Start with exact rank match
         Rank heroRank = stats.rank;
         int rankOffset = 0;
-        int minRank = (int)Rank.S; // 0
-        int maxRank = (int)Rank.F; // 6
+        int minRank = System.Enum.GetValues(typeof(Rank)).Cast<int>().Min();
+        int maxRank = System.Enum.GetValues(typeof(Rank)).Cast<int>().Max();
         
         // Try to find quest with matching rank and strongest stats
         while (true)
@@ -117,7 +118,7 @@ public class Board : Table
     
     private SkillType[] GetTwoStrongestStats(Stats stats)
     {
-        SkillType[] allStats = { SkillType.Attack, SkillType.Defense, SkillType.Mobility, SkillType.Charisma, SkillType.Intelligence };
+        SkillType[] allStats = (SkillType[])System.Enum.GetValues(typeof(SkillType));
         
         // Sort stats by amount in descending order
         System.Array.Sort(allStats, (a, b) => stats.GetStatAmount(b).CompareTo(stats.GetStatAmount(a)));
@@ -173,11 +174,11 @@ public class Board : Table
 
     public QuestResultBehaviour getFirstQuestFromBoard()
     {
-        var toTake = questsToTake[0];
-        RemovePosition(new Vector2(toTake.transform.localPosition.x, toTake.transform.localPosition.y));
-        toTake.SwitchState(QuestResultState.Taken);
-        questsToTake.RemoveAt(0);
-        return toTake;
+        if (questsToTake == null || questsToTake.Count == 0)
+        {
+            return null;
+        }
+        return TakeQuestFromBoard(questsToTake[0]);
     }
 
     public override void Interact()
