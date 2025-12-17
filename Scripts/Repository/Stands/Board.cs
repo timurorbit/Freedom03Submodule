@@ -120,6 +120,12 @@ public class Board : Table
     {
         SkillType[] allStats = (SkillType[])System.Enum.GetValues(typeof(SkillType));
         
+        if (allStats.Length < 2)
+        {
+            Debug.LogWarning("Board: SkillType enum has fewer than 2 values. Cannot determine two strongest stats.");
+            return allStats;
+        }
+        
         // Sort stats by amount in descending order
         System.Array.Sort(allStats, (a, b) => stats.GetStatAmount(b).CompareTo(stats.GetStatAmount(a)));
         
