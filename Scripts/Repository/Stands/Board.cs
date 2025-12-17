@@ -52,8 +52,13 @@ public class Board : Table
 
     public QuestResultBehaviour getQuestByStats(Stats stats)
     {
-        //TODO implement better logic 
+        getQuestByHeroStats();
         return getFirstQuestFromBoard();
+    }
+
+    private void getQuestByHeroStats()
+    {
+        
     }
 
     public QuestResultBehaviour getFirstQuestFromBoard()
