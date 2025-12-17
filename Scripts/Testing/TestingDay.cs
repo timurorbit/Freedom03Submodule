@@ -174,7 +174,6 @@ public class TestingDay : MonoBehaviour
         var questTemplates = testQuestList.questTemplates;
         foreach (var questTemplate in questTemplates)
         {
-            yield return new WaitForSeconds(spawnCooldown);
             var transformPosition = TransformPosition();
             var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
             var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
@@ -182,6 +181,7 @@ public class TestingDay : MonoBehaviour
             var behaviour = peasant.GetComponent<PeasantBehaviour>();
             var quest = new Quest(questTemplate);
             behaviour.questResultBehaviour.setQuest(quest);
+            yield return new WaitForSeconds(spawnCooldown);
         }
     }
 
