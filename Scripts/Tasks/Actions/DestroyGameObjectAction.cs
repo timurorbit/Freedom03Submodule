@@ -7,8 +7,6 @@ namespace _Game.Scripts.Tasks.Actions
 {
     public class DestroyGameObjectAction : Action
     {
-        [SerializeField] SharedVariable<GameObject> Target;
-
         public override void OnAwake()
         {
             base.OnAwake();
@@ -16,13 +14,13 @@ namespace _Game.Scripts.Tasks.Actions
 
         public override TaskStatus OnUpdate()
         {
-            if (Target == null || Target.Value == null)
+            if (gameObject == null)
             {
-                Debug.LogWarning("DestroyGameObjectAction: Target is null");
+                Debug.LogWarning("DestroyGameObjectAction: gameObject is null");
                 return TaskStatus.Failure;
             }
 
-            GameObject.Destroy(Target.Value);
+            GameObject.Destroy(gameObject);
 
             return TaskStatus.Success;
         }
