@@ -350,7 +350,7 @@ public class QuestResultTable : Table
         Rigidbody rb = currentDotInstance.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 forceDirection = new Vector3(Random.Range(-.7f,.7f),0, Random.Range(-.7f,.7f));  // Example: push right; or Random.insideUnitCircle for random
+            Vector3 forceDirection = new Vector3(Random.Range(-2f,2f),0, Random.Range(-2f,2f));  // Example: push right; or Random.insideUnitCircle for random
             rb.AddForce(forceDirection * forcePower, ForceMode.Impulse);  // Impulse for instant push
         }
     }
