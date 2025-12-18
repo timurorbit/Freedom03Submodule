@@ -147,7 +147,7 @@ Rigidbody:
   m_GameObject: {fileID: 7953041348847575817}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.5
+  m_Drag: 0.6
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -184,7 +184,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 6
+  m_Radius: 4.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3599566424049401532
 MonoBehaviour:
@@ -199,7 +199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionFeedback: {fileID: 3141277931034089077, guid: abb8ec69a2853bc479b136e01b198cab, type: 3}
+  soundFeedback: {fileID: 3141277931034089077, guid: 291f3e3148ceb5543b85cf72dbabd8fa, type: 3}
   filterTag: 
   cleanupDelay: 3
   offset: {x: 0, y: 0.2, z: 0}
   delay: 0.08
+  minRelativeVelocity: 0.1
+  minImpulseThreshold: 0.0004

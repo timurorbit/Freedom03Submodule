@@ -46,6 +46,11 @@ public class QuestResultTable : Table
     private MMF_Player successFeedback;
     [SerializeField]
     private MMF_Player failedFeedback;
+    
+    [SerializeField]
+    private MMF_Player successParticlesFeedback;
+    [SerializeField]
+    private MMF_Player failedParticlesFeedback;
 
     public override void Interact()
     {
@@ -71,10 +76,16 @@ public class QuestResultTable : Table
         if (successfulMission)
         {
             successFeedback?.PlayFeedbacks();
+            var feedbackInstance = Instantiate(successParticlesFeedback, 
+                currentDotInstance.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            feedbackInstance.PlayFeedbacks();
         }
         else
         {
             failedFeedback?.PlayFeedbacks();
+            var feedbackInstance = Instantiate(failedParticlesFeedback, 
+                currentDotInstance.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            feedbackInstance.PlayFeedbacks();
         }
     }
     
@@ -350,9 +361,15 @@ public class QuestResultTable : Table
         Rigidbody rb = currentDotInstance.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 forceDirection = new Vector3(Random.Range(-2f,2f),0, Random.Range(-2f,2f));  // Example: push right; or Random.insideUnitCircle for random
+            Vector3 forceDirection = new Vector3(GetRandomComponent(),0, GetRandomComponent());  // Example: push right; or Random.insideUnitCircle for random
             rb.AddForce(forceDirection * forcePower, ForceMode.Impulse);  // Impulse for instant push
         }
+    }
+    
+    private float GetRandomComponent()
+    {
+        float sign = Random.value < 0.5f ? 1f : -1f;
+        return sign * Random.Range(1.5f, 2f);
     }
         
         
