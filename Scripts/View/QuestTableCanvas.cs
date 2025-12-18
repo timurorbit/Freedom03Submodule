@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using MoreMountains.Feedbacks;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,13 +13,8 @@ public class QuestTableCanvas : MonoBehaviour
     [SerializeField] private Toggle magicToggle;
     [SerializeField] private Toggle charismaToggle;
     
-    [SerializeField] private DropdownRankOptions rankDropdown;
+    [SerializeField] private Rank currentRank;
     
-    
-    [Header("Feedbacks")]
-    /// a MMF_Player to play when the Hero starts jumping
-    public MMF_Player AddFeedback;
-    /// a MMF_Player to play when the Hero lands after a jump
     public MMF_Player nextScrollFeedback;
 
     private void Start()
@@ -81,7 +74,6 @@ public class QuestTableCanvas : MonoBehaviour
         mobilityToggle.isOn = stats.GetStatAmount(SkillType.Mobility) >= 1;
         magicToggle.isOn = stats.GetStatAmount(SkillType.Intelligence) >= 1;
         charismaToggle.isOn = stats.GetStatAmount(SkillType.Charisma) >= 1;
-        rankDropdown.SetSelectedRank(stats.rank);
     }
 
     public void Right()
@@ -113,7 +105,7 @@ public class QuestTableCanvas : MonoBehaviour
         var mobility = mobilityToggle.isOn ? 1 : 0;
         var intelligence = magicToggle.isOn ? 1 : 0;
         var charisma = charismaToggle.isOn ? 1 : 0;
-        var stats = new Stats(rankDropdown.GetSelectedRank(),
+        var stats = new Stats(currentQuest.getQuestResult().GetPrediction().rank,
             attack,
             defense,
             mobility,

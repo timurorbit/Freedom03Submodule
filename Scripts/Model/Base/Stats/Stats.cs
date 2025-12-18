@@ -39,7 +39,7 @@ public class Stats
 
     public Stats()
     {
-        rank = Rank.F;
+        rank = Rank.E;
         attackStat = new SingleStat(0);
         defenseStat = new SingleStat(0);
         mobilityStat = new SingleStat(0);
