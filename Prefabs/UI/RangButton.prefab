@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3646993949140010688}
   - component: {fileID: 8003997785662871957}
   - component: {fileID: 7706879757840893590}
+  - component: {fileID: 3051882593440189854}
   m_Layer: 6
   m_Name: RangButton
   m_TagString: Untagged
@@ -135,6 +136,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3051882593440189854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643296057957267073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c95b1233069487a85d511f8ae112d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonBackground: {fileID: 6061145869971532610}
 --- !u!1 &1857729272965617350
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.02745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

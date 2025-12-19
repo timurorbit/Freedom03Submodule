@@ -844,7 +844,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7741950897576128425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,7 +852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 25, y: -90}
+  m_AnchoredPosition: {x: 64.7, y: -105.8}
   m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2990882617328249498
@@ -1113,6 +1113,14 @@ PrefabInstance:
       propertyPath: radarMaterial
       value: 
       objectReference: {fileID: 2100000, guid: c661006339406684c894c2d7fbbafea2, type: 2}
+    - target: {fileID: 2163190807981760669, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030930350149131679, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4766674486023648348, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1205,9 +1213,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5463600211687652503, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993527644327405324, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6175134100415703244, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
       propertyPath: m_Name
       value: CharacterPenta
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459170045687439038, guid: a0ca28c20ba85e6458367d8e2321c86a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

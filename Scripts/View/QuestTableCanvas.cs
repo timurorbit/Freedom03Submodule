@@ -16,6 +16,22 @@ public class QuestTableCanvas : MonoBehaviour
     [SerializeField] private Rank currentRank;
     
     public MMF_Player nextScrollFeedback;
+    
+    
+    [Header("Rank buttons")]
+    [SerializeField]
+    private RankButton rankSButton;
+    [SerializeField]
+    private RankButton rankAButton;
+    [SerializeField]
+    private RankButton rankBButton;
+    [SerializeField]
+    private RankButton rankCButton;
+    [SerializeField]
+    private RankButton rankDButton;
+    [SerializeField]
+    private RankButton rankEButton;
+    
 
     private void Start()
     {
@@ -74,6 +90,37 @@ public class QuestTableCanvas : MonoBehaviour
         mobilityToggle.isOn = stats.GetStatAmount(SkillType.Mobility) >= 1;
         magicToggle.isOn = stats.GetStatAmount(SkillType.Intelligence) >= 1;
         charismaToggle.isOn = stats.GetStatAmount(SkillType.Charisma) >= 1;
+        UpdateRankButtonsView(stats.rank);
+    }
+
+    private void UpdateRankButtonsView(Rank rank) {
+        rankSButton.setInactiveColor();
+        rankAButton.setInactiveColor();
+        rankBButton.setInactiveColor();
+        rankCButton.setInactiveColor();
+        rankDButton.setInactiveColor();
+        rankEButton.setInactiveColor();
+
+        switch (rank) {
+            case Rank.S:
+                rankSButton.setActiveColor();
+                break;
+            case Rank.A:
+                rankAButton.setActiveColor();
+                break;
+            case Rank.B:
+                rankBButton.setActiveColor();
+                break;
+            case Rank.C:
+                rankCButton.setActiveColor();
+                break;
+            case Rank.D:
+                rankDButton.setActiveColor();
+                break;
+            case Rank.E:
+                rankEButton.setActiveColor();
+                break;
+        }
     }
 
     public void Right()
@@ -97,6 +144,28 @@ public class QuestTableCanvas : MonoBehaviour
             UpdateView(topFromQuests);
         }
     }
+    
+    public void UpdateQuestRank(Rank rank)
+    {
+        var currentQuest = questTable.GetCurrentInspection();
+        UpdateRankButtonsView(rank);
+        if (currentQuest == null)
+        {
+            return;
+        }
+        currentQuest.getQuestResult().GetPrediction().rank = rank;
+        UpdateQuestPrediction(currentQuest, currentQuest.getQuestResult().state);
+    }
+    
+    public void UpdateCurrentQuestViewInTable()
+    {
+        var currentQuest = questTable.GetCurrentInspection();
+        if (currentQuest == null)
+        {
+            return;
+        }
+        UpdateQuestPrediction(currentQuest, currentQuest.getQuestResult().state);
+    }
 
     private void UpdateQuestPrediction(QuestResultBehaviour currentQuest, QuestResultState newState)
     {
@@ -114,5 +183,35 @@ public class QuestTableCanvas : MonoBehaviour
             0);
         currentQuest.setPrediction(stats);
         currentQuest.SwitchState(newState);
+    }
+    
+    public void SetRankS()
+    {
+        UpdateQuestRank(Rank.S);
+    }
+    
+    public void SetRankA()
+    {
+        UpdateQuestRank(Rank.A);
+    }
+    
+    public void SetRankB()
+    {
+        UpdateQuestRank(Rank.B);
+    }
+    
+    public void SetRankC()
+    {
+        UpdateQuestRank(Rank.C);
+    }
+    
+    public void SetRankD()
+    {
+        UpdateQuestRank(Rank.D);
+    }
+    
+    public void SetRankE()
+    {
+        UpdateQuestRank(Rank.E);
     }
 }
