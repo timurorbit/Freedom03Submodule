@@ -77,14 +77,14 @@ public class QuestResultTable : Table
         {
             successFeedback?.PlayFeedbacks();
             var feedbackInstance = Instantiate(successParticlesFeedback, 
-                currentDotInstance.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+                currentDotInstance.transform.position + new Vector3(0f, 0.05f, 0f), Quaternion.identity);
             feedbackInstance.PlayFeedbacks();
         }
         else
         {
             failedFeedback?.PlayFeedbacks();
             var feedbackInstance = Instantiate(failedParticlesFeedback, 
-                currentDotInstance.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+                currentDotInstance.transform.position + new Vector3(0f, 0.05f, 0f), Quaternion.identity);
             feedbackInstance.PlayFeedbacks();
         }
     }

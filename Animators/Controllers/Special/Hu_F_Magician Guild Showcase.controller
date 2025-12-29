@@ -980,7 +980,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hu_F_Magician Guild
+  m_Name: Hu_F_Magician Guild Showcase
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed
@@ -1291,7 +1291,7 @@ AnimatorStateMachine:
     m_Position: {x: -2200, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6780641803846258260}
-    m_Position: {x: -1830, y: -200, z: 0}
+    m_Position: {x: -2410, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8652710024131415650}
     m_Position: {x: -1830, y: -150, z: 0}
@@ -1409,7 +1409,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: -2290, y: -320, z: 0}
   m_ExitPosition: {x: -510, y: -390, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 3073434475241095551}
+  m_DefaultState: {fileID: -6780641803846258260}
 --- !u!1102 &4073773610347635702
 AnimatorState:
   serializedVersion: 6
