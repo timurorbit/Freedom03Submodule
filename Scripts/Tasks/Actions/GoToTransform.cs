@@ -1,14 +1,14 @@
 using Opsive.GraphDesigner.Runtime.Variables;
 using UnityEngine;
 
-public class GoToObject : GoToActionBase
+public class GoToTransform : GoToActionBase
 {
-    [SerializeField] SharedVariable<GameObject> Destination;
+    [SerializeField] SharedVariable<Transform> Destination;
 
     protected override Vector3? GetDestinationPosition()
     {
         if (Destination == null || Destination.Value == null)
             return null;
-        return Destination.Value.transform.position;
+        return Destination.Value.position;
     }
 }
