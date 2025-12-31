@@ -45,7 +45,10 @@ public class GetQuestFromBoardAction : Action
         var hero = heroBehaviour.heroCard.GetHero();
         if (hero == null)
         {
-            heroBehaviour.heroCard.SetHero(new Hero(heroBehaviour.baseHero));
+            var placeholderHeroObject = ScriptableObject.CreateInstance<HeroObject>();
+            placeholderHeroObject.stats = new Stats();
+            heroBehaviour.heroCard.SetHero(new Hero(placeholderHeroObject));
+            Debug.LogWarning("GetQuestFromBoardAction: Hero is null");
             hero = heroBehaviour.heroCard.GetHero();
         }
 

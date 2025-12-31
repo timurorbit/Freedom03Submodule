@@ -31,9 +31,16 @@ namespace _Game.Scripts.Behaviours
 
         private bool _canInteract = false;
         public bool canInteract => _canInteract;
+        
+        [Header("Only for testing purposes, keep null for prefab")] [SerializeField]
+        public CharacterObject baseCharacter;
 
         private void Awake()
         {
+            if (baseCharacter != null)
+            {
+                Initialize(baseCharacter);
+            }
             if (animator == null)
             {
                 animator = GetComponentInChildren<Animator>();

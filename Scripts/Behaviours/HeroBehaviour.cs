@@ -11,9 +11,6 @@ public class HeroBehaviour : MonoBehaviour
     [SerializeField] public Transform statModifiersParent;
     [SerializeField] public bool Approved;
 
-    [Header("Only for testing purposes")] [SerializeField]
-    public HeroObject baseHero;
-
     public void PlaceHeroCardQuestResultInMainTable()
     {
         MainTable mainTable = GuildRepository.Instance.GetClosestTable<MainTable>();

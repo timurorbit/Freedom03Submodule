@@ -891,7 +891,7 @@ MonoBehaviour:
   statModifiers: []
   statModifiersParent: {fileID: 127791739408149534}
   Approved: 0
-  baseHero: {fileID: 11400000, guid: 49f22ddea88c9c649b21ddef28b4a756, type: 2}
+  baseHero: {fileID: 0}
 --- !u!1 &6500405792484401422
 GameObject:
   m_ObjectHideFlags: 0
