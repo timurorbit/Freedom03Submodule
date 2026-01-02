@@ -100,6 +100,11 @@ namespace _Game.Scripts.Behaviours
                     animator.SetFloat(Constants.ANIMATOR_SPEED, 0, 0.15f, Time.deltaTime);
                     UpdateIdleAnimation();
                     break;
+                case CharacterState.Interactable:  
+                    animator.SetFloat(Constants.ANIMATOR_SPEED, 0, 0.15f, Time.deltaTime);
+                    UpdateInteractableAnimation();
+                    RotateTowardsPlayerCamera();
+                    break;
                 case CharacterState.MovingToTarget:
                     animator.SetFloat(Constants.ANIMATOR_SPEED, 1, 0.15f, Time.deltaTime);
                     agent.speed = Mathf.SmoothDamp(
@@ -111,6 +116,16 @@ namespace _Game.Scripts.Behaviours
                     ResetIdleTimer();
                     break;
             }
+        }
+
+        private void UpdateInteractableAnimation()
+        {
+            UpdateIdleAnimation();
+        }
+
+        private void RotateTowardsPlayerCamera()
+        {
+            
         }
 
         public GameObject FindClosestEntrance()
@@ -233,6 +248,7 @@ namespace _Game.Scripts.Behaviours
         
     }
 
+    [System.Serializable]
     public enum CharacterState
     {
         Created,
@@ -241,5 +257,6 @@ namespace _Game.Scripts.Behaviours
         Interacted,
         SentToMission,
         Reading,
+        Interactable,
     }
 }

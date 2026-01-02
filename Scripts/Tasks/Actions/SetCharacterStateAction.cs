@@ -1,11 +1,15 @@
 using _Game.Scripts.Behaviours;
 using Opsive.BehaviorDesigner.Runtime.Tasks;
 using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
+using Opsive.GraphDesigner.Runtime.Variables;
 using UnityEngine;
 
-public class SetIdleAction : Action
+public class SetCharacterStateAction : Action
 {
     private CharacterBehaviour characterBehaviour;
+    
+    [SerializeField]
+    protected SharedVariable<CharacterState> characterState;
 
     public override void OnAwake()
     {
