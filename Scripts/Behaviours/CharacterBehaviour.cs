@@ -125,7 +125,18 @@ namespace _Game.Scripts.Behaviours
 
         private void RotateTowardsPlayerCamera()
         {
+            if (GuildPlayerController.Instance == null) return;
             
+            var cameraTransform = GuildPlayerController.Instance.MainCameraTransform;
+            if (cameraTransform == null) return;
+
+            Vector3 directionToCamera = cameraTransform.position - transform.position;
+            directionToCamera.y = 0;
+            
+            if (directionToCamera.sqrMagnitude < 0.001f) return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
 
         public GameObject FindClosestEntrance()

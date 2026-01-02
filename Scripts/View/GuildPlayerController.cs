@@ -33,6 +33,8 @@ public class GuildPlayerController : MonoBehaviour
     [SerializeField] private CinemachineCamera mainCamera;
     [SerializeField] private FirstPersonController_Dreamscape playerController;
 
+    public Transform MainCameraTransform => mainCamera != null ? mainCamera.transform : null;
+
     [Header("Required")]
     [SerializeField] private CinemachineCamera questTableCamera;
     [SerializeField] private CinemachineCamera mainTableCamera;
