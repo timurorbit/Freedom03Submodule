@@ -17,6 +17,7 @@ namespace _Game.Scripts.Behaviours
         [Header("Locomotion")]
         [SerializeField] private float runSpeed = 1.5f;
         [SerializeField] private float rotationSpeed = 5f;
+        [Tooltip("Maximum distance from player camera for character to rotate towards it")]
         [SerializeField] private float maxRotationDistance = 5f;
         private const float MIN_ROTATION_DISTANCE_THRESHOLD = 0.001f;
 
