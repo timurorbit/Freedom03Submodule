@@ -29,6 +29,8 @@ public class GuildPlayerController : MonoBehaviour
             return _instance;
         }
     }
+    
+    public Camera actualCamera;
 
     [SerializeField] private CinemachineCamera mainCamera;
     [SerializeField] private FirstPersonController_Dreamscape playerController;
@@ -54,6 +56,7 @@ public class GuildPlayerController : MonoBehaviour
 
     void Awake()
     {
+        actualCamera = GetComponentInChildren<Camera>();
         if (_instance == null)
         {
             _instance = this;

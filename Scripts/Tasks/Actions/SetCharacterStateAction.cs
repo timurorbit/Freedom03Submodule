@@ -22,7 +22,7 @@ public class SetCharacterStateAction : Action
         if (characterBehaviour == null)
             return TaskStatus.Failure;
 
-        characterBehaviour.SetIdle();
+        characterBehaviour.SetCharacterState(characterState.Value);
         return TaskStatus.Success;
     }
 }

@@ -16,6 +16,8 @@ namespace _Game.Scripts.Behaviours
 
         [Header("Locomotion")]
         [SerializeField] private float runSpeed = 1.5f;
+        [SerializeField] private float rotationSpeed = 5f;
+        private const float MIN_ROTATION_DISTANCE_THRESHOLD = 0.001f;
 
         Vector2Int AgentPriorityRange = new(0, 99);
 
@@ -125,7 +127,18 @@ namespace _Game.Scripts.Behaviours
 
         private void RotateTowardsPlayerCamera()
         {
-            
+            if (GuildPlayerController.Instance == null) return;
+
+            var cameraTransform = GuildPlayerController.Instance.actualCamera.transform;
+            if (cameraTransform == null) return;
+
+            Vector3 directionToCamera = cameraTransform.position - transform.position;
+            directionToCamera.y = 0;
+
+            if (directionToCamera.sqrMagnitude < MIN_ROTATION_DISTANCE_THRESHOLD) return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
 
         public GameObject FindClosestEntrance()
@@ -168,6 +181,11 @@ namespace _Game.Scripts.Behaviours
         public void SetIdle()
         {
             characterState = CharacterState.Idle;
+        }
+
+        public void SetCharacterState(CharacterState state)
+        {
+            characterState = state;
         }
 
         public void OccupySpot(GameObject spot)
