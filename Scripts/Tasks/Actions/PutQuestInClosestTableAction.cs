@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class PutQuestInClosestTableAction : Action
 {
-    private PeasantBehaviour peasantBehaviour;
+    private QuestGiverBehaviour questGiverBehaviour;
 
     public override void OnAwake()
     {
         base.OnAwake();
-        peasantBehaviour = gameObject.GetComponent<PeasantBehaviour>();
+        questGiverBehaviour = gameObject.GetComponent<QuestGiverBehaviour>();
     }
 
     public override TaskStatus OnUpdate()
     {
-        if (peasantBehaviour == null)
+        if (questGiverBehaviour == null)
             return TaskStatus.Failure;
 
-        peasantBehaviour.PutQuestResultInQuestPile();
+        questGiverBehaviour.PutQuestResultInQuestPile();
         return TaskStatus.Success;
     }
 }

@@ -37,6 +37,8 @@ public class GuildRepository : MonoBehaviour
     private List<QuestResultTable> questResultTables;
     [SerializeField]
     private List<MainTable> mainTables;
+    [SerializeField]
+    private List<QuestTakingTable> questTakingTables;
 
     [SerializeField] private List<GameObject> questPlaces;
     
@@ -90,6 +92,11 @@ public class GuildRepository : MonoBehaviour
     {
         return GetClosestTable<QuestTable>();
     }
+
+    public QuestTakingTable GetClosestQuestTakingTable()
+    {
+        return GetClosestTable<QuestTakingTable>();
+    }
     
     public MainTable GetClosestMainTable()
     {
@@ -126,6 +133,8 @@ public class GuildRepository : MonoBehaviour
             return heroWelcomeTables as List<T>;
         if (typeof(T) == typeof(QuestResultTable))
             return questResultTables as List<T>;
+        if (typeof(T) == typeof(QuestTakingTable))
+            return questTakingTables as List<T>; 
         
         return null;
     }

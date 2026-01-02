@@ -232,17 +232,16 @@ public class TestingDay : MonoBehaviour
     {
         var transformPosition = TransformPosition();
         var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
-        var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
-        characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
-        var behaviour = peasant.GetComponent<PeasantBehaviour>();
+        var questGiver = peasant.GetComponent<QuestGiverBehaviour>();
+        questGiver.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
         var quest = new Quest(questTemplate);
-        behaviour.questResultBehaviour.setQuest(quest);
+        questGiver.questResultBehaviour.setQuest(quest);
     }
 
     private Vector3 TransformPosition()
     {
         return spawnRandom
             ? spawnPoints[Random.Range(0, spawnPoints.Count)].position
-            : transform.position;
+            : spawnPoints[0].position;
     }
 }

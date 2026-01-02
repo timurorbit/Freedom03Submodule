@@ -6,26 +6,32 @@ namespace _Game.Scripts.Behaviours
 {
     public class CharacterBehaviour : MonoBehaviour, IInteractable
     {
-        [Header("Components")] [SerializeField]
-        private Animator animator;
-        
-        [SerializeField] NavMeshAgent agent;
-        
-        [Header("Locomotion")]
-        [SerializeField] private float runSpeed = 1.5f;
-        Vector2Int AgentPriorityRange = new(0, 99);
-        public CharacterState characterState;
-        private float speedVelocity;
-        
-        [Header("Idle Animation")]
-        [SerializeField] private float minIdleTimeBeforeAnimation = 3f;
-        [SerializeField] private float maxIdleTimeBeforeAnimation = 8f;
-        private float idleTimer = 0f;
-        private float nextIdleAnimationTime;
-        
         [SerializeField]
         public Transform modelTransform;
-        
+
+        [Header("Components")] [SerializeField]
+        private Animator animator;
+
+        [SerializeField] NavMeshAgent agent;
+
+        [Header("Locomotion")]
+        [SerializeField] private float runSpeed = 1.5f;
+
+        Vector2Int AgentPriorityRange = new(0, 99);
+
+        public CharacterState characterState;
+
+        private float speedVelocity;
+
+        [Header("Idle Animation")]
+        [SerializeField] private float minIdleTimeBeforeAnimation = 3f;
+
+        [SerializeField] private float maxIdleTimeBeforeAnimation = 8f;
+
+        private float idleTimer = 0f;
+
+        private float nextIdleAnimationTime;
+
         [SerializeField]
         private Outline outline;
 
@@ -175,14 +181,14 @@ namespace _Game.Scripts.Behaviours
             }
         }
 
-        public void Interact()
+        public virtual void Interact()
         {
             Debug.Log($"Interacting with character: {gameObject.name}");
             characterState = CharacterState.Interacted;
             _canInteract = false;
         }
 
-        public void SetCanInteract(bool value)
+        public virtual void SetCanInteract(bool value)
         {
             var component = GetComponent<HeroBehaviour>();
             if (component != null)
@@ -233,6 +239,7 @@ namespace _Game.Scripts.Behaviours
         Idle,
         MovingToTarget,
         Interacted,
-        SentToMission
+        SentToMission,
+        Reading,
     }
 }

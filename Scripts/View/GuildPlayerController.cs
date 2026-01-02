@@ -9,7 +9,8 @@ public enum GuildPlayerState
     MainTable,
     QuestTable,
     QuestResultTable,
-    Shop
+    Shop,
+    QuestTaking
 }
 
 public class GuildPlayerController : MonoBehaviour
@@ -36,10 +37,13 @@ public class GuildPlayerController : MonoBehaviour
     [SerializeField] private CinemachineCamera questTableCamera;
     [SerializeField] private CinemachineCamera mainTableCamera;
     [SerializeField] private CinemachineCamera resultTableCamera;
+    [SerializeField] private CinemachineCamera questTakingCamera;
     [SerializeField] private Canvas questTableCanvas;
     [SerializeField] private Canvas mainTableCanvas;
     [SerializeField] private Canvas resultTableCanvas;
     [SerializeField] private Canvas shopCanvas;
+    [SerializeField]
+    private Canvas questTakingCanvas;
     
     private GuildPlayerState currentState = GuildPlayerState.Default;
 
@@ -116,6 +120,13 @@ public class GuildPlayerController : MonoBehaviour
                     shopCanvas.gameObject.SetActive(false);
                 }
                 break;
+            case GuildPlayerState.QuestTaking:
+                questTakingCamera.gameObject.SetActive(false);
+                if (questTakingCanvas != null)
+                {
+                    questTakingCanvas.gameObject.SetActive(false);
+                }
+                break;
         }
         
         // Activate new state
@@ -158,6 +169,11 @@ public class GuildPlayerController : MonoBehaviour
             case GuildPlayerState.Shop:
                 playerController.enabled = false;
                 shopCanvas.gameObject.SetActive(true);
+                break;
+            case GuildPlayerState.QuestTaking:
+                questTakingCamera.gameObject.SetActive(true);
+                questTakingCanvas.gameObject.SetActive(true);
+                playerController.enabled = false;
                 break;
         }
         cursorManager.SwitchCursorState(newState);
