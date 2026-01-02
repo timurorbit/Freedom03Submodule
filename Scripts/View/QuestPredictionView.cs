@@ -14,7 +14,7 @@ internal class QuestPredictionView : MonoBehaviour
     [SerializeField] private Image charismaIcon;
     public void UpdateView(Stats getPrediction)
     {
-        rank.text = getPrediction.rank.ToString();
+        UpdateViewRankOnly(getPrediction);
         attackIcon.enabled = getPrediction.GetStatAmount(SkillType.Attack) > 0;
         defenseIcon.enabled = getPrediction.GetStatAmount(SkillType.Defense) > 0;
         movementIcon.enabled = getPrediction.GetStatAmount(SkillType.Mobility) > 0;
@@ -24,6 +24,10 @@ internal class QuestPredictionView : MonoBehaviour
 
     public void UpdateViewRankOnly(Stats getPrediction)
     {
+        if (getPrediction.rank == Rank.None)
+        {
+            return;
+        }
         rank.text = getPrediction.rank.ToString();
     }
 

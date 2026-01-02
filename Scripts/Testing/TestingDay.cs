@@ -40,9 +40,12 @@ public class TestingDay : MonoBehaviour
     [SerializeField] private bool spawnRandom;
     [SerializeField] private float spawnCooldown;
     [SerializeField] private float heroDelay;
+    
+    private Board board;
 
     private void Start()
     {
+        board = FindObjectOfType<Board>();
         if (PopulatePeasants)
         {
             StartCoroutine(populatePeasants());   
@@ -63,6 +66,38 @@ public class TestingDay : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            CreateQuest(testQuestList.questTemplates[0]);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            CreateQuestGiver(testQuestList.questTemplates[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+           CreateHero(testHeroList.heroTemplates[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            CreateReturningHero(testReturningHeroList.heroTemplates[0], new Quest(testQuestList.questTemplates[0]));
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            GuildRepository.Instance.Gold+=100;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            GuildRepository.Instance.Reputation += 100;
+        }
+    }
+
     private IEnumerator populateReturningHeroes()
     {
         var heroTemplates = testReturningHeroList.heroTemplates;
@@ -70,32 +105,37 @@ public class TestingDay : MonoBehaviour
         {
             
             // Create hero
-            var heroTemplate = heroTemplates[i];
             yield return new WaitForSeconds(1f);
-            var peasant = Instantiate(returningHeroPrefab, transform);
-            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
-            characterBehaviour.Initialize(heroTemplate);
-            
-            var behaviour = peasant.GetComponent<HeroBehaviour>();
-            var hero = new Hero(heroTemplate);
-            behaviour.heroCard.SetHero(hero);
-            behaviour.heroCard.SwitchState(false);
-            
-            // Add stat modifier
-            var statModifier = Instantiate(statModifierPrefab, behaviour.statModifiersParent.transform);
-            var statModifierBehaviour = statModifier.GetComponent<StatModifierBehaviour>();
-            behaviour.statModifiers.Add(statModifierBehaviour);
-            statModifier.transform.localPosition = Vector3.zero;
-            
-            
-            // Add quest
-            var QuestPrefab = Instantiate(questResultBehaviourPrefab, behaviour.questPosition.transform);
-            var resultBehaviour = QuestPrefab.GetComponent<QuestResultBehaviour>();
+            var heroTemplate = heroTemplates[i];
             var quest = new Quest(returningHeroesQuests.questTemplates[i]);
-            resultBehaviour.setQuest(quest);
-            resultBehaviour.SwitchState(QuestResultState.Assigned);
-            behaviour.currentQuestResultBehaviour = resultBehaviour;
+            CreateReturningHero(heroTemplate, quest);
         }
+    }
+
+    private void CreateReturningHero(HeroObject heroTemplate, Quest quest)
+    {
+        var peasant = Instantiate(returningHeroPrefab, transform);
+        var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+        characterBehaviour.Initialize(heroTemplate);
+            
+        var behaviour = peasant.GetComponent<HeroBehaviour>();
+        var hero = new Hero(heroTemplate);
+        behaviour.heroCard.SetHero(hero);
+        behaviour.heroCard.SwitchState(false);
+            
+        // Add stat modifier
+        var statModifier = Instantiate(statModifierPrefab, behaviour.statModifiersParent.transform);
+        var statModifierBehaviour = statModifier.GetComponent<StatModifierBehaviour>();
+        behaviour.statModifiers.Add(statModifierBehaviour);
+        statModifier.transform.localPosition = Vector3.zero;
+            
+            
+        // Add quest
+        var QuestPrefab = Instantiate(questResultBehaviourPrefab, behaviour.questPosition.transform);
+        var resultBehaviour = QuestPrefab.GetComponent<QuestResultBehaviour>();
+        resultBehaviour.setQuest(quest);
+        resultBehaviour.SwitchState(QuestResultState.Assigned);
+        behaviour.currentQuestResultBehaviour = resultBehaviour;
     }
 
     private IEnumerator populateHeroes()
@@ -105,33 +145,42 @@ public class TestingDay : MonoBehaviour
         foreach (var heroTemplate in heroTemplates)
         {
             yield return new WaitForSeconds(spawnCooldown);
-            var transformPosition = TransformPosition();
-            var peasant = Instantiate(heroPrefab, transformPosition, Quaternion.identity, transform);
-            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
-            characterBehaviour.Initialize(heroTemplate);
-            var behaviour = peasant.GetComponent<HeroBehaviour>();
-            var hero = new Hero(heroTemplate);
-            behaviour.heroCard.SetHero(hero);
-            behaviour.heroCard.SwitchState(false);
+            CreateHero(heroTemplate);
         }
+    }
+
+    private void CreateHero(HeroObject heroTemplate)
+    {
+        var transformPosition = TransformPosition();
+        var peasant = Instantiate(heroPrefab, transformPosition, Quaternion.identity, transform);
+        var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+        characterBehaviour.Initialize(heroTemplate);
+        var behaviour = peasant.GetComponent<HeroBehaviour>();
+        var hero = new Hero(heroTemplate);
+        behaviour.heroCard.SetHero(hero);
+        behaviour.heroCard.SwitchState(false);
     }
 
     private IEnumerator populateBoard()
     {
         var questTemplates = testBoardList.questTemplates;
-        Board board = FindAnyObjectByType<Board>();
         foreach (var questTemplate in questTemplates)
         {
             yield return new WaitForSeconds(spawnCooldown);
-            var prefab = Instantiate(questResultBehaviourPrefab, transform);
-            var behaviour = prefab.GetComponent<QuestResultBehaviour>();
-            var quest = new Quest(questTemplate);
-            behaviour.setQuest(quest);
-            behaviour.SwitchState(QuestResultState.Opened);
-            var prediction = CreateTwoStrongestStats(questTemplate.stats);
-            behaviour.setPrediction(prediction);
-            board.AddItemToBoard(prefab);
+            CreateQuest(questTemplate);
         }
+    }
+
+    private void CreateQuest(QuestObject questTemplate)
+    {
+        var prefab = Instantiate(questResultBehaviourPrefab, transform);
+        var behaviour = prefab.GetComponent<QuestResultBehaviour>();
+        var quest = new Quest(questTemplate);
+        behaviour.setQuest(quest);
+        behaviour.SwitchState(QuestResultState.Opened);
+        var prediction = CreateTwoStrongestStats(questTemplate.stats);
+        behaviour.setPrediction(prediction);
+        board.AddItemToBoard(prefab);
     }
 
     public static Stats CreateTwoStrongestStats(Stats original)
@@ -174,15 +223,20 @@ public class TestingDay : MonoBehaviour
         var questTemplates = testQuestList.questTemplates;
         foreach (var questTemplate in questTemplates)
         {
-            var transformPosition = TransformPosition();
-            var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
-            var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
-            characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
-            var behaviour = peasant.GetComponent<PeasantBehaviour>();
-            var quest = new Quest(questTemplate);
-            behaviour.questResultBehaviour.setQuest(quest);
+            CreateQuestGiver(questTemplate);
             yield return new WaitForSeconds(spawnCooldown);
         }
+    }
+
+    private void CreateQuestGiver(QuestObject questTemplate)
+    {
+        var transformPosition = TransformPosition();
+        var peasant = Instantiate(peasantPrefab, transformPosition, Quaternion.identity, transform);
+        var characterBehaviour = peasant.GetComponent<CharacterBehaviour>();
+        characterBehaviour.Initialize(testQuestList.characterTemplates[Random.Range(0, testQuestList.characterTemplates.Count - 1)]);
+        var behaviour = peasant.GetComponent<PeasantBehaviour>();
+        var quest = new Quest(questTemplate);
+        behaviour.questResultBehaviour.setQuest(quest);
     }
 
     private Vector3 TransformPosition()
