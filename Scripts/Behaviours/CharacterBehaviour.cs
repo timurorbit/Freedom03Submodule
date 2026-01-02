@@ -16,6 +16,7 @@ namespace _Game.Scripts.Behaviours
 
         [Header("Locomotion")]
         [SerializeField] private float runSpeed = 1.5f;
+        [SerializeField] private float rotationSpeed = 5f;
 
         Vector2Int AgentPriorityRange = new(0, 99);
 
@@ -31,6 +32,8 @@ namespace _Game.Scripts.Behaviours
         private float idleTimer = 0f;
 
         private float nextIdleAnimationTime;
+
+        private const float MIN_ROTATION_DISTANCE_THRESHOLD = 0.001f;
 
         [SerializeField]
         private Outline outline;
@@ -133,10 +136,10 @@ namespace _Game.Scripts.Behaviours
             Vector3 directionToCamera = cameraTransform.position - transform.position;
             directionToCamera.y = 0;
             
-            if (directionToCamera.sqrMagnitude < 0.001f) return;
+            if (directionToCamera.sqrMagnitude < MIN_ROTATION_DISTANCE_THRESHOLD) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
 
         public GameObject FindClosestEntrance()
