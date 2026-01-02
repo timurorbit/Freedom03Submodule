@@ -39,7 +39,8 @@ namespace _Game.Scripts.Behaviours
         {
             if (!questIsGiven)
             {
-                GuildRepository.Instance.GetClosestQuestTakingTable().TakingQuestInteraction(); 
+                GuildRepository.Instance.GetClosestQuestTakingTable().TakingQuestInteraction();
+                SetCharacterState(CharacterState.Interacting);
             }
             else
             {

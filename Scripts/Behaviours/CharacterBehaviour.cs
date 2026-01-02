@@ -104,7 +104,8 @@ namespace _Game.Scripts.Behaviours
                     animator.SetFloat(Constants.ANIMATOR_SPEED, 0, 0.15f, Time.deltaTime);
                     UpdateIdleAnimation();
                     break;
-                case CharacterState.Interactable:  
+                case CharacterState.Interactable:
+                case CharacterState.Interacting: 
                     animator.SetFloat(Constants.ANIMATOR_SPEED, 0, 0.15f, Time.deltaTime);
                     UpdateInteractableAnimation();
                     RotateTowardsPlayerCamera();
@@ -190,6 +191,10 @@ namespace _Game.Scripts.Behaviours
         public void SetCharacterState(CharacterState state)
         {
             characterState = state;
+            if (state == CharacterState.Interacting)
+            {
+              animator.SetTrigger(Constants.ANIMATOR_TRIGGER_INTERACTION_START);  
+            }
         }
 
         public void OccupySpot(GameObject spot)
@@ -280,5 +285,6 @@ namespace _Game.Scripts.Behaviours
         SentToMission,
         Reading,
         Interactable,
+        Interacting
     }
 }
