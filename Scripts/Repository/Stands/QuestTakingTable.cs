@@ -5,10 +5,13 @@ public class QuestTakingTable : Table
 {
     public QuestGiverBehaviour currentQuestGiver;
 
+    [SerializeField] public Transform questResultInteractionTransform;
 
     public void TakingQuestInteraction()
     {
         GuildPlayerController.Instance.SwitchState(GuildPlayerState.QuestTaking);
+        // currentQuestGiver.questResultBehaviour move by dotween to questResultInteractionTransform position and rotation
+        
     }
 
 

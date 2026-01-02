@@ -6,4 +6,6 @@ public class Constants
     public const string ANIMATOR_SPEED = "Speed";
     public const string ANIMATOR_IDLE_TRIGGER_1 = "IdleTrigger1";
     public const string ANIMATOR_IDLE_TRIGGER_2 = "IdleTrigger2";
+    
+    public const string ANIMATOR_INTERACTING = "Interacting";
 }

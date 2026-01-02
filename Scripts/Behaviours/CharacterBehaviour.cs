@@ -179,12 +179,12 @@ namespace _Game.Scripts.Behaviours
         public void SetRun()
         {
             agent.speed = runSpeed;
-            characterState = CharacterState.MovingToTarget;
+            SetCharacterState(CharacterState.MovingToTarget);
         }
 
         public void SetIdle()
         {
-            characterState = CharacterState.Idle;
+            SetCharacterState(CharacterState.Idle);
         }
 
         public void SetCharacterState(CharacterState state)
