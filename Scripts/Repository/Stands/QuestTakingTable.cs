@@ -20,8 +20,10 @@ public class QuestTakingTable : Table
         
         if (currentQuestGiver != null && currentQuestGiver.questResultBehaviour != null && questResultInteractionTransform != null)
         {
-            currentQuestGiver.questResultBehaviour.transform.DOMove(questResultInteractionTransform.position, tweenDuration).SetEase(tweenEase);
-            currentQuestGiver.questResultBehaviour.transform.DORotate(questResultInteractionTransform.eulerAngles, tweenDuration).SetEase(tweenEase);
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(currentQuestGiver.questResultBehaviour.transform.DOMove(questResultInteractionTransform.position, tweenDuration).SetEase(tweenEase));
+            sequence.Join(currentQuestGiver.questResultBehaviour.transform.DORotate(questResultInteractionTransform.eulerAngles, tweenDuration).SetEase(tweenEase));
+            sequence.SetAutoKill(true);
         }
     }
 
