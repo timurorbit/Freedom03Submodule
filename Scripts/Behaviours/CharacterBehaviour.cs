@@ -17,6 +17,8 @@ namespace _Game.Scripts.Behaviours
         [Header("Locomotion")]
         [SerializeField] private float runSpeed = 1.5f;
         [SerializeField] private float rotationSpeed = 5f;
+        [Tooltip("Maximum distance from player camera for character to rotate towards it")]
+        [SerializeField] private float maxRotationDistance = 5f;
         private const float MIN_ROTATION_DISTANCE_THRESHOLD = 0.001f;
 
         Vector2Int AgentPriorityRange = new(0, 99);
@@ -136,6 +138,8 @@ namespace _Game.Scripts.Behaviours
             directionToCamera.y = 0;
 
             if (directionToCamera.sqrMagnitude < MIN_ROTATION_DISTANCE_THRESHOLD) return;
+
+            if (directionToCamera.sqrMagnitude > maxRotationDistance * maxRotationDistance) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
