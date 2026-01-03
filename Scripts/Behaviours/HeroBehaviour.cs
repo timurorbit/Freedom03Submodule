@@ -20,7 +20,8 @@ public class HeroBehaviour : MonoBehaviour
             Debug.LogWarning("HeroBehaviour: No MainTable found");
             return;
         }
-
+        
+       
         mainTable.PlaceHeroCardAndQuestResult(heroCard, currentQuestResultBehaviour);
         mainTable.PlaceHero(this);
     }
